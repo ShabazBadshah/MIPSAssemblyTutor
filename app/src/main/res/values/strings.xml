@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MIPS Assembly Tutor</string>
+    <string name="title_activity_foo">Foo</string>
 </resources>
