@@ -2,7 +2,10 @@
 <resources>
     <color name="colorPrimary">#2C3E50</color>
     <color name="colorPrimaryDark">#34495E</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
     <color name="colorHomescreenBG">#2c3e50</color>
-    <color name="colorHomescreenBGDark">#34495E</color>
+    <color name="colorHomescreenBGDark">#34495e</color>
+    <color name="colorQuizToolbarTopBG">#2c3e50</color>
+    <color name="colorToolbarCountBG">#34495e</color>
+    <color name="toolbarTextColor">#ffffff</color>
 </resources>

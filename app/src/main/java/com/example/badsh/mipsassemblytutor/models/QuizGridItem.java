@@ -3,7 +3,6 @@ package com.example.badsh.mipsassemblytutor.models;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.widget.Toast;
 
 /**
  * Created by Shabaz Badshah on 9/16/2017.
@@ -12,21 +11,22 @@ import android.widget.Toast;
 public class QuizGridItem {
     private String mNameOfQuiz;
     private int mQuizPrimaryColor;
+    private int mQuizDarkPrimaryColor;
     private Class mQuizActivityToStart;
-
     private Context mParentActivityContext;
 
     public QuizGridItem(Class quizActivityToStart) {
        this.mQuizActivityToStart = quizActivityToStart;
     }
 
-    private void startQuizActivity() {
+    public void startQuizActivity() {
         Intent intentToStartQuiz = new Intent(mParentActivityContext, mQuizActivityToStart);
-        intentToStartQuiz.putExtra("mNameOfQuiz", mNameOfQuiz);
-
         // https://stackoverflow.com/questions/6539879/how-to-convert-a-color-integer-to-a-hex-string-in-android
         String quizPrimaryColor = String.format("#%06X", (0xFFFFFF & mQuizPrimaryColor));
+        String quizDarkPrimaryColor = String.format("#%06X", (0xFFFFFF & mQuizPrimaryColor));
+
         intentToStartQuiz.putExtra("mQuizPrimaryColor", quizPrimaryColor);
+        intentToStartQuiz.putExtra("mQuizDarkPrimaryColor", quizDarkPrimaryColor);
         mParentActivityContext.startActivity(intentToStartQuiz);
     }
 
@@ -38,6 +38,10 @@ public class QuizGridItem {
        this.mQuizPrimaryColor = Color.parseColor(colorToSet);
     }
 
+    public void setQuizDarkPrimaryColor(String darkColorToSet) {
+        this.mQuizDarkPrimaryColor = Color.parseColor(darkColorToSet);
+    }
+
     public void setNameOfQuiz(String nameToSet) {
        this.mNameOfQuiz = nameToSet;
     }
@@ -46,9 +50,8 @@ public class QuizGridItem {
        return this.mQuizPrimaryColor;
     }
 
-    public void onClick(Context parentContext) {
-        Toast.makeText(parentContext, this.toString(), Toast.LENGTH_SHORT).show();
-        startQuizActivity();
+    public int getDarkPrimaryColor() {
+        return this.mQuizDarkPrimaryColor;
     }
 
     public String getNameOfQuiz() {

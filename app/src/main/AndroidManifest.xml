@@ -16,25 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.Foo"
-            android:label="@string/title_activity_foo"
-            android:theme="@style/AppTheme.NoActionBar">
+
+        <activity android:name=".activities.QuizActivity"
+                  android:theme="@style/QuizTheme">
         </activity>
-        <activity android:name=".activities.AddingBinary">
-        </activity>
-        <activity android:name=".activities.DecimalToBinary">
-        </activity>
-        <activity android:name=".activities.BinaryToDecimal">
-        </activity>
-        <activity android:name=".activities.TwosComplement">
-        </activity>
-        <activity android:name=".activities.ArithmeticShift">
-        </activity>
-        <activity android:name=".activities.LogicalShift">
-        </activity>
-        <activity android:name=".activities.BitwiseOperators">
-        </activity>
+
     </application>
 
 </manifest>
