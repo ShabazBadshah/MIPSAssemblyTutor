@@ -1,0 +1,138 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/toolbarTop"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorQuizToolbarTopBG"
+        android:minHeight="?android:attr/actionBarSize"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/quitQuiz"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.01"
+            android:adjustViewBounds="true"
+            android:background="@color/colorToolbarCountBG"
+            android:clickable="true"
+            android:cropToPadding="false"
+            android:scaleType="centerInside"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+            tools:background="@color/colorToolbarCountBG"/>
+
+        <TextView
+            android:id="@+id/numQuestionsLeftPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.45"
+            android:gravity="center_vertical"
+            android:text="Q#:"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/amountQuestionsLeftCount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.54"
+            android:background="@color/colorToolbarCountBG"
+            android:gravity="center_vertical"
+            android:text="13/21"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            tools:background="@color/colorToolbarCountBG"/>
+
+        <ImageView
+            android:id="@+id/requestHint"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.01"
+            android:adjustViewBounds="true"
+            android:background="@color/colorQuizToolbarTopBG"
+            android:clickable="true"
+            android:contentDescription="Request hint"
+            android:scaleType="centerInside"
+            app:srcCompat="@android:drawable/ic_menu_help"
+            tools:background="@color/colorQuizToolbarTopBG"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/toolbarBottom"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorQuizToolbarTopBG"
+        android:minHeight="?android:attr/actionBarSize"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/timerPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:gravity="center_vertical"
+            android:text="TIME"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/amountOfTimeElapsed"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:background="@color/colorToolbarCountBG"
+            android:gravity="center_vertical"
+            android:text="65:28"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            tools:background="@color/colorToolbarCountBG"/>
+
+        <TextView
+            android:id="@+id/amountHintsLeftPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:gravity="center_vertical"
+            android:text="Hints Left"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/numOfHintsLeftCount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.40"
+            android:background="@color/colorToolbarCountBG"
+            android:gravity="center_vertical"
+            android:text="3"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            tools:background="@color/colorToolbarCountBG"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/question_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbarTop"
+        android:layout_above="@+id/toolbarBottom">
+
+    </LinearLayout>
+
+
+</RelativeLayout>

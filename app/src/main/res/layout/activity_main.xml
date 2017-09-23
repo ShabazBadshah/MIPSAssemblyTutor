@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="5dp"
-        tools:context="com.example.badsh.mipsassemblytutor.MainActivity">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@color/colorHomescreenBG"
+                                             tools:context="com.example.badsh.mipsassemblytutor.MainActivity">
 
     <LinearLayout
         android:id="@+id/practiceAllQuestions"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="80dp"
         android:layout_marginTop="0dp"
-        android:gravity="center_vertical"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -22,11 +21,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/practiceAllQsBtn"
             style="@style/Widget.AppCompat.Button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:background="@color/practiceAllQuestionsBtnColor"
+            android:padding="10dp"
             android:text="Random Practice"
             android:textColor="@android:color/background_light"
             android:textSize="20dp"
@@ -40,10 +41,10 @@
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="8dp"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
-        android:paddingTop="1.5dp"
+        android:paddingTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"

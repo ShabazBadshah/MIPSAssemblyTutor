@@ -9,31 +9,20 @@
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:theme="@style/QuizTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.Foo"
-            android:label="@string/title_activity_foo"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".activities.QuizActivity"
+            android:theme="@style/QuizTheme">
         </activity>
-        <activity android:name=".activities.AddingBinary">
-        </activity>
-        <activity android:name=".activities.DecimalToBinary">
-        </activity>
-        <activity android:name=".activities.BinaryToDecimal">
-        </activity>
-        <activity android:name=".activities.TwosComplement">
-        </activity>
-        <activity android:name=".activities.ArithmeticShift">
-        </activity>
-        <activity android:name=".activities.LogicalShift">
-        </activity>
-        <activity android:name=".activities.BitwiseOperators">
+        <activity
+            android:name=".activities.QuizCompleteActivity"
+            android:theme="@style/QuizTheme">
         </activity>
     </application>
 

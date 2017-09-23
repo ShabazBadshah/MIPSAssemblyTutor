@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 
-import com.example.badsh.mipsassemblytutor.MainActivity;
-
 /**
  * Created by Shabaz Badshah on 9/16/2017.
  */
@@ -18,11 +16,11 @@ public class QuizGridItem {
     private Context mParentActivityContext;
 
     public QuizGridItem(Class quizActivityToStart) {
-        this.mQuizActivityToStart = quizActivityToStart;
+       this.mQuizActivityToStart = quizActivityToStart;
     }
 
     public void startQuizActivity() {
-        Intent intentToStartQuiz = new Intent(mParentActivityContext, MainActivity.class);
+        Intent intentToStartQuiz = new Intent(mParentActivityContext, mQuizActivityToStart);
         // https://stackoverflow.com/questions/6539879/how-to-convert-a-color-integer-to-a-hex-string-in-android
         String quizPrimaryColor = String.format("#%06X", (0xFFFFFF & mQuizPrimaryColor));
         String quizDarkPrimaryColor = String.format("#%06X", (0xFFFFFF & mQuizPrimaryColor));
@@ -33,11 +31,11 @@ public class QuizGridItem {
     }
 
     public void setContext(Context parentActivityContext) {
-        this.mParentActivityContext = parentActivityContext;
+       this.mParentActivityContext = parentActivityContext;
     }
 
     public void setQuizPrimaryColor(String colorToSet) {
-        this.mQuizPrimaryColor = Color.parseColor(colorToSet);
+       this.mQuizPrimaryColor = Color.parseColor(colorToSet);
     }
 
     public void setQuizDarkPrimaryColor(String darkColorToSet) {
@@ -45,11 +43,11 @@ public class QuizGridItem {
     }
 
     public void setNameOfQuiz(String nameToSet) {
-        this.mNameOfQuiz = nameToSet;
+       this.mNameOfQuiz = nameToSet;
     }
 
     public int getPrimaryColor() {
-        return this.mQuizPrimaryColor;
+       return this.mQuizPrimaryColor;
     }
 
     public int getDarkPrimaryColor() {
@@ -57,7 +55,7 @@ public class QuizGridItem {
     }
 
     public String getNameOfQuiz() {
-        return this.mNameOfQuiz;
+       return this.mNameOfQuiz;
     }
 
     public String toString() {

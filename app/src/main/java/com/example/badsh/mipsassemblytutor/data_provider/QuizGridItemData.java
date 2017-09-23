@@ -1,12 +1,6 @@
 package com.example.badsh.mipsassemblytutor.data_provider;
 
-import com.example.badsh.mipsassemblytutor.activities.AddingBinary;
-import com.example.badsh.mipsassemblytutor.activities.ArithmeticShift;
-import com.example.badsh.mipsassemblytutor.activities.BinaryToDecimal;
-import com.example.badsh.mipsassemblytutor.activities.BitwiseOperators;
-import com.example.badsh.mipsassemblytutor.activities.DecimalToBinary;
-import com.example.badsh.mipsassemblytutor.activities.LogicalShift;
-import com.example.badsh.mipsassemblytutor.activities.TwosComplement;
+import com.example.badsh.mipsassemblytutor.activities.QuizActivity;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 /**
@@ -14,6 +8,8 @@ import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
  */
 
 public class QuizGridItemData {
+
+    private static final Class ACTIVITY_TO_LAUNCH = QuizActivity.class;
 
     private static String[] sNameOfQuizCategories = {
             "Adding Binary",
@@ -25,25 +21,24 @@ public class QuizGridItemData {
             "Bitwise Operators"
     };
 
-    // The activity that will be started when the corresponding grid item is clicked, 1-1 with sNameOfQuizCategories
-    private static Class[] sQuizActivityClasses = {
-            AddingBinary.class,
-            DecimalToBinary.class,
-            BinaryToDecimal.class,
-            TwosComplement.class,
-            LogicalShift.class,
-            ArithmeticShift.class,
-            BitwiseOperators.class
+    private static String[] sQuizPrimaryColorsInHex = {
+            "#5399c6",
+            "#27ae60",
+            "#cc6055",
+            "#8e44ad",
+            "#e67e22",
+            "#7f8c8d",
+            "#eff3f3"
     };
 
-    private static String[] sQuizPrimaryColorsInHex = {
-            "#cc6055",
-            "#d35519",
-            "#f5af41",
-            "#8e44ad",
+    private static String[] sQuizDarkPrimaryColorsInHex = {
             "#5cace2",
-            "#27ae60",
-            "#1fbc9c"
+            "#57d68d",
+            "#ea6f63",
+            "#af7ac4",
+            "#f5af41",
+            "#95a5a6",
+            "#bdc3c7"
     };
 
     public static QuizGridItem[] initializeAndGetQuizzes() {
@@ -51,9 +46,10 @@ public class QuizGridItemData {
         QuizGridItem[] quizGridItems = new QuizGridItem[amountQuizzes];
 
         for (int i = 0; i < amountQuizzes; i++) {
-            QuizGridItem quizGridItemToBuild = new QuizGridItem(sQuizActivityClasses[i]);
+            QuizGridItem quizGridItemToBuild = new QuizGridItem(ACTIVITY_TO_LAUNCH);
             quizGridItemToBuild.setNameOfQuiz(sNameOfQuizCategories[i]);
             quizGridItemToBuild.setQuizPrimaryColor(sQuizPrimaryColorsInHex[i]);
+            quizGridItemToBuild.setQuizDarkPrimaryColor(sQuizDarkPrimaryColorsInHex[i]);
 
             quizGridItems[i] = quizGridItemToBuild;
         }

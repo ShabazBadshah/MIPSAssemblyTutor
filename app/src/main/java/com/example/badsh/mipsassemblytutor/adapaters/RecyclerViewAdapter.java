@@ -44,9 +44,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         quizViewHolder.categoryTextView.setText(mNameOfQuiz);
 
         int quizPrimaryColor = currentQuizGridItem.getPrimaryColor();
-        quizViewHolder.categoryTextView.setBackgroundColor(quizPrimaryColor);
+        int quizDarkPrimaryColor = currentQuizGridItem.getDarkPrimaryColor();
 
-        quizViewHolder.backgroundImageView.setBackgroundColor(quizPrimaryColor);
+        quizViewHolder.categoryTextView.setBackgroundColor(quizPrimaryColor);
+        quizViewHolder.backgroundImageView.setBackgroundColor(quizDarkPrimaryColor);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         public void onClick(View view) {
             QuizGridItem gridQuizItemClickedOn = mListOfQuizCategories[getAdapterPosition()];
-            gridQuizItemClickedOn.onClick(mParentContext);
+            gridQuizItemClickedOn.startQuizActivity();
         }
     }
 
