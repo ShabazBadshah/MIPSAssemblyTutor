@@ -7,32 +7,7 @@
                                              android:background="@color/colorHomescreenBG"
                                              tools:context="com.example.badsh.mipsassemblytutor.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/practiceAllQuestions"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="0dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/practiceAllQsBtn"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:background="@color/practiceAllQuestionsBtnColor"
-            android:padding="10dp"
-            android:text="Random Practice"
-            android:textColor="@android:color/background_light"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
-    </LinearLayout>
+    <include layout="@layout/homescreen_toolbar"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/generic_recyclerview"

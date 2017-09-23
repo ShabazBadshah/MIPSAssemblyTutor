@@ -34,8 +34,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private Button confirmAnswerBtn;
     private int amountUserHintsLeft = 2;
     private int currentUserQuestionNum = 1;
-    private int totalAmountQuestions = 1;
+    private int totalAmountQuestions = 4;
     private long timeWhenStopped;
+
+    private String quizDarkPrimaryColor;
+    private String quizPrimaryColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +53,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initToolbarsAndQuizBG() {
 
-        String quizDarkPrimaryColor = this.getIntent().getExtras().get("mQuizDarkPrimaryColor").toString();
-        String quizPrimaryColor = this.getIntent().getExtras().get("mQuizPrimaryColor").toString();
+        quizDarkPrimaryColor = this.getIntent().getExtras().get("mQuizDarkPrimaryColor").toString();
+        quizPrimaryColor = this.getIntent().getExtras().get("mQuizPrimaryColor").toString();
 
         confirmAnswerBtn = (Button) findViewById(R.id.confirmAnswerBtn);
         confirmAnswerBtn.setBackgroundColor(Color.parseColor(quizDarkPrimaryColor));
@@ -82,9 +85,16 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         confirmAnswerBtn.setOnClickListener(this);
     }
 
+    @Override
     public void onResume() {
         super.onResume();
-        quizElapsedTimerView.start();
+        resumeQuizTimer();
+    }
+
+    @Override
+    public void onBackPressed() {
+        pauseQuizTimer();
+        promptUserForConfirmation("Are you sure you want to quit the quiz?", "Quit", R.id.quitQuiz);
     }
 
     @Override
@@ -94,27 +104,14 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 onBackPressed();
                 break;
             case R.id.requestHint:
-                pauseQuizTimer();
-                if (amountUserHintsLeft <= 0) {
-                    resumeQuizTimer();
-                    Toast.makeText(this, "You do not have any hints left", Toast.LENGTH_SHORT).show();
-                } else {
-                    promptUserForConfirmation("Do you want to use a hint?", "Hint", R.id.requestHint);
-                }
+                if (amountUserHintsLeft <= 0) Toast.makeText(this, "You have no hints left", Toast.LENGTH_SHORT)
+                        .show();
+                else promptUserForConfirmation("Do you want to use a hint?", "Hint", R.id.requestHint);
                 break;
             case R.id.confirmAnswerBtn:
-                if (currentUserQuestionNum >= totalAmountQuestions) {
-                    finishGame();
-                } else {
-                    incrementQuestionNumber();
-                }
+                if (currentUserQuestionNum >= totalAmountQuestions) finishGame();
+                else incrementQuestionNumber();
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        pauseQuizTimer();
-        promptUserForConfirmation("Are you sure you want to quit the quiz?", "Quit", R.id.quitQuiz);
     }
 
     private void pauseQuizTimer(){
@@ -142,19 +139,13 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             case R.id.requestHint:
                                 decrementHintCount();
-                                resumeQuizTimer();
                                 break;
                             case R.id.quitQuiz:
                                 finish(); // Finishes the current activity and goes to the previous one
                                 break;
                         }
                     }})
-                .setNegativeButton(no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        resumeQuizTimer();
-                    }
-                })
+                .setNegativeButton(no, null)
                 .show();
     }
 
@@ -174,14 +165,18 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void finishGame() {
-        Intent quizCompleteIntent = new Intent(getApplicationContext(), QuizCompleteActivity.class);
+        Intent quizCompleteIntent = new Intent(this, QuizCompleteActivity.class);
+
         String userScoreFormat = String.format("%d/%d", 3, totalAmountQuestions);
         quizCompleteIntent.putExtra("userScore", userScoreFormat);
+
+        quizCompleteIntent.putExtra("mQuizPrimaryColor", quizPrimaryColor);
+        quizCompleteIntent.putExtra("mQuizDarkPrimaryColor", quizDarkPrimaryColor);
 
         long totalElapsedTimeInSec = SystemClock.elapsedRealtime() - quizElapsedTimerView.getBase();
         quizCompleteIntent.putExtra("userTime", String.valueOf(totalElapsedTimeInSec/1000));
 
-        getApplicationContext().startActivity(quizCompleteIntent);
+        this.startActivity(quizCompleteIntent);
         finish();
     }
 
