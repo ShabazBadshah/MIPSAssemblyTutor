@@ -2,6 +2,7 @@ package com.example.badsh.mipsassemblytutor.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,6 +13,9 @@ import com.example.badsh.mipsassemblytutor.MainActivity;
 import com.example.badsh.mipsassemblytutor.R;
 
 public class QuizCompleteActivity extends AppCompatActivity implements View.OnClickListener {
+
+    String quizPrimaryColor;
+    String quizDarkPrimaryColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class QuizCompleteActivity extends AppCompatActivity implements View.OnCl
         TextView userTimeTV = (TextView) findViewById(R.id.userQuizTime);
 
         userScoreTV.setText(userScore);
+        userScoreTV.setTextColor(Color.parseColor(quizPrimaryColor));
 
         long totalTimeInSeconds = Integer.valueOf(userTime);
         long hours = totalTimeInSeconds / 3600;
@@ -42,18 +47,23 @@ public class QuizCompleteActivity extends AppCompatActivity implements View.OnCl
         String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
 
         userTimeTV.setText(timeString);
+        userTimeTV.setTextColor(Color.parseColor(quizPrimaryColor));
     }
 
     private void initClickListeners() {
         Button goHomeBtn = (Button) findViewById(R.id.goHomeBtn);
+
+        quizPrimaryColor = getIntent().getExtras().getString("mQuizPrimaryColor");
+        quizDarkPrimaryColor = getIntent().getExtras().getString("mQuizDarkPrimaryColor");
+
+        goHomeBtn.setBackgroundColor(Color.parseColor(quizPrimaryColor));
+
         goHomeBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.goHomeBtn) {
-            goToHomeActivity();
-        }
+        if (v.getId() == R.id.goHomeBtn) goToHomeActivity();
     }
 
     private void goToHomeActivity() {
