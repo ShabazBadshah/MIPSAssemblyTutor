@@ -9,10 +9,12 @@
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/QuizTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -23,6 +25,8 @@
         <activity
             android:name=".activities.QuizCompleteActivity"
             android:theme="@style/QuizTheme">
+        </activity>
+        <activity android:name=".activities.BinaryNumberInput">
         </activity>
     </application>
 

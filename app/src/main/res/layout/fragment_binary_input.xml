@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/binary_number_input_root"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:orientation="vertical">
+
+    <Button
+        android:id="@+id/zeroInputBtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="70dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="50dp"
+        android:layout_toStartOf="@+id/randGeneratedNum"
+        android:background="@drawable/square"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answerField"/>
+
+    <Button
+        android:id="@+id/oneInputBtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/square"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:text="1"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="40sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answerField"/>
+
+    <TextView
+        android:id="@+id/randGeneratedNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/questionPromptTop"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/square"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="5dp"
+        android:text="15"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/toolbarTextColor"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionPromptTop"/>
+
+    <TextView
+        android:id="@+id/questionPromptBottom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/randGeneratedNum"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:text="to Binary"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/randGeneratedNum"/>
+
+    <TextView
+        android:id="@+id/questionPromptTop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_weight="1"
+        android:text="Convert"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/answerField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@color/practiceAllQuestionsBtnColor"
+        android:ems="10"
+        android:inputType="none"
+        android:maxLines="1"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:singleLine="true"
+        android:text="00100110 00101100 01001101 01011011 10100111 01101110 01111100 11100011  10000111 01011000 "
+        android:textAlignment="viewStart"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionPromptBottom"/>
+
+</android.support.constraint.ConstraintLayout>

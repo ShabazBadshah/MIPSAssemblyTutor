@@ -12,9 +12,9 @@ public class QuizGridItemData {
     private static final Class ACTIVITY_TO_LAUNCH = QuizActivity.class;
 
     private static String[] sNameOfQuizCategories = {
-            "Adding Binary",
-            "Convert Decimal to Binary",
             "Convert Binary to Decimal",
+            "Convert Decimal to Binary",
+            "Adding Binary",
             "Twos Complement",
             "Logical Shift",
             "Arithmetic Shift",

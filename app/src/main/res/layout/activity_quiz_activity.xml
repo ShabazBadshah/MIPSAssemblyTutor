@@ -130,11 +130,10 @@
         android:id="@+id/question_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/confirmAnswerBtn"
         android:layout_alignParentStart="true"
-        android:orientation="vertical"
         android:layout_below="@+id/toolbarTop"
-        android:layout_above="@+id/toolbarBottom">
-
+        android:orientation="vertical">
     </RelativeLayout>
 
     <Button

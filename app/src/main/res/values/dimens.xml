@@ -5,5 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="quiz_toolbar_height">50dp</dimen>
     <dimen name="rand_ques_bg_height">60dp</dimen>
-    <dimen name="homescreen_toolbar_btn_size">30dp</dimen>
+    <dimen name="homescreen_toolbar_btn_size">40dp</dimen>
 </resources>

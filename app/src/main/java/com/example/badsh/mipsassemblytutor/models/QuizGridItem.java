@@ -9,14 +9,16 @@ import android.graphics.Color;
  */
 
 public class QuizGridItem {
-    private String mNameOfQuiz;
+    private Context mParentActivityContext;
+    private Class mQuizActivityToStart;
+
     private int mQuizPrimaryColor;
     private int mQuizDarkPrimaryColor;
-    private Class mQuizActivityToStart;
-    private Context mParentActivityContext;
+
+    private String mNameOfQuiz;
 
     public QuizGridItem(Class quizActivityToStart) {
-       this.mQuizActivityToStart = quizActivityToStart;
+        this.mQuizActivityToStart = quizActivityToStart;
     }
 
     public void startQuizActivity() {
