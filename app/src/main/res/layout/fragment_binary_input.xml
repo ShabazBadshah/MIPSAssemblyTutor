@@ -26,6 +26,24 @@
         app:layout_constraintTop_toBottomOf="@+id/answerField"/>
 
     <Button
+        android:id="@+id/backspaceBtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="50dp"
+        android:layout_toStartOf="@+id/randGeneratedNum"
+        android:background="@drawable/square"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:foreground="@android:drawable/ic_menu_revert"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="40sp"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answerField"/>
+
+    <Button
         android:id="@+id/oneInputBtn"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -106,8 +124,7 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:singleLine="true"
-        android:text="00100110 00101100 01001101 01011011 10100111 01101110 01111100 11100011  10000111 01011000 "
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="@color/finished_quiz_headings_color"
         android:textSize="30sp"
         app:layout_constraintHorizontal_bias="0.0"

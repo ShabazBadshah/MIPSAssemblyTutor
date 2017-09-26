@@ -51,6 +51,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private int mAmountHintsLeft = 2;
     private int mCurrentQuesNum = 1;
     private int mTotalAmountQues = 4;
+    private int mNumOfCorrectAns = 0;
 
     private String mQuizDarkPrimaryColor;
     private String mQuizPrimaryColor;
@@ -148,7 +149,13 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.confirmAnswerBtn:
                 if (mCurrentQuesNum >= mTotalAmountQues) finishGame();
-                else incrementQuestionNumber();
+                else {
+                    boolean correctAnswer = ((BinaryInputFragment) mFragmentToSwitchTo).checkAnswer();
+                    Toast.makeText(this, String.valueOf(correctAnswer), Toast.LENGTH_SHORT).show();
+                    if (correctAnswer) mNumOfCorrectAns++;
+                    incrementQuestionNumber();
+                    replaceFragment();
+                }
         }
     }
 
@@ -205,7 +212,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private void sendGameDataViaIntent() {
         mQuizCompleteActivityIntent = new Intent(this, NEXT_ACTIVITY_TO_START);
 
-        String userScoreFormat = String.format("%d/%d", 3, mTotalAmountQues);
+        String userScoreFormat = String.format("%d/%d", mNumOfCorrectAns, mTotalAmountQues);
         mQuizCompleteActivityIntent.putExtra("userScore", userScoreFormat);
 
         mQuizCompleteActivityIntent.putExtra("mQuizPrimaryColor", mQuizPrimaryColor);
