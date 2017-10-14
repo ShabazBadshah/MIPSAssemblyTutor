@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.R;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
+import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
 
 import static com.example.badsh.mipsassemblytutor.R.id.quitQuiz;
 import static com.example.badsh.mipsassemblytutor.R.id.requestHint;
@@ -85,14 +86,14 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initQuizFragment() {
-        mFragmentToSwitchTo = new BinaryInputFragment();
+        mFragmentToSwitchTo = new DecimalInputFragment();
         mFragmentManager.beginTransaction()
                 .add(QUIZ_VIEW_HOLDER_ID, mFragmentToSwitchTo)
                 .commit();
     }
 
     private void replaceFragment() {
-        mFragmentToSwitchTo = new BinaryInputFragment();
+        mFragmentToSwitchTo = new DecimalInputFragment();
         mFragmentManager.beginTransaction()
                 .replace(QUIZ_VIEW_HOLDER_ID, mFragmentToSwitchTo)
                 .commit();

@@ -9,17 +9,15 @@ import java.util.Random;
 public class QuestionGenerator {
     private static Random mRandNumGenerator = new Random();
 
-    public QuestionGenerator() {}
-
-    public String convertDecimalToBinary(int numToConvert) {
+    public static String convertDecimalToBinary(int numToConvert) {
         return Integer.toBinaryString(numToConvert);
     }
 
-    public int convertBinaryToDecimal(String binaryNumString) {
+    public static int convertBinaryToDecimal(String binaryNumString) {
         return Integer.parseInt(binaryNumString, 2);
     }
 
-    public int generateRandDecimalNum (int maxNumToGenerate) {
+    public static int generateRandDecimalNum (int maxNumToGenerate) {
         //min value 0
         return mRandNumGenerator.nextInt(maxNumToGenerate + 1);
     }
