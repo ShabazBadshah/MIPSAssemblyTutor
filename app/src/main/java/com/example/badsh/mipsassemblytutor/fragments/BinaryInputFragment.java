@@ -61,7 +61,7 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     }
 
     public void generateAndSetNewQuestion() {
-        mDecimalNum = mQuestionGenerator.generateRandDecimalNum(0);
+        mDecimalNum = mQuestionGenerator.generateRandDecimalNum(16);
         mBinaryNum = mQuestionGenerator.convertDecimalToBinary(mDecimalNum);
 
         mDecimalNumTv.setText(Integer.toString(mDecimalNum));

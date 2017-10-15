@@ -2,7 +2,6 @@ package com.example.badsh.mipsassemblytutor.data_provider;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import java.util.HashMap;
 
@@ -13,7 +12,6 @@ import java.util.HashMap;
 public class UserStats {
 
     private static HashMap<String, String> sUserStats = new HashMap<>();
-    private SharedPreferences keyValues;
     private static Context mContext;
 
     public UserStats(Context context) {
@@ -32,9 +30,6 @@ public class UserStats {
     public static void updateUserStat(String key, String value) {
         String statValue;
         if ((statValue = sUserStats.get(key)) != null) {
-
-            Log.v("stat", key);
-            Log.v("stat2", value);
 
             if (key.equals("Questions Answered") || key.equals("Quizzes Finished")) {
                 int oldValue = Integer.valueOf(statValue);
@@ -57,8 +52,6 @@ public class UserStats {
                     sUserStats.put(key, String.valueOf(newTime/1000));
                 }
             }
-
-            Log.v("STATMAIN", sUserStats.get(key));
             saveUserData();
         }
 
@@ -80,10 +73,6 @@ public class UserStats {
         if (pref == null) return false;
         if (sUserStats.size() == 0) return false;
         sUserStats = (HashMap<String, String>) pref.getAll();
-
-        for (String key: sUserStats.keySet()) {
-            Log.v("LOAD:" + key, sUserStats.get(key));
-        }
 
         return true;
     }
