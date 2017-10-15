@@ -16,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.badsh.mipsassemblytutor.MainActivity;
 import com.example.badsh.mipsassemblytutor.R;
+import com.example.badsh.mipsassemblytutor.data_provider.UserStats;
 import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
@@ -47,13 +49,14 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mRequestHintIv;
 
     private Chronometer mTimeElapsedInQuizView;
+    private long totalElapsedTimeInSec;
 
     private Button mConfirmAnswerBtn;
 
     private long mTimeWhenStopped = 0;
     private int mAmountHintsLeft = 2;
     private int mCurrentQuesNum = 1;
-    private int mTotalAmountQues = 4;
+    private int mTotalAmountQues = 2;
     private int mNumOfCorrectAns = 0;
 
     private String mQuizDarkPrimaryColor;
@@ -178,6 +181,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (mFragmentToSwitchTo instanceof AddingBinaryFragment) {
                     mCorrectAnswer = ((AddingBinaryFragment) mFragmentToSwitchTo).checkAnswer();
                 }
+
                 if (mCorrectAnswer) mNumOfCorrectAns++;
                 Toast.makeText(getApplicationContext(), String.valueOf(mCorrectAnswer), Toast.LENGTH_SHORT).show();
                 incrementQuestionNumber();
@@ -247,14 +251,24 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mQuizCompleteActivityIntent.putExtra("mQuizPrimaryColor", mQuizPrimaryColor);
         mQuizCompleteActivityIntent.putExtra("mQuizDarkPrimaryColor", mQuizDarkPrimaryColor);
 
-        long totalElapsedTimeInSec = SystemClock.elapsedRealtime() - mTimeElapsedInQuizView.getBase();
+        totalElapsedTimeInSec = SystemClock.elapsedRealtime() - mTimeElapsedInQuizView.getBase();
         mQuizCompleteActivityIntent.putExtra("userTime", String.valueOf(totalElapsedTimeInSec/1000));
     }
 
     private void finishGame() {
         sendGameDataViaIntent();
-        this.startActivity(mQuizCompleteActivityIntent);
+        updateUserStats();
+        getApplicationContext().startActivity(mQuizCompleteActivityIntent);
         finish();
+    }
+
+    private void updateUserStats() {
+        UserStats userStats = MainActivity.getUserStats();
+
+        userStats.updateUserStat("Highest Accuracy", String.format("%.2f", (float)mNumOfCorrectAns/(float)mTotalAmountQues));
+        userStats.updateUserStat("Best Time", String.valueOf(totalElapsedTimeInSec));
+        userStats.updateUserStat("Questions Answered", String.valueOf(mTotalAmountQues));
+        userStats.updateUserStat("Quizzes Finished", String.valueOf(1));
     }
 
 }

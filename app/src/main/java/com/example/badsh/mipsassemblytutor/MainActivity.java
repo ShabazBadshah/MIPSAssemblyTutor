@@ -1,15 +1,18 @@
 package com.example.badsh.mipsassemblytutor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
+import com.example.badsh.mipsassemblytutor.activities.UserStatsActivity;
 import com.example.badsh.mipsassemblytutor.adapaters.RecyclerViewAdapter;
 import com.example.badsh.mipsassemblytutor.data_provider.QuizGridItemData;
+import com.example.badsh.mipsassemblytutor.data_provider.UserStats;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 import java.util.Random;
@@ -17,6 +20,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private View mToolbar;
+    private static UserStats userStats = new UserStats();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +46,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Random rand = new Random();
-                int randomQuestion = rand.nextInt(listOfQuizCategories.length - 1) + 1;
+                int randomQuestion = rand.nextInt(3);
+                Log.v("a", String.valueOf(randomQuestion));
                 listOfQuizCategories[randomQuestion].startQuizActivity();
             }
         });
     }
 
+    public static UserStats getUserStats() {
+        return userStats;
+    }
 
     private void initToolbar() {
-        mToolbar = findViewById(R.id.homescreen_toolbar);
-        
+        mToolbar = findViewById(R.id.main_menu_toolbar);
+
         Button userStatsBtn = (Button) mToolbar.findViewById(R.id.user_profile_btn);
         userStatsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "USERSTATS", Toast.LENGTH_SHORT).show();
+                getApplicationContext().startActivity(
+                        new Intent(getApplicationContext(), UserStatsActivity.class));
             }
         });
     }
