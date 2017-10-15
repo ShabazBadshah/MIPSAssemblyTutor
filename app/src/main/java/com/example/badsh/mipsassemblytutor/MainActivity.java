@@ -20,13 +20,14 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private View mToolbar;
-    private static UserStats userStats = new UserStats();
+    private static UserStats userStats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        userStats = new UserStats(this);
         initToolbar();
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.generic_recyclerview);

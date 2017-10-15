@@ -40,13 +40,12 @@
         android:id="@+id/topScoreTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/toolbarTextColor"
-        android:textSize="20sp"
-        tools:text="Total Points: 20"
-        android:layout_below="@+id/userNameTv"
         android:layout_alignStart="@+id/userNameTv"
-        android:layout_marginTop="16dp"/>
+        android:layout_below="@+id/userNameTv"
+        android:layout_marginTop="16dp"
+        android:text="&quot;You're doing great!&quot;"
+        android:textColor="@color/toolbarTextColor"
+        android:textSize="20sp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/user_stats_rv"

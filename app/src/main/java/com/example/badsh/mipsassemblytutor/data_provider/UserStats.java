@@ -1,5 +1,6 @@
 package com.example.badsh.mipsassemblytutor.data_provider;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -13,12 +14,19 @@ public class UserStats {
 
     private static HashMap<String, String> sUserStats = new HashMap<>();
     private SharedPreferences keyValues;
+    private static Context mContext;
 
-    public UserStats() {
-        sUserStats.put("Highest Accuracy", "0");
-        sUserStats.put("Best Time (Seconds)", "0");
-        sUserStats.put("Questions Answered", "0");
-        sUserStats.put("Quizzes Finished", "0");
+    public UserStats(Context context) {
+        mContext = context;
+
+        boolean loadedData = loadUserStats();
+
+        if (loadedData == false) {
+            sUserStats.put("Highest Accuracy", "0");
+            sUserStats.put("Best Time (Seconds)", "0");
+            sUserStats.put("Questions Answered", "0");
+            sUserStats.put("Quizzes Finished", "0");
+        }
     }
 
     public static void updateUserStat(String key, String value) {
@@ -51,11 +59,34 @@ public class UserStats {
             }
 
             Log.v("STATMAIN", sUserStats.get(key));
+            saveUserData();
         }
 
     }
 
-    public String getUserStat(String key) { return sUserStats.get(key); }
+    private static void saveUserData() {
+        SharedPreferences keyValues = mContext.getSharedPreferences("SavedUserStats", Context.MODE_PRIVATE);
+        if (keyValues == null) return;
+        SharedPreferences.Editor keyValuesEditor = keyValues.edit();
+
+        for (String key : sUserStats.keySet()) {
+            keyValuesEditor.putString(key, sUserStats.get(key));
+        }
+        keyValuesEditor.commit();
+    }
+
+    public static boolean loadUserStats() {
+        SharedPreferences pref = mContext.getSharedPreferences("SavedUserStats", Context.MODE_PRIVATE);
+        if (pref == null) return false;
+        if (sUserStats.size() == 0) return false;
+        sUserStats = (HashMap<String, String>) pref.getAll();
+
+        for (String key: sUserStats.keySet()) {
+            Log.v("LOAD:" + key, sUserStats.get(key));
+        }
+
+        return true;
+    }
 
     public static String[] getAllKeys() {
         String keys[] = new String[sUserStats.size()];

@@ -30,10 +30,12 @@ public class UserStatsActivity extends AppCompatActivity {
         mUserStatRv = (RecyclerView) findViewById(R.id.user_stats_rv);
         mUserStatRv.setLayoutManager(new LinearLayoutManager(this));
 
+        userStat = MainActivity.getUserStats();
+        userStat.loadUserStats();
         String userStatTitles[] = userStat.getAllKeys();
         String userStatValues[] = userStat.getAllValues();
 
-        RecyclerViewListAdapter userStatsAdapter = new RecyclerViewListAdapter(getApplicationContext(),
+        RecyclerViewListAdapter userStatsAdapter = new RecyclerViewListAdapter(mContext,
                 userStatTitles, userStatValues);
 
         mUserStatRv.setAdapter(userStatsAdapter);
