@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.R;
+import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
 
@@ -32,6 +33,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private final int QUIZ_VIEW_HOLDER_ID = R.id.question_container;
     private final int QUIZ_ACTIVITY_LAYOUT = R.layout.activity_quiz_activity;
     private final Class NEXT_ACTIVITY_TO_START = QuizCompleteActivity.class;
+    private Class mAssociatedQuizActivity;
 
     private FragmentManager mFragmentManager;
     private Fragment mFragmentToSwitchTo;
@@ -48,7 +50,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button mConfirmAnswerBtn;
 
-    private long mTimeWhenStopped;
+    private long mTimeWhenStopped = 0;
     private int mAmountHintsLeft = 2;
     private int mCurrentQuesNum = 1;
     private int mTotalAmountQues = 4;
@@ -57,6 +59,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private String mQuizDarkPrimaryColor;
     private String mQuizPrimaryColor;
 
+    private boolean mCorrectAnswer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +68,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         mFragmentManager = getSupportFragmentManager();
 
-        getQuizColorDataFromIntent();
+        getQuizIntentData();
         initQuizFragment();
         initViews();
         setCountsAndColors();
@@ -86,22 +90,39 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initQuizFragment() {
-        mFragmentToSwitchTo = new DecimalInputFragment();
+
+        if (mAssociatedQuizActivity.equals(BinaryInputFragment.class)) {
+            mFragmentToSwitchTo = new BinaryInputFragment();
+        }
+        else if (mAssociatedQuizActivity.equals(DecimalInputFragment.class)) {
+            mFragmentToSwitchTo = new DecimalInputFragment();
+        }
+        else if (mAssociatedQuizActivity.equals(AddingBinaryFragment.class)) {
+            mFragmentToSwitchTo = new AddingBinaryFragment();
+        }
+
         mFragmentManager.beginTransaction()
                 .add(QUIZ_VIEW_HOLDER_ID, mFragmentToSwitchTo)
                 .commit();
     }
 
-    private void replaceFragment() {
-        mFragmentToSwitchTo = new DecimalInputFragment();
-        mFragmentManager.beginTransaction()
-                .replace(QUIZ_VIEW_HOLDER_ID, mFragmentToSwitchTo)
-                .commit();
+    private void displayNewQuestion() {
+
+        if (mFragmentToSwitchTo instanceof DecimalInputFragment) {
+            ((DecimalInputFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
+        } else if (mFragmentToSwitchTo instanceof BinaryInputFragment) {
+            ((BinaryInputFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
+        } else if (mFragmentToSwitchTo instanceof AddingBinaryFragment) {
+            ((AddingBinaryFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
+        }
+
     }
 
-    private void getQuizColorDataFromIntent() {
+    private void getQuizIntentData() {
         mQuizDarkPrimaryColor = this.getIntent().getExtras().get("mQuizDarkPrimaryColor").toString();
         mQuizPrimaryColor = this.getIntent().getExtras().get("mQuizPrimaryColor").toString();
+
+        mAssociatedQuizActivity = (Class) this.getIntent().getExtras().get("mAssociatedQuizActivity");
     }
 
     private void setCountsAndColors() {
@@ -149,14 +170,21 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 else promptUserForConfirmation("Do you want to use a hint?", "Hint", R.id.requestHint);
                 break;
             case R.id.confirmAnswerBtn:
-                if (mCurrentQuesNum >= mTotalAmountQues) finishGame();
-                else {
-                    boolean correctAnswer = ((BinaryInputFragment) mFragmentToSwitchTo).checkAnswer();
-                    Toast.makeText(this, String.valueOf(correctAnswer), Toast.LENGTH_SHORT).show();
-                    if (correctAnswer) mNumOfCorrectAns++;
-                    incrementQuestionNumber();
-                    replaceFragment();
+                // Check ths user's answer
+                if (mFragmentToSwitchTo instanceof DecimalInputFragment) {
+                    mCorrectAnswer = ((DecimalInputFragment) mFragmentToSwitchTo).checkAnswer();
+                } else if (mFragmentToSwitchTo instanceof BinaryInputFragment) {
+                    mCorrectAnswer = ((BinaryInputFragment) mFragmentToSwitchTo).checkAnswer();
+                } else if (mFragmentToSwitchTo instanceof AddingBinaryFragment) {
+                    mCorrectAnswer = ((AddingBinaryFragment) mFragmentToSwitchTo).checkAnswer();
                 }
+                if (mCorrectAnswer) mNumOfCorrectAns++;
+                Toast.makeText(getApplicationContext(), String.valueOf(mCorrectAnswer), Toast.LENGTH_SHORT).show();
+                incrementQuestionNumber();
+
+                if (mCurrentQuesNum > mTotalAmountQues) finishGame();
+                else displayNewQuestion();
+
         }
     }
 
@@ -203,11 +231,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void incrementQuestionNumber() {
-        if (mCurrentQuesNum < mTotalAmountQues) {
             mCurrentQuesNum++;
-            String questionCountDisplayFormat = String.format("%d/%d", mCurrentQuesNum, mTotalAmountQues);
-            mCurrentQuesNumTv.setText(questionCountDisplayFormat);
-        }
+            if (mCurrentQuesNum <= mTotalAmountQues) {
+                String questionCountDisplayFormat = String.format("%d/%d", mCurrentQuesNum, mTotalAmountQues);
+                mCurrentQuesNumTv.setText(questionCountDisplayFormat);
+            }
     }
 
     private void sendGameDataViaIntent() {

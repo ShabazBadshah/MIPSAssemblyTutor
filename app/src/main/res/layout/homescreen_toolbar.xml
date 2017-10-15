@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              xmlns:tools="http://schemas.android.com/tools"
-                                             android:id="@+id/practiceAllQuestions"
+                                             android:id="@+id/homescreen_toolbar"
                                              android:layout_width="match_parent"
                                              android:layout_height="@dimen/rand_ques_bg_height"
                                              android:layout_marginTop="0dp"

@@ -11,6 +11,7 @@ import android.graphics.Color;
 public class QuizGridItem {
     private Context mParentActivityContext;
     private Class mQuizActivityToStart;
+    private Class mAssociatedQuizActivity;
 
     private int mQuizPrimaryColor;
     private int mQuizDarkPrimaryColor;
@@ -29,6 +30,7 @@ public class QuizGridItem {
 
         intentToStartQuiz.putExtra("mQuizPrimaryColor", quizPrimaryColor);
         intentToStartQuiz.putExtra("mQuizDarkPrimaryColor", quizDarkPrimaryColor);
+        intentToStartQuiz.putExtra("mAssociatedQuizActivity", mAssociatedQuizActivity);
         mParentActivityContext.startActivity(intentToStartQuiz);
     }
 
@@ -43,6 +45,12 @@ public class QuizGridItem {
     public void setQuizDarkPrimaryColor(String darkColorToSet) {
         this.mQuizDarkPrimaryColor = Color.parseColor(darkColorToSet);
     }
+
+    public void setQuizActivityToStart (Class quizToStart) {
+        this.mAssociatedQuizActivity = quizToStart;
+    }
+
+    public Class getQuizAssociatedQuizActivity() { return this.mAssociatedQuizActivity; }
 
     public void setNameOfQuiz(String nameToSet) {
        this.mNameOfQuiz = nameToSet;

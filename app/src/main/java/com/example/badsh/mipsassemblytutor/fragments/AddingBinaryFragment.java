@@ -15,21 +15,24 @@ import android.widget.Toast;
 import com.example.badsh.mipsassemblytutor.R;
 import com.example.badsh.mipsassemblytutor.question_engine.QuestionGenerator;
 
-public class BinaryInputFragment extends Fragment implements View.OnClickListener {
+public class AddingBinaryFragment extends Fragment implements View.OnClickListener {
 
     QuestionGenerator mQuestionGenerator = new QuestionGenerator();
 
     private View mQuizView;
 
-    private TextView mDecimalNumTv;
+    private TextView mFirstBinaryStringTv;
+    private TextView mSecondBinaryStringTv;
     private EditText mAnswerField;
 
     private Button mZeroBtn;
     private Button mOneBtn;
     private Button mBackspaceBtn;
 
-    private int mDecimalNum;
-    private String mBinaryNum;
+    private String mFirstBinaryString;
+    private String mSecondBinaryString;
+
+    private String questionAnswer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mQuizView = inflater.inflate(R.layout.fragment_binary_input, container, false);
+        mQuizView = inflater.inflate(R.layout.fragment_add_binary, container, false);
 
         initViews();
         initClickListeners();
@@ -48,7 +51,8 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     }
 
     private void initViews() {
-        mDecimalNumTv = (TextView) mQuizView.findViewById(R.id.randGeneratedNumOne);
+        mFirstBinaryStringTv = (TextView) mQuizView.findViewById(R.id.randGeneratedNumOne);
+        mSecondBinaryStringTv = (TextView) mQuizView.findViewById(R.id.randGeneratedNumTwo);
 
         mAnswerField = (EditText) mQuizView.findViewById(R.id.answerField);
         mAnswerField.setInputType(InputType.TYPE_NULL);
@@ -61,13 +65,20 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     }
 
     public void generateAndSetNewQuestion() {
-        mDecimalNum = mQuestionGenerator.generateRandDecimalNum(20);
-        mBinaryNum = mQuestionGenerator.convertDecimalToBinary(mDecimalNum);
+        int mDecimalNum = mQuestionGenerator.generateRandDecimalNum(16);
+        mFirstBinaryString = mQuestionGenerator.convertDecimalToBinary(mDecimalNum);
+        mDecimalNum = mQuestionGenerator.generateRandDecimalNum(8);
+        mSecondBinaryString = mQuestionGenerator.convertDecimalToBinary(mDecimalNum);
 
-        mDecimalNumTv.setText(Integer.toString(mDecimalNum));
+        mFirstBinaryStringTv.setText("");
+        mSecondBinaryStringTv.setText("");
+        mFirstBinaryStringTv.setText(mFirstBinaryString);
+        mSecondBinaryStringTv.setText(mSecondBinaryString);
         mAnswerField.setText("");
 
-        Toast.makeText(getContext(), mBinaryNum, Toast.LENGTH_SHORT).show();
+        questionAnswer = mQuestionGenerator.addBinaryNumbers(mFirstBinaryString, mSecondBinaryString);
+
+        Toast.makeText(getContext(), questionAnswer, Toast.LENGTH_SHORT).show();
     }
 
     private void initClickListeners() {
@@ -99,7 +110,7 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
 
     public boolean checkAnswer() {
         String userAnswer = mAnswerField.getText().toString();
-        return userAnswer.equals(mBinaryNum);
+        return userAnswer.equals(questionAnswer);
 
     }
 

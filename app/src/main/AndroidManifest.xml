@@ -28,6 +28,11 @@
         </activity>
         <activity android:name=".activities.BinaryNumberInput">
         </activity>
+        <activity
+            android:name=".activities.UserStatsActivity"
+            android:label="@string/title_activity_user_stats"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

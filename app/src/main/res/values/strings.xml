@@ -2,4 +2,5 @@
     <string name="app_name">MIPS Assembly Tutor</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="title_activity_user_stats">UserStatsActivity</string>
 </resources>

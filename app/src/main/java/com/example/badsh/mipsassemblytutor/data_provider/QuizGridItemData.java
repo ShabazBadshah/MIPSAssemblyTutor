@@ -1,6 +1,10 @@
 package com.example.badsh.mipsassemblytutor.data_provider;
 
+import com.example.badsh.mipsassemblytutor.MainActivity;
 import com.example.badsh.mipsassemblytutor.activities.QuizActivity;
+import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
+import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
+import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 /**
@@ -19,6 +23,16 @@ public class QuizGridItemData {
             "Logical Shift",
             "Arithmetic Shift",
             "Bitwise Operators"
+    };
+
+    private static Class[] sAssociatedQuizActivity = {
+            DecimalInputFragment.class,
+            BinaryInputFragment.class,
+            AddingBinaryFragment.class,
+            MainActivity.class,
+            MainActivity.class,
+            MainActivity.class,
+            MainActivity.class,
     };
 
     private static String[] sQuizPrimaryColorsInHex = {
@@ -50,6 +64,8 @@ public class QuizGridItemData {
             quizGridItemToBuild.setNameOfQuiz(sNameOfQuizCategories[i]);
             quizGridItemToBuild.setQuizPrimaryColor(sQuizPrimaryColorsInHex[i]);
             quizGridItemToBuild.setQuizDarkPrimaryColor(sQuizDarkPrimaryColorsInHex[i]);
+
+            quizGridItemToBuild.setQuizActivityToStart(sAssociatedQuizActivity[i]);
 
             quizGridItems[i] = quizGridItemToBuild;
         }
