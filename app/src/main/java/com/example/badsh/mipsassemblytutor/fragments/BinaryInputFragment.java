@@ -100,7 +100,6 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     public boolean checkAnswer() {
         String userAnswer = mAnswerField.getText().toString();
         return userAnswer.equals(mBinaryNum);
-
     }
 
 }

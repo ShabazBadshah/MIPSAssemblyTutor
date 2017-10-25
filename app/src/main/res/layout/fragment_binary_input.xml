@@ -65,7 +65,7 @@
         android:id="@+id/randGeneratedNumOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/questionPromptTop"
+        android:layout_below="@+id/questionPrompt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:background="@drawable/square"
@@ -79,7 +79,7 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionPromptTop"
+        app:layout_constraintTop_toBottomOf="@+id/questionPrompt"
         app:layout_constraintHorizontal_bias="0.501"/>
 
     <TextView
@@ -100,7 +100,7 @@
         app:layout_constraintTop_toBottomOf="@+id/randGeneratedNumOne"/>
 
     <TextView
-        android:id="@+id/questionPromptTop"
+        android:id="@+id/questionPrompt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

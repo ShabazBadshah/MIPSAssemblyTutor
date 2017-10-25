@@ -1,10 +1,10 @@
 package com.example.badsh.mipsassemblytutor.data_provider;
 
-import com.example.badsh.mipsassemblytutor.MainActivity;
 import com.example.badsh.mipsassemblytutor.activities.QuizActivity;
 import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
+import com.example.badsh.mipsassemblytutor.fragments.MIPSSelectCorrectCommand;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 /**
@@ -19,20 +19,14 @@ public class QuizGridItemData {
             "Convert Binary to Decimal",
             "Convert Decimal to Binary",
             "Adding Binary",
-            "Twos Complement",
-            "Logical Shift",
-            "Arithmetic Shift",
-            "Bitwise Operators"
+            "MIPS Command to English"
     };
 
     private static Class[] sAssociatedQuizActivity = {
             DecimalInputFragment.class,
             BinaryInputFragment.class,
             AddingBinaryFragment.class,
-            MainActivity.class,
-            MainActivity.class,
-            MainActivity.class,
-            MainActivity.class,
+            MIPSSelectCorrectCommand.class
     };
 
     private static String[] sQuizPrimaryColorsInHex = {

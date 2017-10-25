@@ -1,5 +1,6 @@
 package com.example.badsh.mipsassemblytutor.fragments;
 
+import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -100,7 +101,13 @@ public class DecimalInputFragment extends Fragment implements View.OnClickListen
     }
 
     public boolean checkAnswer() {
-        int userAnswer = Integer.valueOf(mAnswerField.getText().toString());
+        int userAnswer = 0;
+        try {
+            userAnswer = Integer.valueOf(mAnswerField.getText().toString());
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
         int correctAnswer = mQuestionGenerator.convertBinaryToDecimal(mBinaryNum);
         return userAnswer == correctAnswer;
     }

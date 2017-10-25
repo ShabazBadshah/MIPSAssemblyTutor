@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/option_select_root"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:orientation="vertical"
+                                             tools:layout_editor_absoluteY="81dp"
+                                             tools:layout_editor_absoluteX="0dp">
+
+    <TextView
+        android:id="@+id/questionPrompt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"
+        android:text="$r5=3, how do you add 2 to make $r5 now hold the new value of 1?"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <RadioGroup
+        android:id="@+id/radio_select_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="100dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionPrompt">
+
+        <RadioButton
+            android:id="@+id/option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="#8e44ad"
+            android:text="RadioButton"
+            android:textColor="#8e44ad"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/questionPrompt"/>
+
+        <RadioButton
+            android:id="@+id/option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_weight="1"
+            android:buttonTint="#8e44ad"
+            android:text="RadioButton"
+            android:textColor="#8e44ad"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/option1"/>
+
+        <RadioButton
+            android:id="@+id/option3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_weight="1"
+            android:buttonTint="#8e44ad"
+            android:text="RadioButton"
+            android:textColor="#8e44ad"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/option2"/>
+
+        <RadioButton
+            android:id="@+id/option4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_weight="1"
+            android:buttonTint="#8e44ad"
+            android:text="RadioButton"
+            android:textColor="#8e44ad"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/option3"/>
+
+    </RadioGroup>
+
+</android.support.constraint.ConstraintLayout>
