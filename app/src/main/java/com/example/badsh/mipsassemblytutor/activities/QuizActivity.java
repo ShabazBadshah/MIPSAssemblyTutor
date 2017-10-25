@@ -1,5 +1,6 @@
 package com.example.badsh.mipsassemblytutor.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import com.example.badsh.mipsassemblytutor.data_provider.UserStats;
 import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
+import com.example.badsh.mipsassemblytutor.fragments.MIPSSelectCorrectCommand;
 
 import static com.example.badsh.mipsassemblytutor.R.id.quitQuiz;
 import static com.example.badsh.mipsassemblytutor.R.id.requestHint;
@@ -56,7 +58,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private long mTimeWhenStopped = 0;
     private int mAmountHintsLeft = 2;
     private int mCurrentQuesNum = 1;
-    private int mTotalAmountQues = 2;
+    private int mTotalAmountQues = 5;
     private int mNumOfCorrectAns = 0;
 
     private String mQuizDarkPrimaryColor;
@@ -103,10 +105,20 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         else if (mAssociatedQuizActivity.equals(AddingBinaryFragment.class)) {
             mFragmentToSwitchTo = new AddingBinaryFragment();
         }
+        else if (mAssociatedQuizActivity.equals(MIPSSelectCorrectCommand.class)) {
+            mFragmentToSwitchTo = new MIPSSelectCorrectCommand();
+        }
 
-        mFragmentManager.beginTransaction()
-                .add(QUIZ_VIEW_HOLDER_ID, mFragmentToSwitchTo)
-                .commit();
+        if (mAssociatedQuizActivity != null && mFragmentToSwitchTo != null) {
+            mFragmentManager.beginTransaction()
+                    .add(QUIZ_VIEW_HOLDER_ID, mFragmentToSwitchTo)
+                    .commit();
+        } else {
+            Context goToHomeContext = getApplicationContext();
+            Intent goToHomeIntent = new Intent(goToHomeContext, MainActivity.class);
+            goToHomeContext.startActivity(goToHomeIntent);
+            finish();
+        }
     }
 
     private void displayNewQuestion() {
@@ -117,6 +129,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             ((BinaryInputFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
         } else if (mFragmentToSwitchTo instanceof AddingBinaryFragment) {
             ((AddingBinaryFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
+        } else if (mFragmentToSwitchTo instanceof MIPSSelectCorrectCommand) {
+            ((MIPSSelectCorrectCommand) mFragmentToSwitchTo).generateAndSetNewQuestion();
         }
 
     }
@@ -180,6 +194,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                     mCorrectAnswer = ((BinaryInputFragment) mFragmentToSwitchTo).checkAnswer();
                 } else if (mFragmentToSwitchTo instanceof AddingBinaryFragment) {
                     mCorrectAnswer = ((AddingBinaryFragment) mFragmentToSwitchTo).checkAnswer();
+                } else if (mFragmentToSwitchTo instanceof MIPSSelectCorrectCommand) {
+                    mCorrectAnswer = ((MIPSSelectCorrectCommand) mFragmentToSwitchTo).checkAnswer();
                 }
 
                 if (mCorrectAnswer) mNumOfCorrectAns++;
