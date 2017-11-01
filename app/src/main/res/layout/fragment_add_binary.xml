@@ -15,7 +15,7 @@
         android:layout_marginLeft="70dp"
         android:layout_marginStart="70dp"
         android:layout_marginTop="25dp"
-        android:layout_toStartOf="@+id/randGeneratedNumOne"
+        android:layout_toStartOf="@+id/userCommandTv"
         android:background="@drawable/square"
         android:backgroundTint="@color/practiceAllQuestionsBtnColor"
         android:text="0"
@@ -30,7 +30,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/randGeneratedNumOne"
+        android:layout_toStartOf="@+id/userCommandTv"
         android:background="@drawable/square"
         android:backgroundTint="@color/practiceAllQuestionsBtnColor"
         android:foreground="@drawable/ic_backspace_black_24dp"
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/answerField"/>
 
     <TextView
-        android:id="@+id/randGeneratedNumOne"
+        android:id="@+id/userCommandTv"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_below="@+id/questionPrompt"
@@ -135,7 +135,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/randGeneratedNumOne"/>
+        app:layout_constraintTop_toBottomOf="@+id/userCommandTv"/>
 
     <EditText
         android:id="@+id/answerField"

@@ -59,7 +59,8 @@ public class MIPSSelectCorrectCommand extends Fragment implements View.OnClickLi
         Random rn = new Random();
         int range = 1 + 1;
         int randomNum =  rn.nextInt(range) + 0;
-        String currentCommand = commands[randomNum];
+        //String currentCommand = commands[randomNum];
+        String currentCommand = "cmd";
         questionTemplate = substitutionGenerator.pickRandomQuestion(currentCommand);
         generatedQuestion = new MIPSQuestion(questionTemplate, substitutionGenerator);
         questionField.setText(generatedQuestion.getQuestion());

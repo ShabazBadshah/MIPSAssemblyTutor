@@ -51,7 +51,7 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
     }
 
     private void initViews() {
-        mFirstBinaryStringTv = (TextView) mQuizView.findViewById(R.id.randGeneratedNumOne);
+        mFirstBinaryStringTv = (TextView) mQuizView.findViewById(R.id.userCommandTv);
         mSecondBinaryStringTv = (TextView) mQuizView.findViewById(R.id.randGeneratedNumTwo);
 
         mAnswerField = (EditText) mQuizView.findViewById(R.id.answerField);

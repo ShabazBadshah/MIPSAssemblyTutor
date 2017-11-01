@@ -61,6 +61,42 @@ public class SubstitutionGenerator {
                         + " registerMax final_register",
         });
 
+        questionTemplates.put("cmd", new String [] {
+                "{register}={value}, how do you subtract {new_value} to make it {final_value}?:"
+                        + " sub {register}, {register}, -{final_value-new_value}:"
+                        + " register new_value final_value final_value-new_value",
+
+                "{register}={value}, how do you add {new_value} to make {register} now hold the new value of {final_value}?: "
+                        + "addi {register}, {final_value-new_value}: "
+                        + "register value new_value final_value final_value-new_value",
+
+                "{register}={value}, which command sets {register} to 0?:"
+                        + " addi {register}, -{value}:"
+                        + " register value",
+
+                "{register1}={value1} and {register2}={value2}. Add the two together and store in {register3}:"
+                        + " add {register3}, {register1}, {register2}:"
+                        + " registerMax valueMax"
+        });
+
+        questionTemplates.put("type-cmd", new String [] {
+                "{register}={value}, Use subtraction to make the value in {register}={final_value}?:"
+                        + " sub {register}, {register}, -{final_value-new_value}:"
+                        + " register new_value final_value final_value-new_value",
+
+                "{register}={value}, Add {new_value} to {register}, to make {register}={final_value}?: "
+                        + "addi {register}, {final_value-new_value}: "
+                        + "register value new_value final_value final_value-new_value",
+
+                "{register}={value}, use add to set {register} to 0:"
+                        + " addi {register}, -{value}:"
+                        + " register value",
+
+                "{register1}={value1} and {register2}={value2}. Add the two together and store in {register3}:"
+                        + " add {register3}, {register1}, {register2}:"
+                        + " registerMax valueMax"
+        });
+
     }
 
     public static String pickRandomQuestion(String category) {

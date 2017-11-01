@@ -48,7 +48,7 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     }
 
     private void initViews() {
-        mDecimalNumTv = (TextView) mQuizView.findViewById(R.id.randGeneratedNumOne);
+        mDecimalNumTv = (TextView) mQuizView.findViewById(R.id.userCommandTv);
 
         mAnswerField = (EditText) mQuizView.findViewById(R.id.answerField);
         mAnswerField.setInputType(InputType.TYPE_NULL);
@@ -81,10 +81,10 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
 
         switch (v.getId()) {
             case R.id.zeroInputBtn:
-                mAnswerField.append("0");
+                mAnswerField.getEditableText().insert(0, "0");
                 break;
             case R.id.oneInputBtn:
-                mAnswerField.append("1");
+                mAnswerField.getEditableText().insert(0, "1");
                 break;
             case R.id.backspaceBtn:
                 String userAnswer = mAnswerField.getText().toString();

@@ -24,9 +24,9 @@ import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MIPSSelectCorrectCommand;
+import com.example.badsh.mipsassemblytutor.fragments.MIPSTypeCommand;
 
 import static com.example.badsh.mipsassemblytutor.R.id.quitQuiz;
-import static com.example.badsh.mipsassemblytutor.R.id.requestHint;
 
 /**
  * Created by Shabaz Badshah on 9/19/2017.
@@ -48,7 +48,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private TextView mAmountHintsTv;
 
     private ImageView mQuitQuizIv;
-    private ImageView mRequestHintIv;
 
     private Chronometer mTimeElapsedInQuizView;
     private long totalElapsedTimeInSec;
@@ -56,7 +55,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private Button mConfirmAnswerBtn;
 
     private long mTimeWhenStopped = 0;
-    private int mAmountHintsLeft = 2;
+    //private int mAmountHintsLeft = 2;
     private int mCurrentQuesNum = 1;
     private int mTotalAmountQues = 5;
     private int mNumOfCorrectAns = 0;
@@ -84,7 +83,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initViews() {
         mQuitQuizIv = (ImageView) findViewById(quitQuiz);
-        mRequestHintIv = (ImageView) findViewById(requestHint);
 
         mAmountHintsTv = (TextView) findViewById(R.id.numOfHintsLeftCount);
         mCurrentQuesNumTv = (TextView) findViewById(R.id.amountQuestionsLeftCount);
@@ -107,6 +105,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if (mAssociatedQuizActivity.equals(MIPSSelectCorrectCommand.class)) {
             mFragmentToSwitchTo = new MIPSSelectCorrectCommand();
+        }
+        else if (mAssociatedQuizActivity.equals(MIPSTypeCommand.class)) {
+            mFragmentToSwitchTo = new MIPSTypeCommand();
         }
 
         if (mAssociatedQuizActivity != null && mFragmentToSwitchTo != null) {
@@ -131,6 +132,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             ((AddingBinaryFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
         } else if (mFragmentToSwitchTo instanceof MIPSSelectCorrectCommand) {
             ((MIPSSelectCorrectCommand) mFragmentToSwitchTo).generateAndSetNewQuestion();
+        } else if (mFragmentToSwitchTo instanceof MIPSTypeCommand) {
+            ((MIPSTypeCommand) mFragmentToSwitchTo).generateAndSetNewQuestion();
         }
 
     }
@@ -145,7 +148,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private void setCountsAndColors() {
         mConfirmAnswerBtn.setBackgroundColor(Color.parseColor(mQuizDarkPrimaryColor));
 
-        mAmountHintsTv.setText(String.valueOf(mAmountHintsLeft));
+        mAmountHintsTv.setText(String.valueOf(mNumOfCorrectAns));
 
         String questionCountDisplayFormat = String.format("%d/%d", mCurrentQuesNum, mTotalAmountQues);
         mCurrentQuesNumTv.setText(questionCountDisplayFormat);
@@ -153,7 +156,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initClickListeners() {
         mQuitQuizIv.setOnClickListener(this);
-        mRequestHintIv.setOnClickListener(this);
+        mAmountHintsTv.setOnClickListener(this);
 
         mConfirmAnswerBtn.setOnClickListener(this);
     }
@@ -182,10 +185,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.quitQuiz:
                 onBackPressed();
                 break;
-            case R.id.requestHint:
-                if (mAmountHintsLeft <= 0) Toast.makeText(this, "You have no hints left", Toast.LENGTH_SHORT).show();
-                else promptUserForConfirmation("Do you want to use a hint?", "Hint", R.id.requestHint);
-                break;
             case R.id.confirmAnswerBtn:
                 // Check ths user's answer
                 if (mFragmentToSwitchTo instanceof DecimalInputFragment) {
@@ -196,9 +195,14 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                     mCorrectAnswer = ((AddingBinaryFragment) mFragmentToSwitchTo).checkAnswer();
                 } else if (mFragmentToSwitchTo instanceof MIPSSelectCorrectCommand) {
                     mCorrectAnswer = ((MIPSSelectCorrectCommand) mFragmentToSwitchTo).checkAnswer();
+                } else if (mFragmentToSwitchTo instanceof MIPSTypeCommand) {
+                    mCorrectAnswer = ((MIPSTypeCommand) mFragmentToSwitchTo).checkAnswer();
                 }
 
-                if (mCorrectAnswer) mNumOfCorrectAns++;
+                if (mCorrectAnswer) {
+                    mNumOfCorrectAns++;
+                    mAmountHintsTv.setText(String.valueOf(mNumOfCorrectAns));
+                }
                 Toast.makeText(getApplicationContext(), String.valueOf(mCorrectAnswer), Toast.LENGTH_SHORT).show();
                 incrementQuestionNumber();
 
@@ -231,9 +235,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                         switch (itemClicked) {
                             default:
                                 break;
-                            case R.id.requestHint:
-                                decrementHintCount();
-                                break;
                             case R.id.quitQuiz:
                                 finish(); // Finishes the current activity and goes to the previous one
                                 break;
@@ -241,13 +242,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                     }})
                 .setNegativeButton(R.string.no, null)
                 .show();
-    }
-
-    private void decrementHintCount() {
-        if (mAmountHintsLeft > 0) {
-            mAmountHintsLeft--;
-            mAmountHintsTv.setText(String.valueOf(mAmountHintsLeft));
-        }
     }
 
     private void incrementQuestionNumber() {

@@ -1,6 +1,5 @@
 package com.example.badsh.mipsassemblytutor.fragments;
 
-import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -46,7 +45,7 @@ public class DecimalInputFragment extends Fragment implements View.OnClickListen
     }
 
     private void initViews() {
-        mBinaryNumTv = (TextView) mQuizView.findViewById(R.id.randGeneratedNumOne);
+        mBinaryNumTv = (TextView) mQuizView.findViewById(R.id.userCommandTv);
         mAnswerField = (EditText) mQuizView.findViewById(R.id.answerField);
         mAnswerField.setShowSoftInputOnFocus(false);
 

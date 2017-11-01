@@ -2,7 +2,8 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:id="@+id/quizActivityRoot">
 
     <LinearLayout
         android:id="@+id/toolbarTop"
@@ -30,7 +31,7 @@
             android:id="@+id/numQuestionsLeftPrompt"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.45"
+            android:layout_weight="0.5"
             android:gravity="center_vertical"
             android:text="Q#:"
             android:textAlignment="center"
@@ -42,7 +43,7 @@
             android:id="@+id/amountQuestionsLeftCount"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.54"
+            android:layout_weight="0.5"
             android:background="@color/colorToolbarCountBG"
             android:gravity="center_vertical"
             android:text="13/21"
@@ -50,19 +51,6 @@
             android:textColor="@color/toolbarTextColor"
             android:textSize="24sp"
             tools:background="@color/colorToolbarCountBG"/>
-
-        <ImageView
-            android:id="@+id/requestHint"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.01"
-            android:adjustViewBounds="true"
-            android:background="@color/colorQuizToolbarTopBG"
-            android:clickable="true"
-            android:contentDescription="Request hint"
-            android:scaleType="centerInside"
-            app:srcCompat="@android:drawable/ic_menu_help"
-            tools:background="@color/colorQuizToolbarTopBG"/>
 
     </LinearLayout>
 
@@ -105,7 +93,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.20"
             android:gravity="center_vertical"
-            android:text="Hints"
+            android:text="Score"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/toolbarTextColor"
@@ -118,7 +106,7 @@
             android:layout_weight="0.3"
             android:background="@color/colorToolbarCountBG"
             android:gravity="center_vertical"
-            android:text="3"
+            android:text="0"
             android:textAlignment="center"
             android:textColor="@color/toolbarTextColor"
             android:textSize="24sp"
