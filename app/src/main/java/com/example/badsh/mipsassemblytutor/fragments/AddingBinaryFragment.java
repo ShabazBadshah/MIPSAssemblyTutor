@@ -13,11 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.R;
-import com.example.badsh.mipsassemblytutor.question_engine.QuestionGenerator;
+import com.example.badsh.mipsassemblytutor.engine.Utils.EngineUtils;
 
 public class AddingBinaryFragment extends Fragment implements View.OnClickListener {
-
-    QuestionGenerator mQuestionGenerator = new QuestionGenerator();
 
     private View mQuizView;
 
@@ -65,10 +63,10 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
     }
 
     public void generateAndSetNewQuestion() {
-        int mDecimalNum = mQuestionGenerator.generateRandDecimalNum(16);
-        mFirstBinaryString = mQuestionGenerator.convertDecimalToBinary(mDecimalNum);
-        mDecimalNum = mQuestionGenerator.generateRandDecimalNum(8);
-        mSecondBinaryString = mQuestionGenerator.convertDecimalToBinary(mDecimalNum);
+        int mDecimalNum = EngineUtils.generateRandomDecimalNumber(true, 16);
+        mFirstBinaryString = EngineUtils.convertDecimalToBinary(mDecimalNum);
+        mDecimalNum = EngineUtils.generateRandomDecimalNumber(true, 8);
+        mSecondBinaryString = EngineUtils.convertDecimalToBinary(mDecimalNum);
 
         mFirstBinaryStringTv.setText("");
         mSecondBinaryStringTv.setText("");
@@ -76,7 +74,7 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
         mSecondBinaryStringTv.setText(mSecondBinaryString);
         mAnswerField.setText("");
 
-        questionAnswer = mQuestionGenerator.addBinaryNumbers(mFirstBinaryString, mSecondBinaryString);
+        questionAnswer = EngineUtils.addBinaryStrings(mFirstBinaryString, mSecondBinaryString);
 
         Toast.makeText(getContext(), questionAnswer, Toast.LENGTH_SHORT).show();
     }

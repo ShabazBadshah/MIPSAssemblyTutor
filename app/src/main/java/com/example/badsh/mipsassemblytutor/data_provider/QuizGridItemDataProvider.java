@@ -4,15 +4,14 @@ import com.example.badsh.mipsassemblytutor.activities.QuizActivity;
 import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
-import com.example.badsh.mipsassemblytutor.fragments.MIPSSelectCorrectCommand;
-import com.example.badsh.mipsassemblytutor.fragments.MIPSTypeCommand;
+import com.example.badsh.mipsassemblytutor.fragments.MipsComputeCommandFragment;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 /**
  * Created by Shabaz Badshah on 9/19/2017.
  */
 
-public class QuizGridItemData {
+public class QuizGridItemDataProvider {
 
     private static final Class ACTIVITY_TO_LAUNCH = QuizActivity.class;
 
@@ -20,16 +19,16 @@ public class QuizGridItemData {
             "Convert Binary to Decimal",
             "Convert Decimal to Binary",
             "Adding Binary",
-            "MIPS Command to English",
-            "Type the MIPS Command"
+            "Compute the MIPS Command",
+//            "Type the MIPS Command"
     };
 
     private static Class[] sAssociatedQuizActivity = {
             DecimalInputFragment.class,
             BinaryInputFragment.class,
             AddingBinaryFragment.class,
-            MIPSSelectCorrectCommand.class,
-            MIPSTypeCommand.class
+            MipsComputeCommandFragment.class,
+//            MIPSTypeCommand.class
     };
 
     private static String[] sQuizPrimaryColorsInHex = {

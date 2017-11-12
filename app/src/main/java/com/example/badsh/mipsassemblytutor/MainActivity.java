@@ -10,9 +10,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.badsh.mipsassemblytutor.activities.UserStatsActivity;
-import com.example.badsh.mipsassemblytutor.adapaters.RecyclerViewAdapter;
-import com.example.badsh.mipsassemblytutor.data_provider.QuizGridItemData;
-import com.example.badsh.mipsassemblytutor.data_provider.UserStats;
+import com.example.badsh.mipsassemblytutor.adapaters.QuizSelectionRecyclerViewAdapter;
+import com.example.badsh.mipsassemblytutor.data_provider.QuizGridItemDataProvider;
+import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataProvider;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 import java.util.Random;
@@ -20,27 +20,27 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private View mToolbar;
-    private static UserStats userStats;
+    private static UserStatsDataProvider userStatsDataProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userStats = new UserStats(this);
+        userStatsDataProvider = new UserStatsDataProvider(this);
         initToolbar();
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.generic_recyclerview);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setHasFixedSize(true); //An optimization for datasets that don't change often
 
-        final QuizGridItem[] listOfQuizCategories = QuizGridItemData.initializeAndGetQuizzes();
+        final QuizGridItem[] listOfQuizCategories = QuizGridItemDataProvider.initializeAndGetQuizzes();
         for (QuizGridItem quizItem: listOfQuizCategories) { // Sets the context
             quizItem.setContext(this);
         }
 
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, listOfQuizCategories);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        QuizSelectionRecyclerViewAdapter quizSelectionRecyclerViewAdapter = new QuizSelectionRecyclerViewAdapter(this, listOfQuizCategories);
+        recyclerView.setAdapter(quizSelectionRecyclerViewAdapter);
 
         Button randomQuizBtn = (Button) findViewById(R.id.practiceAllQsBtn);
         randomQuizBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public static UserStats getUserStats() {
-        return userStats;
+    public static UserStatsDataProvider getUserStatsDataProvider() {
+        return userStatsDataProvider;
     }
 
     private void initToolbar() {

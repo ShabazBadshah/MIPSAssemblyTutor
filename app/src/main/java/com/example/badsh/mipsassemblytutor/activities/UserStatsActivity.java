@@ -11,12 +11,12 @@ import android.widget.Button;
 
 import com.example.badsh.mipsassemblytutor.MainActivity;
 import com.example.badsh.mipsassemblytutor.R;
-import com.example.badsh.mipsassemblytutor.adapaters.RecyclerViewListAdapter;
-import com.example.badsh.mipsassemblytutor.data_provider.UserStats;
+import com.example.badsh.mipsassemblytutor.adapaters.UserStatsRecyclerViewAdapter;
+import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataProvider;
 
 public class UserStatsActivity extends AppCompatActivity {
 
-    private static UserStats userStat;
+    private static UserStatsDataProvider userStat;
     private View mToolbar;
     private RecyclerView mUserStatRv;
     private static Context mContext;
@@ -30,12 +30,12 @@ public class UserStatsActivity extends AppCompatActivity {
         mUserStatRv = (RecyclerView) findViewById(R.id.user_stats_rv);
         mUserStatRv.setLayoutManager(new LinearLayoutManager(this));
 
-        userStat = MainActivity.getUserStats();
+        userStat = MainActivity.getUserStatsDataProvider();
         userStat.loadUserStats();
         String userStatTitles[] = userStat.getAllKeys();
         String userStatValues[] = userStat.getAllValues();
 
-        RecyclerViewListAdapter userStatsAdapter = new RecyclerViewListAdapter(mContext,
+        UserStatsRecyclerViewAdapter userStatsAdapter = new UserStatsRecyclerViewAdapter(mContext,
                 userStatTitles, userStatValues);
 
         mUserStatRv.setAdapter(userStatsAdapter);

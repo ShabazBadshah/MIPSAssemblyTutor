@@ -1,0 +1,71 @@
+package com.example.badsh.mipsassemblytutor.engine.Instructions.RegisterInstructionCommands;
+
+import com.example.badsh.mipsassemblytutor.data_provider.QuizDataProvider;
+import com.example.badsh.mipsassemblytutor.models.MipsCommand;
+import com.example.badsh.mipsassemblytutor.engine.Utils.EngineUtils;
+
+import java.util.Random;
+
+public class SubRegisterCommand extends MipsCommand {
+
+    public SubRegisterCommand() {
+        FUNCTION_STRING = "sub";
+        FUNCTION_OPCODE = "100010";
+        // Generates registers
+        questionRegisters.add(QuizDataProvider.getRandomRegister());
+        questionRegisters.add(QuizDataProvider.getRandomRegister());
+        questionRegisters.add(QuizDataProvider.getRandomRegister());
+
+        boolean generateNegativeNum = new Random().nextBoolean();
+
+        if (generateNegativeNum) {
+            questionRegisters.get(2).setStoredValue(EngineUtils.generateRandomDecimalNumber(false));
+        } else {
+            questionRegisters.get(1).setStoredValue(EngineUtils.generateRandomDecimalNumber(true));
+        }
+
+        this.buildInstruction();
+        this.computeInstruction();
+        this.buildRegisterMachineInstruction();
+    }
+
+    private void computeInstruction() {
+        int computedAnswer = questionRegisters.get(1).getStoredValue()
+                - questionRegisters.get(2).getStoredValue();
+        ANSWER = String.valueOf(computedAnswer);
+    }
+
+    private void buildRegisterMachineInstruction() {
+        StringBuilder sb = new StringBuilder()
+                .append("000000")
+                .append(questionRegisters.get(0).getRegisterNumBinaryRep(5))
+                .append(questionRegisters.get(1).getRegisterNumBinaryRep(5))
+                .append(questionRegisters.get(2).getRegisterNumBinaryRep(5))
+                .append("00000")
+                .append(FUNCTION_OPCODE);
+
+        // converts machine instruction into 4 segments with 8 bits per segment
+        machineInstruction = EngineUtils.segmentBinaryStringNPieces(8, sb.toString());
+    }
+
+    private void buildInstruction() {
+        String SPACE = " ";
+        String COMMA = ", ";
+
+        QUESTION = new StringBuilder()
+                .append(questionRegisters.get(2).toString())
+                .append(SPACE)
+                .append(questionRegisters.get(1).toString())
+                .append(".\n")
+                .append(" Compute the following command\n")
+                .append(FUNCTION_STRING)
+                .append(SPACE)
+                .append(questionRegisters.get(0).getRegisterName()) // The first register
+                .append(COMMA)
+                .append(questionRegisters.get(1).getRegisterName()) // The second register
+                .append(COMMA)
+                .append(questionRegisters.get(2).getRegisterName()) // The third register
+                .toString();
+    }
+
+}

@@ -16,13 +16,13 @@ import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
  * Created by Shabaz Badshah on 9/16/2017.
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.QuizCategoryViewHolder> {
+public class QuizSelectionRecyclerViewAdapter extends RecyclerView.Adapter<QuizSelectionRecyclerViewAdapter.QuizCategoryViewHolder> {
 
     private QuizGridItem[] mListOfQuizCategories;
     private LayoutInflater mLayoutInflator;
     private Context mParentContext;
 
-    public RecyclerViewAdapter(Context parentContext, QuizGridItem[] listOfQuizzesToAdd) {
+    public QuizSelectionRecyclerViewAdapter(Context parentContext, QuizGridItem[] listOfQuizzesToAdd) {
         this.mLayoutInflator = LayoutInflater.from(parentContext);
         this.mListOfQuizCategories = listOfQuizzesToAdd;
         this.mParentContext = parentContext;

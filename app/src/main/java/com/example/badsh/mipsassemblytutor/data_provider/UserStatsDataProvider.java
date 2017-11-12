@@ -9,12 +9,12 @@ import java.util.HashMap;
  * Created by Shabaz Badshah on 10/14/2017.
  */
 
-public class UserStats {
+public class UserStatsDataProvider {
 
     private static HashMap<String, String> sUserStats = new HashMap<>();
     private static Context mContext;
 
-    public UserStats(Context context) {
+    public UserStatsDataProvider(Context context) {
         mContext = context;
 
         boolean loadedData = loadUserStats();

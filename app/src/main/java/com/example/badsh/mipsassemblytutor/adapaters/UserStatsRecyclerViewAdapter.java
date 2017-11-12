@@ -15,13 +15,13 @@ import static com.example.badsh.mipsassemblytutor.R.id.statTitle;
  * Created by Shabaz Badshah on 9/16/2017.
  */
 
-public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewListAdapter.UserStatViewHolder> {
+public class UserStatsRecyclerViewAdapter extends RecyclerView.Adapter<UserStatsRecyclerViewAdapter.UserStatViewHolder> {
 
     private String[] mStatTitles;
     private String[] mStatValues;
     private LayoutInflater mLayoutInflator;
 
-    public RecyclerViewListAdapter(Context parentContext, String[] statTitles, String[] statValues) {
+    public UserStatsRecyclerViewAdapter(Context parentContext, String[] statTitles, String[] statValues) {
         this.mLayoutInflator = LayoutInflater.from(parentContext);
         this.mStatTitles = statTitles;
         this.mStatValues = statValues;

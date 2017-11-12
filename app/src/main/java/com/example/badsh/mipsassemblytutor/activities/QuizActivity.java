@@ -19,12 +19,11 @@ import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.MainActivity;
 import com.example.badsh.mipsassemblytutor.R;
-import com.example.badsh.mipsassemblytutor.data_provider.UserStats;
+import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataProvider;
 import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
-import com.example.badsh.mipsassemblytutor.fragments.MIPSSelectCorrectCommand;
-import com.example.badsh.mipsassemblytutor.fragments.MIPSTypeCommand;
+import com.example.badsh.mipsassemblytutor.fragments.MipsComputeCommandFragment;
 
 import static com.example.badsh.mipsassemblytutor.R.id.quitQuiz;
 
@@ -103,12 +102,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         else if (mAssociatedQuizActivity.equals(AddingBinaryFragment.class)) {
             mFragmentToSwitchTo = new AddingBinaryFragment();
         }
-        else if (mAssociatedQuizActivity.equals(MIPSSelectCorrectCommand.class)) {
-            mFragmentToSwitchTo = new MIPSSelectCorrectCommand();
+        else if (mAssociatedQuizActivity.equals(MipsComputeCommandFragment.class)) {
+            mFragmentToSwitchTo = new MipsComputeCommandFragment();
         }
-        else if (mAssociatedQuizActivity.equals(MIPSTypeCommand.class)) {
-            mFragmentToSwitchTo = new MIPSTypeCommand();
-        }
+//        else if (mAssociatedQuizActivity.equals(MIPSTypeCommand.class)) {
+//            mFragmentToSwitchTo = new MIPSTypeCommand();
+//        }
 
         if (mAssociatedQuizActivity != null && mFragmentToSwitchTo != null) {
             mFragmentManager.beginTransaction()
@@ -130,11 +129,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             ((BinaryInputFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
         } else if (mFragmentToSwitchTo instanceof AddingBinaryFragment) {
             ((AddingBinaryFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
-        } else if (mFragmentToSwitchTo instanceof MIPSSelectCorrectCommand) {
-            ((MIPSSelectCorrectCommand) mFragmentToSwitchTo).generateAndSetNewQuestion();
-        } else if (mFragmentToSwitchTo instanceof MIPSTypeCommand) {
-            ((MIPSTypeCommand) mFragmentToSwitchTo).generateAndSetNewQuestion();
+        } else if (mFragmentToSwitchTo instanceof MipsComputeCommandFragment) {
+            ((MipsComputeCommandFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
         }
+//        else if (mFragmentToSwitchTo instanceof MIPSTypeCommand) {
+//            ((MIPSTypeCommand) mFragmentToSwitchTo).generateAndSetNewQuestion();
+//        }
 
     }
 
@@ -193,11 +193,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                     mCorrectAnswer = ((BinaryInputFragment) mFragmentToSwitchTo).checkAnswer();
                 } else if (mFragmentToSwitchTo instanceof AddingBinaryFragment) {
                     mCorrectAnswer = ((AddingBinaryFragment) mFragmentToSwitchTo).checkAnswer();
-                } else if (mFragmentToSwitchTo instanceof MIPSSelectCorrectCommand) {
-                    mCorrectAnswer = ((MIPSSelectCorrectCommand) mFragmentToSwitchTo).checkAnswer();
-                } else if (mFragmentToSwitchTo instanceof MIPSTypeCommand) {
-                    mCorrectAnswer = ((MIPSTypeCommand) mFragmentToSwitchTo).checkAnswer();
+                } else if (mFragmentToSwitchTo instanceof MipsComputeCommandFragment) {
+                    mCorrectAnswer = ((MipsComputeCommandFragment) mFragmentToSwitchTo).checkAnswer();
                 }
+//                else if (mFragmentToSwitchTo instanceof MIPSTypeCommand) {
+//                    mCorrectAnswer = ((MIPSTypeCommand) mFragmentToSwitchTo).checkAnswer();
+//                }
 
                 if (mCorrectAnswer) {
                     mNumOfCorrectAns++;
@@ -273,12 +274,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateUserStats() {
-        UserStats userStats = MainActivity.getUserStats();
+        UserStatsDataProvider userStatsDataProvider = MainActivity.getUserStatsDataProvider();
 
-        userStats.updateUserStat("Highest Accuracy", String.format("%.2f", (float)mNumOfCorrectAns/(float)mTotalAmountQues));
-        userStats.updateUserStat("Best Time", String.valueOf(totalElapsedTimeInSec));
-        userStats.updateUserStat("Questions Answered", String.valueOf(mTotalAmountQues));
-        userStats.updateUserStat("Quizzes Finished", String.valueOf(1));
+        userStatsDataProvider.updateUserStat("Highest Accuracy", String.format("%.2f", (float)mNumOfCorrectAns/(float)mTotalAmountQues));
+        userStatsDataProvider.updateUserStat("Best Time", String.valueOf(totalElapsedTimeInSec));
+        userStatsDataProvider.updateUserStat("Questions Answered", String.valueOf(mTotalAmountQues));
+        userStatsDataProvider.updateUserStat("Quizzes Finished", String.valueOf(1));
     }
 
 }

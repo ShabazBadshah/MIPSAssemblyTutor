@@ -11,11 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.badsh.mipsassemblytutor.R;
-import com.example.badsh.mipsassemblytutor.question_engine.QuestionGenerator;
+import com.example.badsh.mipsassemblytutor.engine.Utils.EngineUtils;
 
 public class DecimalInputFragment extends Fragment implements View.OnClickListener {
-
-    QuestionGenerator mQuestionGenerator = new QuestionGenerator();
 
     private View mQuizView;
 
@@ -53,8 +51,8 @@ public class DecimalInputFragment extends Fragment implements View.OnClickListen
     }
 
     public void generateAndSetNewQuestion() {
-        mDecimalNum = mQuestionGenerator.generateRandDecimalNum(20);
-        mBinaryNum = mQuestionGenerator.convertDecimalToBinary(mDecimalNum);
+        mDecimalNum = EngineUtils.generateRandomDecimalNumber(true, 20);
+        mBinaryNum = EngineUtils.convertDecimalToBinary(mDecimalNum);
 
         mBinaryNumTv.setText(mBinaryNum);
         mAnswerField.setText("");
@@ -107,7 +105,7 @@ public class DecimalInputFragment extends Fragment implements View.OnClickListen
             return false;
         }
 
-        int correctAnswer = mQuestionGenerator.convertBinaryToDecimal(mBinaryNum);
+        int correctAnswer = EngineUtils.convertBinaryToDecimal(mBinaryNum);
         return userAnswer == correctAnswer;
     }
 
