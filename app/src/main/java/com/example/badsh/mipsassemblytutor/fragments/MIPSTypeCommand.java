@@ -15,6 +15,7 @@ import com.example.badsh.mipsassemblytutor.models.MIPSQuestion;
 import com.example.badsh.mipsassemblytutor.question_engine.SubstitutionGenerator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class MIPSTypeCommand extends Fragment implements View.OnClickListener {
@@ -76,13 +77,15 @@ public class MIPSTypeCommand extends Fragment implements View.OnClickListener {
             checkBox.setTag(Integer.valueOf(i));
             checkBox.setOnClickListener(this);
             checkBoxes.add(checkBox);
+        }
+
+        Collections.shuffle(checkBoxes);
+
+        for (CheckBox checkBox: checkBoxes) {
             parentLayout.addView(checkBox);
         }
 
         questionField.setText(questionGenerated);
-
-        int whereToPlaceAnswer = randNumGenerator.nextInt(amountToGenerate);
-
     }
 
     public void generateAndSetNewQuestion() {
@@ -103,7 +106,8 @@ public class MIPSTypeCommand extends Fragment implements View.OnClickListener {
 
     public boolean checkAnswer() {
         parentLayout.removeAllViews();
-        return userAnswerTv.getText().equals(generatedQuestion.getAnswer());
+        String userAnswer = userAnswerTv.getText().toString();
+        return userAnswer.trim().equals(generatedQuestion.getAnswer());
     }
 
 
