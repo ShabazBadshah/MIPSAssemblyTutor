@@ -12,5 +12,6 @@ public interface BaseInstruction {
     String getFunctionName();
     ArrayList<Register> getRegisters();
     MipsCommand getAssociatedCommand();
+    String getGeneratedMipsCommand();
     String getMachineInstruction();
 }

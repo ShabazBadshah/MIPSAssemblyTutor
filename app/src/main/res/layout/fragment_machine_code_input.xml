@@ -63,7 +63,7 @@
 
     <TextView
         android:id="@+id/userCommandTv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/questionPrompt"
         android:layout_centerHorizontal="true"
@@ -72,15 +72,15 @@
         android:backgroundTint="@color/practiceAllQuestionsBtnColor"
         android:gravity="center_vertical|center_horizontal"
         android:padding="5dp"
-        android:text="15"
+        android:text="add $t2, $t9, $t3"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/toolbarTextColor"
         android:textSize="30sp"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionPrompt"
-        app:layout_constraintHorizontal_bias="0.501"/>
+        app:layout_constraintTop_toBottomOf="@+id/questionPrompt"/>
 
     <TextView
         android:id="@+id/questionPromptBottom"
@@ -90,7 +90,7 @@
         android:layout_below="@+id/userCommandTv"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:text="to Binary"
+        android:text="to Machine Code"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="25sp"
@@ -122,8 +122,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
         android:background="@color/practiceAllQuestionsBtnColor"
-        android:inputType="none"
-        android:maxLines="2"
+        android:inputType="text|textMultiLine"
+        android:maxLines="3"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:textAlignment="center"

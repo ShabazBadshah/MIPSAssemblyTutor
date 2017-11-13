@@ -23,6 +23,7 @@ public class ImmediateInstructionStrategy implements BaseImmediateInstruction {
     public String getAnswer() { return this.mipsCommand.getCommandAnswer(); }
     public String toString() { return this.mipsCommand.toString(); }
     public MipsCommand getAssociatedCommand() { return this.mipsCommand; }
+    public String getGeneratedMipsCommand() { return this.mipsCommand.getCommandGeneratedInstruction(); }
 
 }
 

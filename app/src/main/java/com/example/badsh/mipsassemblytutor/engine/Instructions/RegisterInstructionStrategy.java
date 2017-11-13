@@ -22,5 +22,8 @@ public class RegisterInstructionStrategy implements BaseInstruction {
     public String toString() { return this.mipsCommand.toString(); }
     public MipsCommand getAssociatedCommand() { return this.mipsCommand; }
 
+    @Override
+    public String getGeneratedMipsCommand() { return this.mipsCommand.getCommandGeneratedInstruction(); }
+
 }
 

@@ -13,14 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.R;
-import com.example.badsh.mipsassemblytutor.engine.Utils.EngineUtils;
+import com.example.badsh.mipsassemblytutor.data_provider.QuizDataProvider;
+import com.example.badsh.mipsassemblytutor.models.MipsCommand;
 
-public class BinaryInputFragment extends Fragment implements View.OnClickListener {
+public class MachineCodeInputFragment extends Fragment implements View.OnClickListener {
 
     private View mQuizView;
 
     private TextView mDecimalNumTv;
     private EditText mAnswerField;
+
+    private MipsCommand generatedQuestion;
 
     private Button mZeroBtn;
     private Button mOneBtn;
@@ -37,7 +40,7 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mQuizView = inflater.inflate(R.layout.fragment_binary_input, container, false);
+        mQuizView = inflater.inflate(R.layout.fragment_machine_code_input, container, false);
 
         initViews();
         initClickListeners();
@@ -59,13 +62,11 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     }
 
     public void generateAndSetNewQuestion() {
-        mDecimalNum = EngineUtils.generateRandomDecimalNumber(true, 16);
-        mBinaryNum = EngineUtils.convertDecimalToBinary(mDecimalNum);
-
-        mDecimalNumTv.setText(Integer.toString(mDecimalNum));
+        generatedQuestion = QuizDataProvider.getRandomFunction().getAssociatedCommand();
+        mDecimalNumTv.setText(generatedQuestion.getCommandGeneratedInstruction());
         mAnswerField.setText(null);
 
-        Toast.makeText(getContext(), mBinaryNum, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), generatedQuestion.getCommandMachineInstruction(), Toast.LENGTH_LONG).show();
     }
 
     private void initClickListeners() {
@@ -96,8 +97,8 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     }
 
     public boolean checkAnswer() {
-        String userAnswer = mAnswerField.getText().toString();
-        return userAnswer.equals(mBinaryNum);
+        String userAnswer = mAnswerField.getText().toString().trim();
+        return userAnswer.equals(generatedQuestion.getCommandMachineInstruction().trim());
     }
 
 }

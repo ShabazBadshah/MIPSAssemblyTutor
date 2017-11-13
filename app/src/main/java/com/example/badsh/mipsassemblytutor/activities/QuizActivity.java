@@ -23,7 +23,9 @@ import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataProvider;
 import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
+import com.example.badsh.mipsassemblytutor.fragments.MachineCodeInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MipsComputeCommandFragment;
+import com.example.badsh.mipsassemblytutor.fragments.TypeMipsCommandFragment;
 
 import static com.example.badsh.mipsassemblytutor.R.id.quitQuiz;
 
@@ -105,9 +107,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         else if (mAssociatedQuizActivity.equals(MipsComputeCommandFragment.class)) {
             mFragmentToSwitchTo = new MipsComputeCommandFragment();
         }
-//        else if (mAssociatedQuizActivity.equals(MIPSTypeCommand.class)) {
-//            mFragmentToSwitchTo = new MIPSTypeCommand();
-//        }
+        else if (mAssociatedQuizActivity.equals(TypeMipsCommandFragment.class)) {
+            mFragmentToSwitchTo = new TypeMipsCommandFragment();
+        }
+        else if (mAssociatedQuizActivity.equals(MachineCodeInputFragment.class)) {
+            mFragmentToSwitchTo = new MachineCodeInputFragment();
+        }
 
         if (mAssociatedQuizActivity != null && mFragmentToSwitchTo != null) {
             mFragmentManager.beginTransaction()
@@ -132,9 +137,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         } else if (mFragmentToSwitchTo instanceof MipsComputeCommandFragment) {
             ((MipsComputeCommandFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
         }
-//        else if (mFragmentToSwitchTo instanceof MIPSTypeCommand) {
-//            ((MIPSTypeCommand) mFragmentToSwitchTo).generateAndSetNewQuestion();
-//        }
+        else if (mFragmentToSwitchTo instanceof TypeMipsCommandFragment) {
+            ((TypeMipsCommandFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
+        }
+        else if (mFragmentToSwitchTo instanceof MachineCodeInputFragment) {
+            ((MachineCodeInputFragment) mFragmentToSwitchTo).generateAndSetNewQuestion();
+        }
 
     }
 
@@ -196,9 +204,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (mFragmentToSwitchTo instanceof MipsComputeCommandFragment) {
                     mCorrectAnswer = ((MipsComputeCommandFragment) mFragmentToSwitchTo).checkAnswer();
                 }
-//                else if (mFragmentToSwitchTo instanceof MIPSTypeCommand) {
-//                    mCorrectAnswer = ((MIPSTypeCommand) mFragmentToSwitchTo).checkAnswer();
-//                }
+                else if (mFragmentToSwitchTo instanceof TypeMipsCommandFragment) {
+                    mCorrectAnswer = ((TypeMipsCommandFragment) mFragmentToSwitchTo).checkAnswer();
+                }
+                else if (mFragmentToSwitchTo instanceof MachineCodeInputFragment) {
+                    mCorrectAnswer = ((MachineCodeInputFragment) mFragmentToSwitchTo).checkAnswer();
+                }
 
                 if (mCorrectAnswer) {
                     mNumOfCorrectAns++;

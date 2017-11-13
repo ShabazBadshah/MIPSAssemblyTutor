@@ -68,11 +68,11 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
         mDecimalNum = EngineUtils.generateRandomDecimalNumber(true, 8);
         mSecondBinaryString = EngineUtils.convertDecimalToBinary(mDecimalNum);
 
-        mFirstBinaryStringTv.setText("");
-        mSecondBinaryStringTv.setText("");
+        mFirstBinaryStringTv.setText(null);
+        mSecondBinaryStringTv.setText(null);
         mFirstBinaryStringTv.setText(mFirstBinaryString);
         mSecondBinaryStringTv.setText(mSecondBinaryString);
-        mAnswerField.setText("");
+        mAnswerField.setText(null);
 
         questionAnswer = EngineUtils.addBinaryStrings(mFirstBinaryString, mSecondBinaryString);
 
@@ -90,16 +90,16 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
 
         switch (v.getId()) {
             case R.id.zeroInputBtn:
-                mAnswerField.append("0");
+                mAnswerField.setText(mAnswerField.getText().insert(0, "0"));
                 break;
             case R.id.oneInputBtn:
-                mAnswerField.append("1");
+                mAnswerField.setText(mAnswerField.getText().insert(0, "1"));
                 break;
             case R.id.backspaceBtn:
                 String userAnswer = mAnswerField.getText().toString();
                 if (userAnswer.length() >= 1) {
-                    mAnswerField.setText("");
-                    userAnswer = userAnswer.substring(0, userAnswer.length() - 1);
+                    mAnswerField.setText(null);
+                    userAnswer = userAnswer.substring(1);
                     mAnswerField.setText(userAnswer);
                 }
                 break;

@@ -27,24 +27,20 @@ public class AddIImmediateCommand extends MipsImmediateCommand {
     }
 
     private void buildRegisterMachineInstruction() {
-        StringBuilder sb = new StringBuilder()
+        machineInstruction = new StringBuilder()
                 .append(FUNCTION_OPCODE)
                 .append(questionRegisters.get(0).getRegisterNumBinaryRep(5))
                 .append(questionRegisters.get(1).getRegisterNumBinaryRep(5))
-                .append(EngineUtils.leftPadBinaryString(16, String.valueOf(Integer.toBinaryString(IMMEDIATE_VALUE))));
-
-        // converts machine instruction into 4 segments with 8 bits per segment
-        machineInstruction = EngineUtils.segmentBinaryStringNPieces(8, sb.toString());
+                .append(EngineUtils.leftPadBinaryString(16, String.valueOf(
+                        Integer.toBinaryString(IMMEDIATE_VALUE))))
+                .toString();
     }
 
     private void buildInstruction() {
         String SPACE = " ";
         String COMMA = ", ";
 
-        QUESTION = new StringBuilder()
-                .append(questionRegisters.get(1).toString())
-                .append(".\n")
-                .append("Compute the following command\n")
+        COMMAND = new StringBuilder()
                 .append(FUNCTION_STRING)
                 .append(SPACE)
                 .append(questionRegisters.get(0).getRegisterName()) // The first register
@@ -52,6 +48,13 @@ public class AddIImmediateCommand extends MipsImmediateCommand {
                 .append(questionRegisters.get(1).getRegisterName()) // The second register
                 .append(COMMA)
                 .append(String.valueOf(IMMEDIATE_VALUE))
+                .toString();
+
+        QUESTION = new StringBuilder()
+                .append(questionRegisters.get(1).toString())
+                .append(".\n")
+                .append("Compute the following command\n")
+                .append(COMMAND)
                 .toString(); // The immediate value
     }
 }

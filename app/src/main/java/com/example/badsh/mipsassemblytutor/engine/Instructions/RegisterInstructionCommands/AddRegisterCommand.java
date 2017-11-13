@@ -28,28 +28,21 @@ public class AddRegisterCommand extends MipsCommand {
     }
 
     private void buildRegisterMachineInstruction() {
-        StringBuilder sb = new StringBuilder()
+        machineInstruction = new StringBuilder()
                 .append("000000")
                 .append(questionRegisters.get(0).getRegisterNumBinaryRep(5))
                 .append(questionRegisters.get(1).getRegisterNumBinaryRep(5))
                 .append(questionRegisters.get(2).getRegisterNumBinaryRep(5))
                 .append("00000")
-                .append(FUNCTION_OPCODE);
-
-        // converts machine instruction into 4 segments with 8 bits per segment
-        machineInstruction = EngineUtils.segmentBinaryStringNPieces(8, sb.toString());
+                .append(FUNCTION_OPCODE)
+                .toString();
     }
 
     private void buildInstruction() {
         String SPACE = " ";
         String COMMA = ", ";
 
-        QUESTION = new StringBuilder()
-                .append(questionRegisters.get(2).toString())
-                .append(SPACE)
-                .append(questionRegisters.get(1).toString())
-                .append(".\n")
-                .append(" Compute the following command\n")
+        COMMAND = new StringBuilder()
                 .append(FUNCTION_STRING)
                 .append(SPACE)
                 .append(questionRegisters.get(0).getRegisterName()) // The destination register
@@ -57,6 +50,15 @@ public class AddRegisterCommand extends MipsCommand {
                 .append(questionRegisters.get(1).getRegisterName()) // The first register
                 .append(COMMA)
                 .append(questionRegisters.get(2).getRegisterName()) // The second register
+                .toString();
+
+        QUESTION = new StringBuilder()
+                .append(questionRegisters.get(2).toString())
+                .append(SPACE)
+                .append(questionRegisters.get(1).toString())
+                .append(".\n")
+                .append(" Compute the following command\n")
+
                 .toString();
     }
 }

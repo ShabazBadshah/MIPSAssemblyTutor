@@ -4,6 +4,8 @@ import com.example.badsh.mipsassemblytutor.activities.QuizActivity;
 import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
+import com.example.badsh.mipsassemblytutor.fragments.MachineCodeInputFragment;
+import com.example.badsh.mipsassemblytutor.fragments.TypeMipsCommandFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MipsComputeCommandFragment;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
@@ -20,7 +22,8 @@ public class QuizGridItemDataProvider {
             "Convert Decimal to Binary",
             "Adding Binary",
             "Compute the MIPS Command",
-//            "Type the MIPS Command"
+            "Type the MIPS Command",
+            "Convert MIPS to Machine Code"
     };
 
     private static Class[] sAssociatedQuizActivity = {
@@ -28,7 +31,8 @@ public class QuizGridItemDataProvider {
             BinaryInputFragment.class,
             AddingBinaryFragment.class,
             MipsComputeCommandFragment.class,
-//            MIPSTypeCommand.class
+            TypeMipsCommandFragment.class,
+            MachineCodeInputFragment.class
     };
 
     private static String[] sQuizPrimaryColorsInHex = {
@@ -52,7 +56,7 @@ public class QuizGridItemDataProvider {
     };
 
     public static QuizGridItem[] initializeAndGetQuizzes() {
-        int amountQuizzes = sNameOfQuizCategories.length;
+        int amountQuizzes = sAssociatedQuizActivity.length;
         QuizGridItem[] quizGridItems = new QuizGridItem[amountQuizzes];
 
         for (int i = 0; i < amountQuizzes; i++) {
