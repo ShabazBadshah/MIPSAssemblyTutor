@@ -1,12 +1,13 @@
 package com.example.badsh.mipsassemblytutor.data_provider;
 
+import com.example.badsh.mipsassemblytutor.R;
 import com.example.badsh.mipsassemblytutor.activities.QuizActivity;
 import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MachineCodeInputFragment;
-import com.example.badsh.mipsassemblytutor.fragments.TypeMipsCommandFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MipsComputeCommandFragment;
+import com.example.badsh.mipsassemblytutor.fragments.TypeMipsCommandFragment;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 /**
@@ -22,8 +23,8 @@ public class QuizGridItemDataProvider {
             "Convert Decimal to Binary",
             "Adding Binary",
             "Compute the MIPS Command",
-            "Type the MIPS Command",
-            "Convert MIPS to Machine Code"
+            "Convert MIPS to Machine Code",
+            "Type the MIPS Command"
     };
 
     private static Class[] sAssociatedQuizActivity = {
@@ -31,8 +32,8 @@ public class QuizGridItemDataProvider {
             BinaryInputFragment.class,
             AddingBinaryFragment.class,
             MipsComputeCommandFragment.class,
-            TypeMipsCommandFragment.class,
-            MachineCodeInputFragment.class
+            MachineCodeInputFragment.class,
+            TypeMipsCommandFragment.class
     };
 
     private static String[] sQuizPrimaryColorsInHex = {
@@ -41,8 +42,7 @@ public class QuizGridItemDataProvider {
             "#cc6055",
             "#8e44ad",
             "#e67e22",
-            "#7f8c8d",
-            "#eff3f3"
+            "#7f8c8d"
     };
 
     private static String[] sQuizDarkPrimaryColorsInHex = {
@@ -52,7 +52,15 @@ public class QuizGridItemDataProvider {
             "#af7ac4",
             "#f5af41",
             "#95a5a6",
-            "#bdc3c7"
+    };
+
+    private static int[] sQuizImageIds = {
+            R.drawable.ic_dectobin,
+            R.drawable.ic_bintodec,
+            R.drawable.ic_action_name,
+            R.drawable.ic_compmips,
+            R.drawable.ic_mipstobin,
+            R.drawable.ic_bitop
     };
 
     public static QuizGridItem[] initializeAndGetQuizzes() {
@@ -64,6 +72,7 @@ public class QuizGridItemDataProvider {
             quizGridItemToBuild.setNameOfQuiz(sNameOfQuizCategories[i]);
             quizGridItemToBuild.setQuizPrimaryColor(sQuizPrimaryColorsInHex[i]);
             quizGridItemToBuild.setQuizDarkPrimaryColor(sQuizDarkPrimaryColorsInHex[i]);
+            quizGridItemToBuild.setQuizImage(sQuizImageIds[i]);
 
             quizGridItemToBuild.setQuizActivityToStart(sAssociatedQuizActivity[i]);
 

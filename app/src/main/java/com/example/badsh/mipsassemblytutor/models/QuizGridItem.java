@@ -18,6 +18,8 @@ public class QuizGridItem {
 
     private String mNameOfQuiz;
 
+    private int mQuizImageId;
+
     public QuizGridItem(Class quizActivityToStart) {
         this.mQuizActivityToStart = quizActivityToStart;
     }
@@ -44,6 +46,14 @@ public class QuizGridItem {
 
     public void setQuizDarkPrimaryColor(String darkColorToSet) {
         this.mQuizDarkPrimaryColor = Color.parseColor(darkColorToSet);
+    }
+
+    public void setQuizImage(int imageId) {
+        this.mQuizImageId = imageId;
+    }
+
+    public int getQuizImageId() {
+        return this.mQuizImageId;
     }
 
     public void setQuizActivityToStart (Class quizToStart) {

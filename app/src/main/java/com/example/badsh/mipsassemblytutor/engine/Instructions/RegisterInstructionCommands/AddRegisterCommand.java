@@ -58,7 +58,7 @@ public class AddRegisterCommand extends MipsCommand {
                 .append(questionRegisters.get(1).toString())
                 .append(".\n")
                 .append(" Compute the following command\n")
-
+                .append(COMMAND)
                 .toString();
     }
 }

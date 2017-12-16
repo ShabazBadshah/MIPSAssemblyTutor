@@ -10,12 +10,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.MainActivity;
 import com.example.badsh.mipsassemblytutor.R;
@@ -26,6 +26,9 @@ import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MachineCodeInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MipsComputeCommandFragment;
 import com.example.badsh.mipsassemblytutor.fragments.TypeMipsCommandFragment;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.example.badsh.mipsassemblytutor.R.id.quitQuiz;
 
@@ -189,6 +192,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        String status = "CORRECT!";
+        String answer = "";
         switch (v.getId()) {
             case R.id.quitQuiz:
                 onBackPressed();
@@ -197,29 +202,79 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 // Check ths user's answer
                 if (mFragmentToSwitchTo instanceof DecimalInputFragment) {
                     mCorrectAnswer = ((DecimalInputFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((DecimalInputFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 } else if (mFragmentToSwitchTo instanceof BinaryInputFragment) {
                     mCorrectAnswer = ((BinaryInputFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((BinaryInputFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 } else if (mFragmentToSwitchTo instanceof AddingBinaryFragment) {
                     mCorrectAnswer = ((AddingBinaryFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((AddingBinaryFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 } else if (mFragmentToSwitchTo instanceof MipsComputeCommandFragment) {
                     mCorrectAnswer = ((MipsComputeCommandFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((MipsComputeCommandFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 }
                 else if (mFragmentToSwitchTo instanceof TypeMipsCommandFragment) {
                     mCorrectAnswer = ((TypeMipsCommandFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((TypeMipsCommandFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 }
                 else if (mFragmentToSwitchTo instanceof MachineCodeInputFragment) {
                     mCorrectAnswer = ((MachineCodeInputFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((MachineCodeInputFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 }
 
+                TextView tv = new TextView(v.getContext());
+                tv.setTextColor(Color.BLACK);
                 if (mCorrectAnswer) {
+                    status = "CORRECT!\n";
+                    tv.setBackgroundColor(getResources().getColor(R.color.correct_answer_color));
                     mNumOfCorrectAns++;
                     mAmountHintsTv.setText(String.valueOf(mNumOfCorrectAns));
+                } else {
+                    tv.setBackgroundColor(getResources().getColor(R.color.incorrect_answer_color));
+                    status = "INCORRECT\n";
                 }
-                Toast.makeText(getApplicationContext(), String.valueOf(mCorrectAnswer), Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(getApplicationContext(), String.valueOf(mCorrectAnswer), Toast.LENGTH_SHORT).show();
                 incrementQuestionNumber();
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+                if (mCorrectAnswer == false) {
+                    String sb = new StringBuilder(status)
+                            .append("Correct Answer: \n")
+                            .append(answer + "\n")
+                            .toString();
+                            tv.setText(sb);
+                } else {
+                    tv.setText(status);
+                }
+
+                tv.setPadding(10, 50, 10, 30);
+                tv.setGravity(Gravity.CENTER);
+                tv.setTextSize(20);
+                builder.setView(tv);
+                builder.setCancelable(true);
+
+                // Null pointer if call dlg on quiz complete activity screen
+                if (mCurrentQuesNum <= mTotalAmountQues) {
+//                    pauseQuizTimer();
+                    final AlertDialog dlg = builder.create();
+                    dlg.show();
+
+                    final Timer t = new Timer();
+                    t.schedule(new TimerTask() {
+                        public void run() {
+                            dlg.dismiss(); // when the task active then close the dialog
+                            t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
+                        }
+                    }, 1500); // after 2 second (or 2000 miliseconds), the task will be active.
+                }
+
+//                resumeQuizTimer();
                 if (mCurrentQuesNum > mTotalAmountQues) finishGame();
-                else displayNewQuestion();
+                else {
+                    displayNewQuestion();
+                }
 
         }
     }
@@ -287,11 +342,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private void updateUserStats() {
         UserStatsDataProvider userStatsDataProvider = MainActivity.getUserStatsDataProvider();
 
-        userStatsDataProvider.updateUserStat("Highest Accuracy", String.format("%.2f", (float)mNumOfCorrectAns/(float)mTotalAmountQues));
+        userStatsDataProvider.updateUserStat("Highest Accuracy", String.format("%.2f", (float) mNumOfCorrectAns / (float) mTotalAmountQues));
         userStatsDataProvider.updateUserStat("Best Time", String.valueOf(totalElapsedTimeInSec));
         userStatsDataProvider.updateUserStat("Questions Answered", String.valueOf(mTotalAmountQues));
         userStatsDataProvider.updateUserStat("Quizzes Finished", String.valueOf(1));
     }
-
 }
 

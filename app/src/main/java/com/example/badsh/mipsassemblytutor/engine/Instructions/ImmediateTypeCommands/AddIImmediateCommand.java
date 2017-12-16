@@ -3,8 +3,11 @@ package com.example.badsh.mipsassemblytutor.engine.Instructions.ImmediateTypeCom
 import com.example.badsh.mipsassemblytutor.data_provider.QuizDataProvider;
 import com.example.badsh.mipsassemblytutor.models.MipsImmediateCommand;
 import com.example.badsh.mipsassemblytutor.engine.Utils.EngineUtils;
+import com.example.badsh.mipsassemblytutor.models.Register;
 
 public class AddIImmediateCommand extends MipsImmediateCommand {
+
+    private Register answerRegister;
 
     public AddIImmediateCommand() {
         FUNCTION_STRING = "addi";

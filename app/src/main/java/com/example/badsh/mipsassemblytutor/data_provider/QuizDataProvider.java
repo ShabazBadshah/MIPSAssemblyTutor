@@ -48,6 +48,13 @@ public class QuizDataProvider {
             new RegisterInstructionStrategy(new ShiftLeftLogicalRegisterCommand())
     };
 
+    private static final BaseInstruction[] mipsImmediateInstructions = {
+            new ImmediateInstructionStrategy(new AddIImmediateCommand()),
+            new ImmediateInstructionStrategy(new XorIImmediateCommand()),
+            new ImmediateInstructionStrategy(new AndIImmediateCommand()),
+            new ImmediateInstructionStrategy(new OrIImmediateCommand()),
+    };
+
     public static Map<String, Class> functionOpcodes = new HashMap<String, Class>(){{
         this.put("add", AddRegisterCommand.class);
         this.put("sll", ShiftLeftLogicalRegisterCommand.class);
@@ -59,6 +66,10 @@ public class QuizDataProvider {
         this.put("ori",  OrIImmediateCommand.class);
         this.put("xori", XorIImmediateCommand.class);
     }};
+
+    public static BaseInstruction getRandomImmediateCommand() {
+        return mipsImmediateInstructions[new Random().nextInt(mipsImmediateInstructions.length)];
+    }
 
     public static Register getRandomRegister() {
         int randValue = EngineUtils.generateRandomDecimalNumber(true);

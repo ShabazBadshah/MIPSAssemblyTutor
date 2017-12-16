@@ -10,4 +10,6 @@
     <color name="toolbarTextColor">#ffffff</color>
     <color name="practiceAllQuestionsBtnColor">#27ae60</color>
     <color name="finished_quiz_headings_color">#ffffff</color>
+    <color name="correct_answer_color">#0dff19</color>
+    <color name="incorrect_answer_color">#d41b12</color>
 </resources>

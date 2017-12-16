@@ -49,7 +49,11 @@ public class QuizSelectionRecyclerViewAdapter extends RecyclerView.Adapter<QuizS
         int quizPrimaryColor = currentQuizGridItem.getPrimaryColor();
         int quizDarkPrimaryColor = currentQuizGridItem.getDarkPrimaryColor();
 
+//        .setCompoundDrawablesWithIntrinsicBounds(R.drawable.ImageNameHere, 0, 0, 0);
+
         quizViewHolder.categoryTextView.setBackgroundColor(quizPrimaryColor);
+//        quizViewHolder.backgroundImageView.setBackgroundColor(quizDarkPrimaryColor);
+        quizViewHolder.backgroundImageView.setImageResource(currentQuizGridItem.getQuizImageId());
         quizViewHolder.backgroundImageView.setBackgroundColor(quizDarkPrimaryColor);
     }
 

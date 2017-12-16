@@ -13,11 +13,11 @@
         android:layout_height="0dp"
         android:layout_weight="0.70"
         android:adjustViewBounds="true"
-        android:background="@android:color/darker_gray"
+        android:cropToPadding="false"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_person_black_24dp"/>
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_action_name"/>
 
     <TextView
         android:id="@+id/homescreen_griditem_category_title"

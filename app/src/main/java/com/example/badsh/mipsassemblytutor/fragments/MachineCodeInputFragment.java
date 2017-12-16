@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.R;
 import com.example.badsh.mipsassemblytutor.data_provider.QuizDataProvider;
@@ -66,7 +65,7 @@ public class MachineCodeInputFragment extends Fragment implements View.OnClickLi
         mDecimalNumTv.setText(generatedQuestion.getCommandGeneratedInstruction());
         mAnswerField.setText(null);
 
-        Toast.makeText(getContext(), generatedQuestion.getCommandMachineInstruction(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), generatedQuestion.getCommandMachineInstruction(), Toast.LENGTH_LONG).show();
     }
 
     private void initClickListeners() {
@@ -80,16 +79,16 @@ public class MachineCodeInputFragment extends Fragment implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.zeroInputBtn:
-                mAnswerField.setText(mAnswerField.getText().insert(0, "0"));
+                mAnswerField.setText(mAnswerField.getText().append("0"));
                 break;
             case R.id.oneInputBtn:
-                mAnswerField.setText(mAnswerField.getText().insert(0, "1"));
+                mAnswerField.setText(mAnswerField.getText().append("1"));
                 break;
             case R.id.backspaceBtn:
                 String userAnswer = mAnswerField.getText().toString();
                 if (userAnswer.length() >= 1) {
                     mAnswerField.setText(null);
-                    userAnswer = userAnswer.substring(1);
+                    userAnswer = userAnswer.substring(0, userAnswer.length() - 1);
                     mAnswerField.setText(userAnswer);
                 }
                 break;
@@ -99,6 +98,10 @@ public class MachineCodeInputFragment extends Fragment implements View.OnClickLi
     public boolean checkAnswer() {
         String userAnswer = mAnswerField.getText().toString().trim();
         return userAnswer.equals(generatedQuestion.getCommandMachineInstruction().trim());
+    }
+
+    public String getQuestionAnswer() {
+        return generatedQuestion.getCommandMachineInstruction().trim();
     }
 
 }
