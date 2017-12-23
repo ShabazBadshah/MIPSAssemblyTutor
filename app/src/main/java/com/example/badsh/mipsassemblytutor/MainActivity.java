@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startQuizActivity(QuizGridItem quizGridItem) {
         Intent intentToStartQuiz = new Intent(getApplicationContext(), QUIZ_PLAY_ACTIVITY);
-        intentToStartQuiz.putExtra("questionMeta", quizGridItem);
+        intentToStartQuiz.putExtra("quizMeta", quizGridItem);
         getApplicationContext().startActivity(intentToStartQuiz);
     }
 }

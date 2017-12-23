@@ -1,6 +1,5 @@
 package com.example.badsh.mipsassemblytutor.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -29,6 +28,7 @@ import com.example.badsh.mipsassemblytutor.fragments.MipsComputeCommandFragment;
 import com.example.badsh.mipsassemblytutor.fragments.TypeMipsCommandFragment;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,7 +44,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private final int QUIZ_ACTIVITY_LAYOUT_ID = R.layout.activity_quiz_activity;
 
     private final Class QUIZ_COMPLETE_ACTIVITY = QuizCompleteActivity.class;
-    private String mAssociatedQuizActivity;
+
+    private  QuizGridItem quizMeta;
+    private final String PATH_TO_FRAGMENTS_PKG = "com.example.badsh.mipsassemblytutor.fragments.";
+    private String mAssociatedQuizActivity = "";
 
     private static FragmentManager sFragmentManager;
     private Fragment mFragmentToSwitchTo;
@@ -79,7 +82,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         sFragmentManager = getSupportFragmentManager();
 
         getQuizIntentData();
-        initQuizFragment();
+        try {
+            initQuizFragment();
+        } catch (Exception e) {
+        }
         initViews();
         setCountsAndColors();
         initClickListeners();
@@ -98,37 +104,45 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mTimeElapsedInQuizView = (Chronometer) findViewById(R.id.amountOfTimeElapsed);
     }
 
-    private void initQuizFragment() {
+    private void initQuizFragment() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 
-        if (mAssociatedQuizActivity.equals("BinaryInputFragment")) {
-            mFragmentToSwitchTo = new BinaryInputFragment();
-        }
-        else if (mAssociatedQuizActivity.equals(DecimalInputFragment.class)) {
-            mFragmentToSwitchTo = new DecimalInputFragment();
-        }
-        else if (mAssociatedQuizActivity.equals(AddingBinaryFragment.class)) {
-            mFragmentToSwitchTo = new AddingBinaryFragment();
-        }
-        else if (mAssociatedQuizActivity.equals(MipsComputeCommandFragment.class)) {
-            mFragmentToSwitchTo = new MipsComputeCommandFragment();
-        }
-        else if (mAssociatedQuizActivity.equals(TypeMipsCommandFragment.class)) {
-            mFragmentToSwitchTo = new TypeMipsCommandFragment();
-        }
-        else if (mAssociatedQuizActivity.equals(MachineCodeInputFragment.class)) {
-            mFragmentToSwitchTo = new MachineCodeInputFragment();
-        }
+        Log.v("meta", mQuizDarkPrimaryColor + ", " + mQuizPrimaryColor + ", " + mAssociatedQuizActivity);
 
+        mFragmentToSwitchTo = (Fragment) Class.forName(mAssociatedQuizActivity).newInstance();
+
+//        mFragmentToSwitchTo = (Fragment) Class.forName(mAssociatedQuizActivity).newInstance();
+//        Log.v("quizMeta", this.mFragmentToSwitchTo.toString());
+
+//        if (mAssociatedQuizActivity.equals("BinaryInputFragment")) {
+//            mFragmentToSwitchTo = new BinaryInputFragment();
+//        }
+//        else if (mAssociatedQuizActivity.equals(DecimalInputFragment.class)) {
+//            mFragmentToSwitchTo = new DecimalInputFragment();
+//        }
+//        else if (mAssociatedQuizActivity.equals(AddingBinaryFragment.class)) {
+//            mFragmentToSwitchTo = new AddingBinaryFragment();
+//        }
+//        else if (mAssociatedQuizActivity.equals(MipsComputeCommandFragment.class)) {
+//            mFragmentToSwitchTo = new MipsComputeCommandFragment();
+//        }
+//        else if (mAssociatedQuizActivity.equals(TypeMipsCommandFragment.class)) {
+//            mFragmentToSwitchTo = new TypeMipsCommandFragment();
+//        }
+//        else if (mAssociatedQuizActivity.equals(MachineCodeInputFragment.class)) {
+//            mFragmentToSwitchTo = new MachineCodeInputFragment();
+//        }
+//
         if (mAssociatedQuizActivity != null && mFragmentToSwitchTo != null) {
             sFragmentManager.beginTransaction()
                     .add(QUIZ_FRAGMENT_HOLDER, mFragmentToSwitchTo)
                     .commit();
-        } else {
-            Context goToHomeContext = getApplicationContext();
-            Intent goToHomeIntent = new Intent(goToHomeContext, MainActivity.class);
-            goToHomeContext.startActivity(goToHomeIntent);
-            finish();
         }
+        //else {
+//            Context goToHomeContext = getApplicationContext();
+//            Intent goToHomeIntent = new Intent(goToHomeContext, MainActivity.class);
+//            goToHomeContext.startActivity(goToHomeIntent);
+//            finish();
+//        }
     }
 
     private void displayNewQuestion() {
@@ -152,17 +166,17 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getQuizIntentData() {
-        Bundle quizMetaBundle = getIntent().getExtras();
-        QuizGridItem quizMeta  = quizMetaBundle.getParcelable("quizMeta");
-        Log.v("quizMeta", quizMeta.toString());
+        quizMeta  = this.getIntent().getExtras().getParcelable("quizMeta");
         mQuizDarkPrimaryColor = quizMeta.getDarkPrimaryColor();
         mQuizPrimaryColor = quizMeta.getPrimaryColor();
-        mAssociatedQuizActivity = quizMeta.getAssociatedQuizActivity();
+
+        // Need to provide absolute path to class in src dir to create a class instance
+        mAssociatedQuizActivity = mAssociatedQuizActivity.concat(PATH_TO_FRAGMENTS_PKG)
+                .concat(quizMeta.getAssociatedQuizActivity());
     }
 
     private void setCountsAndColors() {
         mConfirmAnswerBtn.setBackgroundColor(Color.parseColor(mQuizDarkPrimaryColor));
-
         mAmountHintsTv.setText(String.valueOf(mNumOfCorrectAns));
 
         String questionCountDisplayFormat = String.format("%d/%d", mCurrentQuesNum, mTotalAmountQues);

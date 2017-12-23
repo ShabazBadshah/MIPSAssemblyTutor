@@ -13,8 +13,8 @@ public class QuizGridItem implements Parcelable {
     private Context mActivityContext;
 
     private String mNameOfQuiz;
-    private String mQuizPrimaryColor;
-    private String mQuizDarkPrimaryColor;
+    private String mQuizPrimaryColorHex;
+    private String mQuizDarkPrimaryColorHex;
     private int mQuizIconImageId;
     private String mAssociatedQuizActivity;
 
@@ -22,43 +22,55 @@ public class QuizGridItem implements Parcelable {
                         String quizDarkPrimaryColorHex, int iconImageId, String activityToStart) {
         this.mActivityContext = activityContext;
         this.mNameOfQuiz = nameOfQuiz;
-        this.mQuizPrimaryColor = quizPrimaryColorHex;
-        this.mQuizDarkPrimaryColor = quizDarkPrimaryColorHex;
+        this.mQuizPrimaryColorHex = quizPrimaryColorHex;
+        this.mQuizDarkPrimaryColorHex = quizDarkPrimaryColorHex;
         this.mQuizIconImageId = iconImageId;
         this.mAssociatedQuizActivity = activityToStart;
     }
 
     public int getQuizImageId() { return this.mQuizIconImageId; }
     public String getPrimaryColor() {
-       return this.mQuizPrimaryColor;
+       return this.mQuizPrimaryColorHex;
     }
     public String getDarkPrimaryColor() {
-        return this.mQuizDarkPrimaryColor;
+        return this.mQuizDarkPrimaryColorHex;
     }
     public String getQuizName() {
        return this.mNameOfQuiz;
     }
-    public Context getActivityContext() { return this.mActivityContext; }
     public String getAssociatedQuizActivity() { return this.mAssociatedQuizActivity; }
-
-    protected QuizGridItem(Parcel in) {
-        mNameOfQuiz = in.readString();
-        mQuizPrimaryColor = in.readString();
-        mQuizDarkPrimaryColor = in.readString();
-        mQuizIconImageId = in.readInt();
-        mAssociatedQuizActivity = in.readString();
-    }
 
     @Override
     public String toString() {
         return "QuizGridItem{" +
                 "mActivityContext=" + mActivityContext +
                 ", mNameOfQuiz='" + mNameOfQuiz + '\'' +
-                ", mQuizPrimaryColor='" + mQuizPrimaryColor + '\'' +
-                ", mQuizDarkPrimaryColor='" + mQuizDarkPrimaryColor + '\'' +
+                ", mQuizPrimaryColorHex='" + mQuizPrimaryColorHex + '\'' +
+                ", mQuizDarkPrimaryColorHex='" + mQuizDarkPrimaryColorHex + '\'' +
                 ", mQuizIconImageId=" + mQuizIconImageId +
                 ", mAssociatedQuizActivity='" + mAssociatedQuizActivity + '\'' +
                 '}';
+    }
+
+
+    // Parcables boilerplate, allows easier and more performance efficient transfer and use of objects between
+    // activitieas (http://www.vogella.com/tutorials/AndroidParcelable/article.html)
+
+    protected QuizGridItem(Parcel in) {
+        mNameOfQuiz = in.readString();
+        mQuizPrimaryColorHex = in.readString();
+        mQuizDarkPrimaryColorHex = in.readString();
+        mQuizIconImageId = in.readInt();
+        mAssociatedQuizActivity = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mNameOfQuiz);
+        dest.writeString(mQuizPrimaryColorHex);
+        dest.writeString(mQuizDarkPrimaryColorHex);
+        dest.writeInt(mQuizIconImageId);
+        dest.writeString(mAssociatedQuizActivity);
     }
 
     public static final Creator<QuizGridItem> CREATOR = new Creator<QuizGridItem>() {
@@ -76,14 +88,5 @@ public class QuizGridItem implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mNameOfQuiz);
-        dest.writeString(mQuizPrimaryColor);
-        dest.writeString(mQuizDarkPrimaryColor);
-        dest.writeInt(mQuizIconImageId);
-        dest.writeString(mAssociatedQuizActivity);
     }
 }

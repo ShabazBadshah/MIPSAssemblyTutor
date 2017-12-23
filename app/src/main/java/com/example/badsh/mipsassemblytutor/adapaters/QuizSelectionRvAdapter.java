@@ -77,6 +77,8 @@ public class QuizSelectionRvAdapter extends RecyclerView.Adapter<QuizSelectionRv
             QuizGridItem quizGridItem = mListOfQuizCategories[getAdapterPosition()];
             Intent intentToStartQuiz = new Intent(mParentContext, QUIZ_PLAY_ACTIVITY);
             intentToStartQuiz.putExtra("quizMeta", quizGridItem);
+            mParentContext.startActivity(intentToStartQuiz);
+
         }
     }
 }
