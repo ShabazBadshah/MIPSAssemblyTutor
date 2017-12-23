@@ -46,11 +46,11 @@ public class ShiftLeftLogicalRegisterCommand extends MipsCommand {
         COMMAND = new StringBuilder()
                 .append(FUNCTION_STRING)
                 .append(SPACE)
-                .append(questionRegisters.get(0).getRegisterName()) // The first register
+                .append(questionRegisters.get(0).getCompleteRegisterName()) // The first register
                 .append(COMMA)
-                .append(questionRegisters.get(1).getRegisterName()) // The second register
+                .append(questionRegisters.get(1).getCompleteRegisterName()) // The second register
                 .append(COMMA)
-                .append(questionRegisters.get(2).getRegisterName()) // The third register
+                .append(questionRegisters.get(2).getCompleteRegisterName()) // The third register
                 .toString();
 
         QUESTION = new StringBuilder()

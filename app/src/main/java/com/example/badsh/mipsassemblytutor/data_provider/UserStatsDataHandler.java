@@ -9,13 +9,13 @@ import java.util.HashMap;
  * Created by Shabaz Badshah on 10/14/2017.
  */
 
-public class UserStatsDataProvider {
+public class UserStatsDataHandler {
 
     private static HashMap<String, String> sUserStats = new HashMap<>();
-    private static Context mContext;
+    private static Context sCurrActivityContext;
 
-    public UserStatsDataProvider(Context context) {
-        mContext = context;
+    public UserStatsDataHandler(Context context) {
+        sCurrActivityContext = context;
 
         boolean loadedData = loadUserStats();
 
@@ -58,7 +58,7 @@ public class UserStatsDataProvider {
     }
 
     private static void saveUserData() {
-        SharedPreferences keyValues = mContext.getSharedPreferences("SavedUserStats", Context.MODE_PRIVATE);
+        SharedPreferences keyValues = sCurrActivityContext.getSharedPreferences("SavedUserStats", Context.MODE_PRIVATE);
         if (keyValues == null) return;
         SharedPreferences.Editor keyValuesEditor = keyValues.edit();
 
@@ -69,7 +69,7 @@ public class UserStatsDataProvider {
     }
 
     public static boolean loadUserStats() {
-        SharedPreferences pref = mContext.getSharedPreferences("SavedUserStats", Context.MODE_PRIVATE);
+        SharedPreferences pref = sCurrActivityContext.getSharedPreferences("SavedUserStats", Context.MODE_PRIVATE);
         if (pref == null) return false;
         if (sUserStats.size() == 0) return false;
         sUserStats = (HashMap<String, String>) pref.getAll();

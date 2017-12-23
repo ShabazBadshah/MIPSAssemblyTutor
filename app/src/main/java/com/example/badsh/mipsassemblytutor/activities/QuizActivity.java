@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -19,13 +20,14 @@ import android.widget.TextView;
 
 import com.example.badsh.mipsassemblytutor.MainActivity;
 import com.example.badsh.mipsassemblytutor.R;
-import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataProvider;
+import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataHandler;
 import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MachineCodeInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MipsComputeCommandFragment;
 import com.example.badsh.mipsassemblytutor.fragments.TypeMipsCommandFragment;
+import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,12 +40,13 @@ import static com.example.badsh.mipsassemblytutor.R.id.quitQuiz;
 
 public class QuizActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final int QUIZ_VIEW_HOLDER_ID = R.id.question_container;
-    private final int QUIZ_ACTIVITY_LAYOUT = R.layout.activity_quiz_activity;
-    private final Class NEXT_ACTIVITY_TO_START = QuizCompleteActivity.class;
-    private Class mAssociatedQuizActivity;
+    private final int QUIZ_FRAGMENT_HOLDER = R.id.question_container;
+    private final int QUIZ_ACTIVITY_LAYOUT_ID = R.layout.activity_quiz_activity;
 
-    private FragmentManager mFragmentManager;
+    private final Class QUIZ_COMPLETE_ACTIVITY = QuizCompleteActivity.class;
+    private String mAssociatedQuizActivity;
+
+    private static FragmentManager sFragmentManager;
     private Fragment mFragmentToSwitchTo;
 
     private Intent mQuizCompleteActivityIntent;
@@ -59,7 +62,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private Button mConfirmAnswerBtn;
 
     private long mTimeWhenStopped = 0;
-    //private int mAmountHintsLeft = 2;
     private int mCurrentQuesNum = 1;
     private int mTotalAmountQues = 5;
     private int mNumOfCorrectAns = 0;
@@ -72,9 +74,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(QUIZ_ACTIVITY_LAYOUT);
+        setContentView(QUIZ_ACTIVITY_LAYOUT_ID);
 
-        mFragmentManager = getSupportFragmentManager();
+        sFragmentManager = getSupportFragmentManager();
 
         getQuizIntentData();
         initQuizFragment();
@@ -98,7 +100,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initQuizFragment() {
 
-        if (mAssociatedQuizActivity.equals(BinaryInputFragment.class)) {
+        if (mAssociatedQuizActivity.equals("BinaryInputFragment")) {
             mFragmentToSwitchTo = new BinaryInputFragment();
         }
         else if (mAssociatedQuizActivity.equals(DecimalInputFragment.class)) {
@@ -118,8 +120,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (mAssociatedQuizActivity != null && mFragmentToSwitchTo != null) {
-            mFragmentManager.beginTransaction()
-                    .add(QUIZ_VIEW_HOLDER_ID, mFragmentToSwitchTo)
+            sFragmentManager.beginTransaction()
+                    .add(QUIZ_FRAGMENT_HOLDER, mFragmentToSwitchTo)
                     .commit();
         } else {
             Context goToHomeContext = getApplicationContext();
@@ -150,10 +152,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getQuizIntentData() {
-        mQuizDarkPrimaryColor = this.getIntent().getExtras().get("mQuizDarkPrimaryColor").toString();
-        mQuizPrimaryColor = this.getIntent().getExtras().get("mQuizPrimaryColor").toString();
-
-        mAssociatedQuizActivity = (Class) this.getIntent().getExtras().get("mAssociatedQuizActivity");
+        Bundle quizMetaBundle = getIntent().getExtras();
+        QuizGridItem quizMeta  = quizMetaBundle.getParcelable("quizMeta");
+        Log.v("quizMeta", quizMeta.toString());
+        mQuizDarkPrimaryColor = quizMeta.getDarkPrimaryColor();
+        mQuizPrimaryColor = quizMeta.getPrimaryColor();
+        mAssociatedQuizActivity = quizMeta.getAssociatedQuizActivity();
     }
 
     private void setCountsAndColors() {
@@ -168,7 +172,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private void initClickListeners() {
         mQuitQuizIv.setOnClickListener(this);
         mAmountHintsTv.setOnClickListener(this);
-
         mConfirmAnswerBtn.setOnClickListener(this);
     }
 
@@ -320,7 +323,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void sendGameDataViaIntent() {
-        mQuizCompleteActivityIntent = new Intent(this, NEXT_ACTIVITY_TO_START);
+        mQuizCompleteActivityIntent = new Intent(this, QUIZ_COMPLETE_ACTIVITY);
 
         String userScoreFormat = String.format("%d/%d", mNumOfCorrectAns, mTotalAmountQues);
         mQuizCompleteActivityIntent.putExtra("userScore", userScoreFormat);
@@ -340,12 +343,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateUserStats() {
-        UserStatsDataProvider userStatsDataProvider = MainActivity.getUserStatsDataProvider();
+        UserStatsDataHandler userStatsDataHandler = MainActivity.getUserStatsDataProvider();
 
-        userStatsDataProvider.updateUserStat("Highest Accuracy", String.format("%.2f", (float) mNumOfCorrectAns / (float) mTotalAmountQues));
-        userStatsDataProvider.updateUserStat("Best Time", String.valueOf(totalElapsedTimeInSec));
-        userStatsDataProvider.updateUserStat("Questions Answered", String.valueOf(mTotalAmountQues));
-        userStatsDataProvider.updateUserStat("Quizzes Finished", String.valueOf(1));
+        userStatsDataHandler.updateUserStat("Highest Accuracy", String.format("%.2f", (float) mNumOfCorrectAns / (float) mTotalAmountQues));
+        userStatsDataHandler.updateUserStat("Best Time", String.valueOf(totalElapsedTimeInSec));
+        userStatsDataHandler.updateUserStat("Questions Answered", String.valueOf(mTotalAmountQues));
+        userStatsDataHandler.updateUserStat("Quizzes Finished", String.valueOf(1));
     }
 }
 

@@ -45,11 +45,11 @@ public class AddRegisterCommand extends MipsCommand {
         COMMAND = new StringBuilder()
                 .append(FUNCTION_STRING)
                 .append(SPACE)
-                .append(questionRegisters.get(0).getRegisterName()) // The destination register
+                .append(questionRegisters.get(0).getCompleteRegisterName()) // The destination register
                 .append(COMMA)
-                .append(questionRegisters.get(1).getRegisterName()) // The first register
+                .append(questionRegisters.get(1).getCompleteRegisterName()) // The first register
                 .append(COMMA)
-                .append(questionRegisters.get(2).getRegisterName()) // The second register
+                .append(questionRegisters.get(2).getCompleteRegisterName()) // The second register
                 .toString();
 
         QUESTION = new StringBuilder()

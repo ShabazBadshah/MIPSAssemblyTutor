@@ -1,6 +1,8 @@
 package com.example.badsh.mipsassemblytutor.adapaters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,19 +12,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.badsh.mipsassemblytutor.R;
+import com.example.badsh.mipsassemblytutor.activities.QuizActivity;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 /**
  * Created by Shabaz Badshah on 9/16/2017.
  */
 
-public class QuizSelectionRecyclerViewAdapter extends RecyclerView.Adapter<QuizSelectionRecyclerViewAdapter.QuizCategoryViewHolder> {
+public class QuizSelectionRvAdapter extends RecyclerView.Adapter<QuizSelectionRvAdapter.QuizCategoryViewHolder> {
 
     private QuizGridItem[] mListOfQuizCategories;
     private LayoutInflater mLayoutInflator;
     private Context mParentContext;
+    private static final Class QUIZ_PLAY_ACTIVITY = QuizActivity.class;
 
-    public QuizSelectionRecyclerViewAdapter(Context parentContext, QuizGridItem[] listOfQuizzesToAdd) {
+    public QuizSelectionRvAdapter(Context parentContext, QuizGridItem[] listOfQuizzesToAdd) {
         this.mLayoutInflator = LayoutInflater.from(parentContext);
         this.mListOfQuizCategories = listOfQuizzesToAdd;
         this.mParentContext = parentContext;
@@ -43,18 +47,11 @@ public class QuizSelectionRecyclerViewAdapter extends RecyclerView.Adapter<QuizS
     public void onBindViewHolder(QuizCategoryViewHolder quizViewHolder, int position) {
         QuizGridItem currentQuizGridItem = mListOfQuizCategories[position];
 
-        String mNameOfQuiz = currentQuizGridItem.getNameOfQuiz();
-        quizViewHolder.categoryTextView.setText(mNameOfQuiz);
+        quizViewHolder.categoryTextView.setText(currentQuizGridItem.getQuizName());
 
-        int quizPrimaryColor = currentQuizGridItem.getPrimaryColor();
-        int quizDarkPrimaryColor = currentQuizGridItem.getDarkPrimaryColor();
-
-//        .setCompoundDrawablesWithIntrinsicBounds(R.drawable.ImageNameHere, 0, 0, 0);
-
-        quizViewHolder.categoryTextView.setBackgroundColor(quizPrimaryColor);
-//        quizViewHolder.backgroundImageView.setBackgroundColor(quizDarkPrimaryColor);
+        quizViewHolder.categoryTextView.setBackgroundColor(Color.parseColor(currentQuizGridItem.getPrimaryColor()));
+        quizViewHolder.backgroundImageView.setBackgroundColor(Color.parseColor(currentQuizGridItem.getDarkPrimaryColor()));
         quizViewHolder.backgroundImageView.setImageResource(currentQuizGridItem.getQuizImageId());
-        quizViewHolder.backgroundImageView.setBackgroundColor(quizDarkPrimaryColor);
     }
 
     @Override
@@ -77,10 +74,9 @@ public class QuizSelectionRecyclerViewAdapter extends RecyclerView.Adapter<QuizS
 
         @Override
         public void onClick(View view) {
-            QuizGridItem gridQuizItemClickedOn = mListOfQuizCategories[getAdapterPosition()];
-            gridQuizItemClickedOn.startQuizActivity();
+            QuizGridItem quizGridItem = mListOfQuizCategories[getAdapterPosition()];
+            Intent intentToStartQuiz = new Intent(mParentContext, QUIZ_PLAY_ACTIVITY);
+            intentToStartQuiz.putExtra("quizMeta", quizGridItem);
         }
     }
-
-
 }

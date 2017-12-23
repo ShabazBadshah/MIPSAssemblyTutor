@@ -1,84 +1,89 @@
 package com.example.badsh.mipsassemblytutor.models;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Shabaz Badshah on 9/16/2017.
  */
 
-public class QuizGridItem {
-    private Context mParentActivityContext;
-    private Class mQuizActivityToStart;
-    private Class mAssociatedQuizActivity;
+public class QuizGridItem implements Parcelable {
 
-    private int mQuizPrimaryColor;
-    private int mQuizDarkPrimaryColor;
+    private Context mActivityContext;
 
     private String mNameOfQuiz;
+    private String mQuizPrimaryColor;
+    private String mQuizDarkPrimaryColor;
+    private int mQuizIconImageId;
+    private String mAssociatedQuizActivity;
 
-    private int mQuizImageId;
-
-    public QuizGridItem(Class quizActivityToStart) {
-        this.mQuizActivityToStart = quizActivityToStart;
+    public QuizGridItem(Context activityContext, String nameOfQuiz, String quizPrimaryColorHex,
+                        String quizDarkPrimaryColorHex, int iconImageId, String activityToStart) {
+        this.mActivityContext = activityContext;
+        this.mNameOfQuiz = nameOfQuiz;
+        this.mQuizPrimaryColor = quizPrimaryColorHex;
+        this.mQuizDarkPrimaryColor = quizDarkPrimaryColorHex;
+        this.mQuizIconImageId = iconImageId;
+        this.mAssociatedQuizActivity = activityToStart;
     }
 
-    public void startQuizActivity() {
-        Intent intentToStartQuiz = new Intent(mParentActivityContext, mQuizActivityToStart);
-        // https://stackoverflow.com/questions/6539879/how-to-convert-a-color-integer-to-a-hex-string-in-android
-        String quizPrimaryColor = String.format("#%06X", (0xFFFFFF & mQuizPrimaryColor));
-        String quizDarkPrimaryColor = String.format("#%06X", (0xFFFFFF & mQuizPrimaryColor));
-
-        intentToStartQuiz.putExtra("mQuizPrimaryColor", quizPrimaryColor);
-        intentToStartQuiz.putExtra("mQuizDarkPrimaryColor", quizDarkPrimaryColor);
-        intentToStartQuiz.putExtra("mAssociatedQuizActivity", mAssociatedQuizActivity);
-        mParentActivityContext.startActivity(intentToStartQuiz);
-    }
-
-    public void setContext(Context parentActivityContext) {
-       this.mParentActivityContext = parentActivityContext;
-    }
-
-    public void setQuizPrimaryColor(String colorToSet) {
-       this.mQuizPrimaryColor = Color.parseColor(colorToSet);
-    }
-
-    public void setQuizDarkPrimaryColor(String darkColorToSet) {
-        this.mQuizDarkPrimaryColor = Color.parseColor(darkColorToSet);
-    }
-
-    public void setQuizImage(int imageId) {
-        this.mQuizImageId = imageId;
-    }
-
-    public int getQuizImageId() {
-        return this.mQuizImageId;
-    }
-
-    public void setQuizActivityToStart (Class quizToStart) {
-        this.mAssociatedQuizActivity = quizToStart;
-    }
-
-    public Class getQuizAssociatedQuizActivity() { return this.mAssociatedQuizActivity; }
-
-    public void setNameOfQuiz(String nameToSet) {
-       this.mNameOfQuiz = nameToSet;
-    }
-
-    public int getPrimaryColor() {
+    public int getQuizImageId() { return this.mQuizIconImageId; }
+    public String getPrimaryColor() {
        return this.mQuizPrimaryColor;
     }
-
-    public int getDarkPrimaryColor() {
+    public String getDarkPrimaryColor() {
         return this.mQuizDarkPrimaryColor;
     }
-
-    public String getNameOfQuiz() {
+    public String getQuizName() {
        return this.mNameOfQuiz;
     }
+    public Context getActivityContext() { return this.mActivityContext; }
+    public String getAssociatedQuizActivity() { return this.mAssociatedQuizActivity; }
 
+    protected QuizGridItem(Parcel in) {
+        mNameOfQuiz = in.readString();
+        mQuizPrimaryColor = in.readString();
+        mQuizDarkPrimaryColor = in.readString();
+        mQuizIconImageId = in.readInt();
+        mAssociatedQuizActivity = in.readString();
+    }
+
+    @Override
     public String toString() {
-        return "Clicked on: " + mNameOfQuiz;
+        return "QuizGridItem{" +
+                "mActivityContext=" + mActivityContext +
+                ", mNameOfQuiz='" + mNameOfQuiz + '\'' +
+                ", mQuizPrimaryColor='" + mQuizPrimaryColor + '\'' +
+                ", mQuizDarkPrimaryColor='" + mQuizDarkPrimaryColor + '\'' +
+                ", mQuizIconImageId=" + mQuizIconImageId +
+                ", mAssociatedQuizActivity='" + mAssociatedQuizActivity + '\'' +
+                '}';
+    }
+
+    public static final Creator<QuizGridItem> CREATOR = new Creator<QuizGridItem>() {
+        @Override
+        public QuizGridItem createFromParcel(Parcel in) {
+            return new QuizGridItem(in);
+        }
+
+        @Override
+        public QuizGridItem[] newArray(int size) {
+            return new QuizGridItem[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mNameOfQuiz);
+        dest.writeString(mQuizPrimaryColor);
+        dest.writeString(mQuizDarkPrimaryColor);
+        dest.writeInt(mQuizIconImageId);
+        dest.writeString(mAssociatedQuizActivity);
     }
 }

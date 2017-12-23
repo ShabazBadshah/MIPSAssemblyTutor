@@ -1,13 +1,8 @@
 package com.example.badsh.mipsassemblytutor.data_provider;
 
+import android.content.Context;
+
 import com.example.badsh.mipsassemblytutor.R;
-import com.example.badsh.mipsassemblytutor.activities.QuizActivity;
-import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
-import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
-import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
-import com.example.badsh.mipsassemblytutor.fragments.MachineCodeInputFragment;
-import com.example.badsh.mipsassemblytutor.fragments.MipsComputeCommandFragment;
-import com.example.badsh.mipsassemblytutor.fragments.TypeMipsCommandFragment;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 /**
@@ -16,9 +11,7 @@ import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 public class QuizGridItemDataProvider {
 
-    private static final Class ACTIVITY_TO_LAUNCH = QuizActivity.class;
-
-    private static String[] sNameOfQuizCategories = {
+    private static final String[] QUIZ_MODULE_NAMES = {
             "Convert Binary to Decimal",
             "Convert Decimal to Binary",
             "Adding Binary",
@@ -27,16 +20,16 @@ public class QuizGridItemDataProvider {
             "Type the MIPS Command"
     };
 
-    private static Class[] sAssociatedQuizActivity = {
-            DecimalInputFragment.class,
-            BinaryInputFragment.class,
-            AddingBinaryFragment.class,
-            MipsComputeCommandFragment.class,
-            MachineCodeInputFragment.class,
-            TypeMipsCommandFragment.class
+    private static final String[] QUIZ_MODULE_ACTIVITIES = {
+            "DecimalInputFragment",
+            "BinaryInputFragment",
+            "AddingBinaryFragment",
+            "MipsComputeCommandFragment",
+            "MachineCodeInputFragment",
+            "TypeMipsCommandFragment"
     };
 
-    private static String[] sQuizPrimaryColorsInHex = {
+    private static final String[] QUIZ_PRIMARY_COLORS_IN_HEX = {
             "#5399c6",
             "#27ae60",
             "#cc6055",
@@ -45,7 +38,7 @@ public class QuizGridItemDataProvider {
             "#7f8c8d"
     };
 
-    private static String[] sQuizDarkPrimaryColorsInHex = {
+    private static final String[] QUIZ_DARK_PRIMARY_COLORS_IN_HEX = {
             "#5cace2",
             "#57d68d",
             "#ea6f63",
@@ -54,7 +47,7 @@ public class QuizGridItemDataProvider {
             "#95a5a6",
     };
 
-    private static int[] sQuizImageIds = {
+    private static final int[] QUIZ_MODULE_GRID_ICONS = {
             R.drawable.ic_dectobin,
             R.drawable.ic_bintodec,
             R.drawable.ic_action_name,
@@ -63,18 +56,18 @@ public class QuizGridItemDataProvider {
             R.drawable.ic_bitop
     };
 
-    public static QuizGridItem[] initializeAndGetQuizzes() {
-        int amountQuizzes = sAssociatedQuizActivity.length;
+    public static QuizGridItem[] initializeQuizData(Context mParentActivityContext) {
+        int amountQuizzes = QUIZ_MODULE_ACTIVITIES.length;
         QuizGridItem[] quizGridItems = new QuizGridItem[amountQuizzes];
 
         for (int i = 0; i < amountQuizzes; i++) {
-            QuizGridItem quizGridItemToBuild = new QuizGridItem(ACTIVITY_TO_LAUNCH);
-            quizGridItemToBuild.setNameOfQuiz(sNameOfQuizCategories[i]);
-            quizGridItemToBuild.setQuizPrimaryColor(sQuizPrimaryColorsInHex[i]);
-            quizGridItemToBuild.setQuizDarkPrimaryColor(sQuizDarkPrimaryColorsInHex[i]);
-            quizGridItemToBuild.setQuizImage(sQuizImageIds[i]);
-
-            quizGridItemToBuild.setQuizActivityToStart(sAssociatedQuizActivity[i]);
+            QuizGridItem quizGridItemToBuild = new QuizGridItem(
+                    mParentActivityContext,
+                    QUIZ_MODULE_NAMES[i],
+                    QUIZ_PRIMARY_COLORS_IN_HEX[i],
+                    QUIZ_DARK_PRIMARY_COLORS_IN_HEX[i],
+                    QUIZ_MODULE_GRID_ICONS[i],
+                    QUIZ_MODULE_ACTIVITIES[i]);
 
             quizGridItems[i] = quizGridItemToBuild;
         }

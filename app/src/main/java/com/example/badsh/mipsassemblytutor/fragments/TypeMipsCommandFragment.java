@@ -104,8 +104,8 @@ public class TypeMipsCommandFragment extends Fragment implements View.OnClickLis
         ArrayList<Register> registers = generatedQuestion.getCommandRegisters();
         Register answerRegister = registers.get(registers.size() - 1);
 
-        String question = "Use the following words to create a command that has the following answer where\n" + "Final register: " + answerRegister.getRegisterName() + "=" + answerRegister.getStoredValue() + " and\n" +
-                "Immediate register: " + registers.get(0).getRegisterName() + "=" + registers.get(0).getStoredValue();
+        String question = "Use the following words to create a command that has the following answer where\n" + "Final register: " + answerRegister.getCompleteRegisterName() + "=" + answerRegister.getStoredValue() + " and\n" +
+                "Immediate register: " + registers.get(0).getCompleteRegisterName() + "=" + registers.get(0).getStoredValue();
         questionField.setText(question);
 
         Toast.makeText(getContext(), generatedQuestion.getCommandGeneratedInstruction(), Toast.LENGTH_SHORT).show();

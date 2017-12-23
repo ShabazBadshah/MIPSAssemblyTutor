@@ -46,9 +46,9 @@ public class AddIImmediateCommand extends MipsImmediateCommand {
         COMMAND = new StringBuilder()
                 .append(FUNCTION_STRING)
                 .append(SPACE)
-                .append(questionRegisters.get(0).getRegisterName()) // The first register
+                .append(questionRegisters.get(0).getCompleteRegisterName()) // The first register
                 .append(COMMA)
-                .append(questionRegisters.get(1).getRegisterName()) // The second register
+                .append(questionRegisters.get(1).getCompleteRegisterName()) // The second register
                 .append(COMMA)
                 .append(String.valueOf(IMMEDIATE_VALUE))
                 .toString();
