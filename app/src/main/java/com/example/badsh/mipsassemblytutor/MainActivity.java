@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView(QuizGridItem[] quizModulesData) {
         RecyclerView mQuizGridRv = (RecyclerView) findViewById(R.id.generic_recyclerview);
 
-        mQuizGridRv.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        mQuizGridRv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mQuizGridRv.setHasFixedSize(true); //An optimization for datasets that don't change often
 
         QuizSelectionRvAdapter quizSelectionRvAdapter =

@@ -2,7 +2,6 @@ package com.example.badsh.mipsassemblytutor.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,9 @@ import android.widget.TextView;
 
 import com.example.badsh.mipsassemblytutor.R;
 import com.example.badsh.mipsassemblytutor.engine.Utils.EngineUtils;
+import com.example.badsh.mipsassemblytutor.interfaces.QuizPlayModule;
 
-public class AddingBinaryFragment extends Fragment implements View.OnClickListener {
+public class AddingBinaryFragment extends QuizPlayModule implements View.OnClickListener {
 
     private View mQuizView;
 
@@ -47,7 +47,7 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
         return mQuizView;
     }
 
-    private void initViews() {
+    protected void initViews() {
         mFirstBinaryStringTv = (TextView) mQuizView.findViewById(R.id.userCommandTv);
         mSecondBinaryStringTv = (TextView) mQuizView.findViewById(R.id.randGeneratedNumTwo);
 
@@ -78,7 +78,7 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
 //        Toast.makeText(getContext(), questionAnswer, Toast.LENGTH_SHORT).show();
     }
 
-    private void initClickListeners() {
+    protected void initClickListeners() {
         mZeroBtn.setOnClickListener(this);
         mOneBtn.setOnClickListener(this);
         mBackspaceBtn.setOnClickListener(this);

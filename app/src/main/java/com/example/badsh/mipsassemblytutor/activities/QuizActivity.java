@@ -1,5 +1,6 @@
 package com.example.badsh.mipsassemblytutor.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -110,39 +111,17 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         mFragmentToSwitchTo = (Fragment) Class.forName(mAssociatedQuizActivity).newInstance();
 
-//        mFragmentToSwitchTo = (Fragment) Class.forName(mAssociatedQuizActivity).newInstance();
-//        Log.v("quizMeta", this.mFragmentToSwitchTo.toString());
-
-//        if (mAssociatedQuizActivity.equals("BinaryInputFragment")) {
-//            mFragmentToSwitchTo = new BinaryInputFragment();
-//        }
-//        else if (mAssociatedQuizActivity.equals(DecimalInputFragment.class)) {
-//            mFragmentToSwitchTo = new DecimalInputFragment();
-//        }
-//        else if (mAssociatedQuizActivity.equals(AddingBinaryFragment.class)) {
-//            mFragmentToSwitchTo = new AddingBinaryFragment();
-//        }
-//        else if (mAssociatedQuizActivity.equals(MipsComputeCommandFragment.class)) {
-//            mFragmentToSwitchTo = new MipsComputeCommandFragment();
-//        }
-//        else if (mAssociatedQuizActivity.equals(TypeMipsCommandFragment.class)) {
-//            mFragmentToSwitchTo = new TypeMipsCommandFragment();
-//        }
-//        else if (mAssociatedQuizActivity.equals(MachineCodeInputFragment.class)) {
-//            mFragmentToSwitchTo = new MachineCodeInputFragment();
-//        }
-//
         if (mAssociatedQuizActivity != null && mFragmentToSwitchTo != null) {
             sFragmentManager.beginTransaction()
                     .add(QUIZ_FRAGMENT_HOLDER, mFragmentToSwitchTo)
                     .commit();
         }
-        //else {
-//            Context goToHomeContext = getApplicationContext();
-//            Intent goToHomeIntent = new Intent(goToHomeContext, MainActivity.class);
-//            goToHomeContext.startActivity(goToHomeIntent);
-//            finish();
-//        }
+        else {
+            Context goToHomeContext = getApplicationContext();
+            Intent goToHomeIntent = new Intent(goToHomeContext, MainActivity.class);
+            goToHomeContext.startActivity(goToHomeIntent);
+            finish();
+        }
     }
 
     private void displayNewQuestion() {
