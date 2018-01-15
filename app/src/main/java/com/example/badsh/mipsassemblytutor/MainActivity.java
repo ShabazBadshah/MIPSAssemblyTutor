@@ -12,7 +12,7 @@ import android.widget.Button;
 import com.example.badsh.mipsassemblytutor.activities.QuizActivity;
 import com.example.badsh.mipsassemblytutor.activities.UserStatsActivity;
 import com.example.badsh.mipsassemblytutor.adapaters.QuizSelectionRvAdapter;
-import com.example.badsh.mipsassemblytutor.data_provider.QuizGridItemDataProvider;
+import com.example.badsh.mipsassemblytutor.data_provider.QuizMenuItemDataProvider;
 import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataHandler;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 import com.example.badsh.mipsassemblytutor.views.QuizGridItemDivider;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(MAIN_ACTIVITY_LAYOUT_ID);
 
         mUserStatsDataProvider = new UserStatsDataHandler(getApplicationContext());
-        final QuizGridItem[] quizModulesData = QuizGridItemDataProvider.initializeQuizData(getApplicationContext());
+        final QuizGridItem[] quizModulesData = QuizMenuItemDataProvider.initializeQuizData(getApplicationContext());
 
         initToolbar();
         initRecyclerView(quizModulesData);
