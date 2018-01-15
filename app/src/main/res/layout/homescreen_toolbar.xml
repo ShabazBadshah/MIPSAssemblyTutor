@@ -15,14 +15,11 @@
 
     <Button
         android:id="@+id/practiceAllQsBtn"
-        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/practiceAllQuestionsBtnColor"
-        android:padding="@dimen/quiz_toolbar_btn_padding"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/practice_ques_btn_left_margin"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:elevation="50dp"
         android:text="Random Practice"
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/quiz_toolbar_btn_text_size"

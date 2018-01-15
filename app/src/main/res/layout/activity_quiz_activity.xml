@@ -122,6 +122,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbarTop"
         android:orientation="vertical">
+
     </RelativeLayout>
 
     <Button
@@ -133,6 +134,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+
         android:text="Confirm"/>
 
 
