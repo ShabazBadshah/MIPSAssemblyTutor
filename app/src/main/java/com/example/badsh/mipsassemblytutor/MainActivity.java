@@ -15,7 +15,7 @@ import com.example.badsh.mipsassemblytutor.adapaters.QuizSelectionRvAdapter;
 import com.example.badsh.mipsassemblytutor.data_provider.QuizMenuItemDataProvider;
 import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataHandler;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
-import com.example.badsh.mipsassemblytutor.views.QuizGridItemDivider;
+import com.example.badsh.mipsassemblytutor.views.QuizMenuItemDivider;
 
 import java.util.Random;
 
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 new QuizSelectionRvAdapter(getApplicationContext(), quizModulesData);
 
         mQuizGridRv.setAdapter(quizSelectionRvAdapter);
-        mQuizGridRv.addItemDecoration(new QuizGridItemDivider(this));
+        mQuizGridRv.addItemDecoration(new QuizMenuItemDivider(this));
 
     }
 
