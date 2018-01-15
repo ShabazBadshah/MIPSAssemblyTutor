@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.R;
 import com.example.badsh.mipsassemblytutor.engine.Utils.EngineUtils;
@@ -65,7 +64,7 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
         mDecimalNumTv.setText(Integer.toString(mDecimalNum));
         mAnswerField.setText(null);
 
-        Toast.makeText(getContext(), mBinaryNum, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), mBinaryNum, Toast.LENGTH_SHORT).show();
     }
 
     private void initClickListeners() {
@@ -79,16 +78,16 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
 
         switch (v.getId()) {
             case R.id.zeroInputBtn:
-                mAnswerField.setText(mAnswerField.getText().insert(0, "0"));
+                mAnswerField.setText(mAnswerField.getText().append("0"));
                 break;
             case R.id.oneInputBtn:
-                mAnswerField.setText(mAnswerField.getText().insert(0, "1"));
+                mAnswerField.setText(mAnswerField.getText().append("1"));
                 break;
             case R.id.backspaceBtn:
                 String userAnswer = mAnswerField.getText().toString();
                 if (userAnswer.length() >= 1) {
                     mAnswerField.setText(null);
-                    userAnswer = userAnswer.substring(1);
+                    userAnswer = userAnswer.substring(0, userAnswer.length() - 1);
                     mAnswerField.setText(userAnswer);
                 }
                 break;
@@ -98,6 +97,10 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     public boolean checkAnswer() {
         String userAnswer = mAnswerField.getText().toString();
         return userAnswer.equals(mBinaryNum);
+    }
+
+    public String getQuestionAnswer() {
+        return this.mBinaryNum;
     }
 
 }

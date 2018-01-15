@@ -2,7 +2,6 @@ package com.example.badsh.mipsassemblytutor.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.R;
 import com.example.badsh.mipsassemblytutor.engine.Utils.EngineUtils;
+import com.example.badsh.mipsassemblytutor.interfaces.QuizPlayModule;
 
-public class AddingBinaryFragment extends Fragment implements View.OnClickListener {
+public class AddingBinaryFragment extends QuizPlayModule implements View.OnClickListener {
 
     private View mQuizView;
 
@@ -48,7 +47,7 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
         return mQuizView;
     }
 
-    private void initViews() {
+    protected void initViews() {
         mFirstBinaryStringTv = (TextView) mQuizView.findViewById(R.id.userCommandTv);
         mSecondBinaryStringTv = (TextView) mQuizView.findViewById(R.id.randGeneratedNumTwo);
 
@@ -76,10 +75,10 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
 
         questionAnswer = EngineUtils.addBinaryStrings(mFirstBinaryString, mSecondBinaryString);
 
-        Toast.makeText(getContext(), questionAnswer, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), questionAnswer, Toast.LENGTH_SHORT).show();
     }
 
-    private void initClickListeners() {
+    protected void initClickListeners() {
         mZeroBtn.setOnClickListener(this);
         mOneBtn.setOnClickListener(this);
         mBackspaceBtn.setOnClickListener(this);
@@ -90,16 +89,16 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
 
         switch (v.getId()) {
             case R.id.zeroInputBtn:
-                mAnswerField.setText(mAnswerField.getText().insert(0, "0"));
+                mAnswerField.setText(mAnswerField.getText().append("0"));
                 break;
             case R.id.oneInputBtn:
-                mAnswerField.setText(mAnswerField.getText().insert(0, "1"));
+                mAnswerField.setText(mAnswerField.getText().append("1"));
                 break;
             case R.id.backspaceBtn:
                 String userAnswer = mAnswerField.getText().toString();
                 if (userAnswer.length() >= 1) {
                     mAnswerField.setText(null);
-                    userAnswer = userAnswer.substring(1);
+                    userAnswer = userAnswer.substring(0, userAnswer.length() - 1);
                     mAnswerField.setText(userAnswer);
                 }
                 break;
@@ -109,7 +108,10 @@ public class AddingBinaryFragment extends Fragment implements View.OnClickListen
     public boolean checkAnswer() {
         String userAnswer = mAnswerField.getText().toString();
         return userAnswer.equals(questionAnswer);
+    }
 
+    public String getQuestionAnswer() {
+        return this.questionAnswer;
     }
 
 }

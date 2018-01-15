@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.badsh.mipsassemblytutor">
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/launcher_icon"
@@ -9,30 +8,42 @@
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--Main Activity-->
         <activity
             android:name=".MainActivity"
-            android:theme="@style/QuizTheme">
+            android:theme="@style/QuizTheme"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.QuizActivity"
-            android:theme="@style/QuizTheme">
+            android:theme="@style/QuizTheme"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
         </activity>
+
         <activity
             android:name=".activities.QuizCompleteActivity"
-            android:theme="@style/QuizTheme">
+            android:theme="@style/QuizTheme"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
         </activity>
-        <activity android:name=".activities.BinaryNumberInput">
-        </activity>
+
         <activity
             android:name=".activities.UserStatsActivity"
             android:label="@string/title_activity_user_stats"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
         </activity>
-    </application>
 
+
+    </application>
 </manifest>

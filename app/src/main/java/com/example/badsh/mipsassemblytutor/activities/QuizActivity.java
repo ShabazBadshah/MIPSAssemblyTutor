@@ -10,22 +10,28 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.MainActivity;
 import com.example.badsh.mipsassemblytutor.R;
-import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataProvider;
+import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataHandler;
 import com.example.badsh.mipsassemblytutor.fragments.AddingBinaryFragment;
 import com.example.badsh.mipsassemblytutor.fragments.BinaryInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.DecimalInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MachineCodeInputFragment;
 import com.example.badsh.mipsassemblytutor.fragments.MipsComputeCommandFragment;
 import com.example.badsh.mipsassemblytutor.fragments.TypeMipsCommandFragment;
+import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.example.badsh.mipsassemblytutor.R.id.quitQuiz;
 
@@ -35,12 +41,16 @@ import static com.example.badsh.mipsassemblytutor.R.id.quitQuiz;
 
 public class QuizActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final int QUIZ_VIEW_HOLDER_ID = R.id.question_container;
-    private final int QUIZ_ACTIVITY_LAYOUT = R.layout.activity_quiz_activity;
-    private final Class NEXT_ACTIVITY_TO_START = QuizCompleteActivity.class;
-    private Class mAssociatedQuizActivity;
+    private final int QUIZ_FRAGMENT_HOLDER = R.id.question_container;
+    private final int QUIZ_ACTIVITY_LAYOUT_ID = R.layout.activity_quiz_activity;
 
-    private FragmentManager mFragmentManager;
+    private final Class QUIZ_COMPLETE_ACTIVITY = QuizCompleteActivity.class;
+
+    private  QuizGridItem quizMeta;
+    private final String PATH_TO_FRAGMENTS_PKG = "com.example.badsh.mipsassemblytutor.fragments.";
+    private String mAssociatedQuizActivity = "";
+
+    private static FragmentManager sFragmentManager;
     private Fragment mFragmentToSwitchTo;
 
     private Intent mQuizCompleteActivityIntent;
@@ -56,7 +66,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private Button mConfirmAnswerBtn;
 
     private long mTimeWhenStopped = 0;
-    //private int mAmountHintsLeft = 2;
     private int mCurrentQuesNum = 1;
     private int mTotalAmountQues = 5;
     private int mNumOfCorrectAns = 0;
@@ -69,12 +78,15 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(QUIZ_ACTIVITY_LAYOUT);
+        setContentView(QUIZ_ACTIVITY_LAYOUT_ID);
 
-        mFragmentManager = getSupportFragmentManager();
+        sFragmentManager = getSupportFragmentManager();
 
         getQuizIntentData();
-        initQuizFragment();
+        try {
+            initQuizFragment();
+        } catch (Exception e) {
+        }
         initViews();
         setCountsAndColors();
         initClickListeners();
@@ -93,32 +105,18 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mTimeElapsedInQuizView = (Chronometer) findViewById(R.id.amountOfTimeElapsed);
     }
 
-    private void initQuizFragment() {
+    private void initQuizFragment() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 
-        if (mAssociatedQuizActivity.equals(BinaryInputFragment.class)) {
-            mFragmentToSwitchTo = new BinaryInputFragment();
-        }
-        else if (mAssociatedQuizActivity.equals(DecimalInputFragment.class)) {
-            mFragmentToSwitchTo = new DecimalInputFragment();
-        }
-        else if (mAssociatedQuizActivity.equals(AddingBinaryFragment.class)) {
-            mFragmentToSwitchTo = new AddingBinaryFragment();
-        }
-        else if (mAssociatedQuizActivity.equals(MipsComputeCommandFragment.class)) {
-            mFragmentToSwitchTo = new MipsComputeCommandFragment();
-        }
-        else if (mAssociatedQuizActivity.equals(TypeMipsCommandFragment.class)) {
-            mFragmentToSwitchTo = new TypeMipsCommandFragment();
-        }
-        else if (mAssociatedQuizActivity.equals(MachineCodeInputFragment.class)) {
-            mFragmentToSwitchTo = new MachineCodeInputFragment();
-        }
+        Log.v("meta", mQuizDarkPrimaryColor + ", " + mQuizPrimaryColor + ", " + mAssociatedQuizActivity);
+
+        mFragmentToSwitchTo = (Fragment) Class.forName(mAssociatedQuizActivity).newInstance();
 
         if (mAssociatedQuizActivity != null && mFragmentToSwitchTo != null) {
-            mFragmentManager.beginTransaction()
-                    .add(QUIZ_VIEW_HOLDER_ID, mFragmentToSwitchTo)
+            sFragmentManager.beginTransaction()
+                    .add(QUIZ_FRAGMENT_HOLDER, mFragmentToSwitchTo)
                     .commit();
-        } else {
+        }
+        else {
             Context goToHomeContext = getApplicationContext();
             Intent goToHomeIntent = new Intent(goToHomeContext, MainActivity.class);
             goToHomeContext.startActivity(goToHomeIntent);
@@ -147,15 +145,17 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getQuizIntentData() {
-        mQuizDarkPrimaryColor = this.getIntent().getExtras().get("mQuizDarkPrimaryColor").toString();
-        mQuizPrimaryColor = this.getIntent().getExtras().get("mQuizPrimaryColor").toString();
+        quizMeta  = this.getIntent().getExtras().getParcelable("quizMeta");
+        mQuizDarkPrimaryColor = quizMeta.getDarkPrimaryColor();
+        mQuizPrimaryColor = quizMeta.getPrimaryColor();
 
-        mAssociatedQuizActivity = (Class) this.getIntent().getExtras().get("mAssociatedQuizActivity");
+        // Need to provide absolute path to class in src dir to create a class instance
+        mAssociatedQuizActivity = mAssociatedQuizActivity.concat(PATH_TO_FRAGMENTS_PKG)
+                .concat(quizMeta.getAssociatedQuizActivity());
     }
 
     private void setCountsAndColors() {
         mConfirmAnswerBtn.setBackgroundColor(Color.parseColor(mQuizDarkPrimaryColor));
-
         mAmountHintsTv.setText(String.valueOf(mNumOfCorrectAns));
 
         String questionCountDisplayFormat = String.format("%d/%d", mCurrentQuesNum, mTotalAmountQues);
@@ -165,7 +165,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private void initClickListeners() {
         mQuitQuizIv.setOnClickListener(this);
         mAmountHintsTv.setOnClickListener(this);
-
         mConfirmAnswerBtn.setOnClickListener(this);
     }
 
@@ -189,6 +188,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        String status = "CORRECT!";
+        String answer = "";
         switch (v.getId()) {
             case R.id.quitQuiz:
                 onBackPressed();
@@ -197,29 +198,79 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 // Check ths user's answer
                 if (mFragmentToSwitchTo instanceof DecimalInputFragment) {
                     mCorrectAnswer = ((DecimalInputFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((DecimalInputFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 } else if (mFragmentToSwitchTo instanceof BinaryInputFragment) {
                     mCorrectAnswer = ((BinaryInputFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((BinaryInputFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 } else if (mFragmentToSwitchTo instanceof AddingBinaryFragment) {
                     mCorrectAnswer = ((AddingBinaryFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((AddingBinaryFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 } else if (mFragmentToSwitchTo instanceof MipsComputeCommandFragment) {
                     mCorrectAnswer = ((MipsComputeCommandFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((MipsComputeCommandFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 }
                 else if (mFragmentToSwitchTo instanceof TypeMipsCommandFragment) {
                     mCorrectAnswer = ((TypeMipsCommandFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((TypeMipsCommandFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 }
                 else if (mFragmentToSwitchTo instanceof MachineCodeInputFragment) {
                     mCorrectAnswer = ((MachineCodeInputFragment) mFragmentToSwitchTo).checkAnswer();
+                    answer = ((MachineCodeInputFragment) mFragmentToSwitchTo).getQuestionAnswer();
                 }
 
+                TextView tv = new TextView(v.getContext());
+                tv.setTextColor(Color.BLACK);
                 if (mCorrectAnswer) {
+                    status = "CORRECT!\n";
+                    tv.setBackgroundColor(getResources().getColor(R.color.correct_answer_color));
                     mNumOfCorrectAns++;
                     mAmountHintsTv.setText(String.valueOf(mNumOfCorrectAns));
+                } else {
+                    tv.setBackgroundColor(getResources().getColor(R.color.incorrect_answer_color));
+                    status = "INCORRECT\n";
                 }
-                Toast.makeText(getApplicationContext(), String.valueOf(mCorrectAnswer), Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(getApplicationContext(), String.valueOf(mCorrectAnswer), Toast.LENGTH_SHORT).show();
                 incrementQuestionNumber();
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+                if (mCorrectAnswer == false) {
+                    String sb = new StringBuilder(status)
+                            .append("Correct Answer: \n")
+                            .append(answer + "\n")
+                            .toString();
+                            tv.setText(sb);
+                } else {
+                    tv.setText(status);
+                }
+
+                tv.setPadding(10, 50, 10, 30);
+                tv.setGravity(Gravity.CENTER);
+                tv.setTextSize(20);
+                builder.setView(tv);
+                builder.setCancelable(true);
+
+                // Null pointer if call dlg on quiz complete activity screen
+                if (mCurrentQuesNum <= mTotalAmountQues) {
+//                    pauseQuizTimer();
+                    final AlertDialog dlg = builder.create();
+                    dlg.show();
+
+                    final Timer t = new Timer();
+                    t.schedule(new TimerTask() {
+                        public void run() {
+                            dlg.dismiss(); // when the task active then close the dialog
+                            t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
+                        }
+                    }, 1500); // after 2 second (or 2000 miliseconds), the task will be active.
+                }
+
+//                resumeQuizTimer();
                 if (mCurrentQuesNum > mTotalAmountQues) finishGame();
-                else displayNewQuestion();
+                else {
+                    displayNewQuestion();
+                }
 
         }
     }
@@ -265,7 +316,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void sendGameDataViaIntent() {
-        mQuizCompleteActivityIntent = new Intent(this, NEXT_ACTIVITY_TO_START);
+        mQuizCompleteActivityIntent = new Intent(this, QUIZ_COMPLETE_ACTIVITY);
 
         String userScoreFormat = String.format("%d/%d", mNumOfCorrectAns, mTotalAmountQues);
         mQuizCompleteActivityIntent.putExtra("userScore", userScoreFormat);
@@ -285,13 +336,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateUserStats() {
-        UserStatsDataProvider userStatsDataProvider = MainActivity.getUserStatsDataProvider();
+        UserStatsDataHandler userStatsDataHandler = MainActivity.getUserStatsDataProvider();
 
-        userStatsDataProvider.updateUserStat("Highest Accuracy", String.format("%.2f", (float)mNumOfCorrectAns/(float)mTotalAmountQues));
-        userStatsDataProvider.updateUserStat("Best Time", String.valueOf(totalElapsedTimeInSec));
-        userStatsDataProvider.updateUserStat("Questions Answered", String.valueOf(mTotalAmountQues));
-        userStatsDataProvider.updateUserStat("Quizzes Finished", String.valueOf(1));
+        userStatsDataHandler.updateUserStat("Highest Accuracy", String.format("%.2f", (float) mNumOfCorrectAns / (float) mTotalAmountQues));
+        userStatsDataHandler.updateUserStat("Best Time", String.valueOf(totalElapsedTimeInSec));
+        userStatsDataHandler.updateUserStat("Questions Answered", String.valueOf(mTotalAmountQues));
+        userStatsDataHandler.updateUserStat("Quizzes Finished", String.valueOf(1));
     }
-
 }
 

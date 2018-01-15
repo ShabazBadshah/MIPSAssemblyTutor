@@ -109,4 +109,8 @@ public class DecimalInputFragment extends Fragment implements View.OnClickListen
         return userAnswer == correctAnswer;
     }
 
+    public String getQuestionAnswer() {
+        return String.valueOf(EngineUtils.convertBinaryToDecimal(mBinaryNum));
+    }
+
 }

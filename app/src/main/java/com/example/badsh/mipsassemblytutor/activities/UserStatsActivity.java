@@ -12,11 +12,11 @@ import android.widget.Button;
 import com.example.badsh.mipsassemblytutor.MainActivity;
 import com.example.badsh.mipsassemblytutor.R;
 import com.example.badsh.mipsassemblytutor.adapaters.UserStatsRecyclerViewAdapter;
-import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataProvider;
+import com.example.badsh.mipsassemblytutor.data_provider.UserStatsDataHandler;
 
 public class UserStatsActivity extends AppCompatActivity {
 
-    private static UserStatsDataProvider userStat;
+    private static UserStatsDataHandler userStat;
     private View mToolbar;
     private RecyclerView mUserStatRv;
     private static Context mContext;

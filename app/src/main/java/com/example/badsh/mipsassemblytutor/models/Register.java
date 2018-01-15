@@ -2,40 +2,42 @@ package com.example.badsh.mipsassemblytutor.models;
 
 import com.example.badsh.mipsassemblytutor.engine.Utils.EngineUtils;
 
+/*
+Models a register in MIPS, contains a value and a name
+ */
 public class Register {
 
-    private int valueInRegister;
-    private String registerName;
+    private int mValueInRegister;
+    private String mCompleteRegisterName;
 
     public Register(String registerName, int valueStored) {
-        this.valueInRegister = valueStored;
-        this.registerName = registerName;
+        this.mValueInRegister = valueStored;
+        this.mCompleteRegisterName = registerName;
     }
 
-    public String getRegisterName() {
-        return this.registerName;
+    public String getCompleteRegisterName() {
+        return this.mCompleteRegisterName;
     }
 
     public int getStoredValue() {
-        return this.valueInRegister;
+        return this.mValueInRegister;
     }
 
-    public String getRegisterNumBinaryRep(int amountPaddingLeft) {
+    public void setStoredValue(int valueToSet) { this.mValueInRegister = valueToSet; }
 
-        String registerNum = this.registerName.substring(2, this.registerName.length());
-        String binaryRepOfString = Integer.toBinaryString(Integer.valueOf(registerNum));
+    public String getRegisterNumBinaryRep(int amountPaddingLeft) {
+        String registerIndex = this.mCompleteRegisterName.substring(2, this.mCompleteRegisterName.length());
+        String binaryRepOfString = Integer.toBinaryString(Integer.valueOf(registerIndex));
 
         return EngineUtils.leftPadBinaryString(amountPaddingLeft, binaryRepOfString);
     }
 
-    public void setStoredValue(int valueToSet) { this.valueInRegister = valueToSet; }
-
     @Override
     public String toString() {
         return new StringBuilder()
-                .append(this.getRegisterName())
+                .append(this.mCompleteRegisterName)
                 .append("=")
-                .append(this.valueInRegister)
+                .append(this.mValueInRegister)
                 .toString();
     }
 

@@ -15,6 +15,7 @@ import android.widget.ToggleButton;
 import com.example.badsh.mipsassemblytutor.R;
 import com.example.badsh.mipsassemblytutor.data_provider.QuizDataProvider;
 import com.example.badsh.mipsassemblytutor.models.MipsCommand;
+import com.example.badsh.mipsassemblytutor.models.Register;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,11 +63,14 @@ public class TypeMipsCommandFragment extends Fragment implements View.OnClickLis
 
         parentLayout.removeAllViews();
 
-        generatedQuestion = QuizDataProvider.getRandomFunction().getAssociatedCommand();
+        generatedQuestion = QuizDataProvider.getRandomImmediateCommand().getAssociatedCommand();
+        getGeneratedQuestionForAnswer = QuizDataProvider.getRandomImmediateCommand().getAssociatedCommand();
         String category = generatedQuestion.getCommandFunctionString();
-        getGeneratedQuestionForAnswer = QuizDataProvider.getSpecificFunction(category);
 
         String [] answers = generatedQuestion.getCommandGeneratedInstruction().split(" ");
+        String [] secondAnswers = getGeneratedQuestionForAnswer.getCommandGeneratedInstruction().split(" ");
+
+
 
         for(int i = 0; i < answers.length; i++){
             ToggleButton button = new ToggleButton(getContext());
@@ -97,7 +101,14 @@ public class TypeMipsCommandFragment extends Fragment implements View.OnClickLis
             parentLayout.addView(checkBox);
         }
 
-        questionField.setText(generatedQuestion.getCommandQuestion());
+        ArrayList<Register> registers = generatedQuestion.getCommandRegisters();
+        Register answerRegister = registers.get(registers.size() - 1);
+
+        String question = "Use the following words to create a command that has the following answer where\n" + "Final register: " + answerRegister.getCompleteRegisterName() + "=" + answerRegister.getStoredValue() + " and\n" +
+                "Immediate register: " + registers.get(0).getCompleteRegisterName() + "=" + registers.get(0).getStoredValue();
+        questionField.setText(question);
+
+        Toast.makeText(getContext(), generatedQuestion.getCommandGeneratedInstruction(), Toast.LENGTH_SHORT).show();
     }
 
     public void generateAndSetNewQuestion() {
@@ -109,11 +120,7 @@ public class TypeMipsCommandFragment extends Fragment implements View.OnClickLis
 
     public boolean checkAnswer() {
         String userAnswer = userAnswerTv.getText().toString().toLowerCase().trim();
-
-//        Toast.makeText(this.getContext(), userAnswer.trim() + "\n" +
-//                generatedQuestion.getCommandGeneratedInstruction().trim(), Toast.LENGTH_SHORT).show();
-
-        return userAnswer.trim().equals(generatedQuestion.getCommandGeneratedInstruction().toLowerCase().trim());
+        return userAnswer.trim().toLowerCase().equals(generatedQuestion.getCommandGeneratedInstruction().toLowerCase().trim());
     }
 
     @Override
@@ -128,5 +135,9 @@ public class TypeMipsCommandFragment extends Fragment implements View.OnClickLis
             Toast.makeText(this.getContext(), String.valueOf(userAnswerTv.getText().toString().length()), Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    public String getQuestionAnswer() {
+        return generatedQuestion.getCommandGeneratedInstruction();
     }
 }

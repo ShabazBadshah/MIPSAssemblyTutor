@@ -3,8 +3,11 @@ package com.example.badsh.mipsassemblytutor.engine.Instructions.ImmediateTypeCom
 import com.example.badsh.mipsassemblytutor.data_provider.QuizDataProvider;
 import com.example.badsh.mipsassemblytutor.models.MipsImmediateCommand;
 import com.example.badsh.mipsassemblytutor.engine.Utils.EngineUtils;
+import com.example.badsh.mipsassemblytutor.models.Register;
 
 public class AddIImmediateCommand extends MipsImmediateCommand {
+
+    private Register answerRegister;
 
     public AddIImmediateCommand() {
         FUNCTION_STRING = "addi";
@@ -43,9 +46,9 @@ public class AddIImmediateCommand extends MipsImmediateCommand {
         COMMAND = new StringBuilder()
                 .append(FUNCTION_STRING)
                 .append(SPACE)
-                .append(questionRegisters.get(0).getRegisterName()) // The first register
+                .append(questionRegisters.get(0).getCompleteRegisterName()) // The first register
                 .append(COMMA)
-                .append(questionRegisters.get(1).getRegisterName()) // The second register
+                .append(questionRegisters.get(1).getCompleteRegisterName()) // The second register
                 .append(COMMA)
                 .append(String.valueOf(IMMEDIATE_VALUE))
                 .toString();

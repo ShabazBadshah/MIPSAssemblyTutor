@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.badsh.mipsassemblytutor.R;
 import com.example.badsh.mipsassemblytutor.data_provider.QuizDataProvider;
@@ -59,7 +58,7 @@ public class MipsComputeCommandFragment extends Fragment implements View.OnClick
 
         RadioButton optionBtn;
 
-        Toast.makeText(this.getContext(), generatedQuestion.getCommandAnswer(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getContext(), generatedQuestion.getCommandAnswer(), Toast.LENGTH_SHORT).show();
 
         for (int i = 0; i < amountToGenerate; i++) {
 
@@ -94,5 +93,8 @@ public class MipsComputeCommandFragment extends Fragment implements View.OnClick
         return selectedAnswerRB.getText().equals(generatedQuestion.getCommandAnswer());
     }
 
+    public String getQuestionAnswer() {
+        return String.valueOf(generatedQuestion.getCommandAnswer());
+    }
 
 }
