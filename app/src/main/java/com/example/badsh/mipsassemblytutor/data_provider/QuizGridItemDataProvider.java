@@ -48,12 +48,12 @@ public class QuizGridItemDataProvider {
     };
 
     private static final int[] QUIZ_MODULE_GRID_ICONS = {
-            R.drawable.ic_dectobin,
-            R.drawable.ic_bintodec,
-            R.drawable.ic_action_name,
-            R.drawable.ic_compmips,
-            R.drawable.ic_mipstobin,
-            R.drawable.ic_bitop
+            R.drawable.icon_bin_to_dec,
+            R.drawable.icon_dec_to_bin,
+            R.drawable.icon_adding_bin,
+            R.drawable.icon_compute_mips,
+            R.drawable.icon_mips_to_machine,
+            R.drawable.icon_type_mips
     };
 
     public static QuizGridItem[] initializeQuizData(Context mParentActivityContext) {

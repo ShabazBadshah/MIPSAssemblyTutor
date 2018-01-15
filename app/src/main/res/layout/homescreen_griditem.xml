@@ -30,8 +30,8 @@
         android:layout_weight="0.7"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
-        android:padding="16dp"
+        android:padding="24dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_action_name"/>
+        app:srcCompat="@mipmap/launcher_icon"/>
 
 </LinearLayout>
