@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private static final Class USER_STATS_ACTIVITY = UserStatsActivity.class;
     private static final Class QUIZ_PLAY_ACTIVITY = QuizActivity.class;
     private static final int MAIN_ACTIVITY_LAYOUT_ID = R.layout.activity_main;
-
+ 
     private static UserStatsDataHandler mUserStatsDataProvider;
 
     @Override
