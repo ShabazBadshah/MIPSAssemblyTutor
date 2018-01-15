@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#308ac2</color>
     <color name="colorAccent">#ff4081</color>
     <color name="colorHomescreenBG">@color/colorPrimary</color>
-    <color name="colorHomescreenBGDark">@color/colorPrimaryDark</color>
+    <color name="colorHomescreenBGDark">@color/colorPrimaryDark</color> 
     <color name="colorQuizToolbarTopBG">@color/colorPrimaryDark</color>
     <color name="colorToolbarCountBG">@color/colorPrimaryDark</color>
     <color name="toolbarTextColor">#ffffff</color>
