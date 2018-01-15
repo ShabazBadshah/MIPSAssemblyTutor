@@ -3,9 +3,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="quiz_toolbar_height">50dp</dimen>
-    <dimen name="rand_ques_bg_height">60dp</dimen>
+    <dimen name="quiz_toolbar_height">56dp</dimen>
+
     <dimen name="homescreen_toolbar_btn_size">30dp</dimen>
     <dimen name="numPadSquareBtnSize">60dp</dimen>
     <dimen name="decimalInputBinaryTvHeight">50dp</dimen>
+    <dimen name="quiz_toolbar_elevation">4dp</dimen>
+    <dimen name="quiz_toolbar_btn_padding">8dp</dimen>
+    <dimen name="quiz_toolbar_btn_text_size">14dp</dimen>
 </resources>

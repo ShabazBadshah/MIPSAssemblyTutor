@@ -49,9 +49,10 @@ public class QuizSelectionRvAdapter extends RecyclerView.Adapter<QuizSelectionRv
 
         quizViewHolder.categoryTextView.setText(currentQuizGridItem.getQuizName());
 
-        quizViewHolder.categoryTextView.setBackgroundColor(Color.parseColor(currentQuizGridItem.getPrimaryColor()));
-        quizViewHolder.backgroundImageView.setBackgroundColor(Color.parseColor(currentQuizGridItem.getDarkPrimaryColor()));
+//        quizViewHolder.categoryTextView.setBackgroundColor(Color.parseColor(currentQuizGridItem.getPrimaryColor()));
+//        quizViewHolder.backgroundImageView.setBackgroundColor(Color.parseColor(currentQuizGridItem.getDarkPrimaryColor()));
         quizViewHolder.backgroundImageView.setImageResource(currentQuizGridItem.getQuizImageId());
+        quizViewHolder.accent.setBackgroundColor(Color.parseColor(currentQuizGridItem.getDarkPrimaryColor()));
     }
 
     @Override
@@ -64,11 +65,13 @@ public class QuizSelectionRvAdapter extends RecyclerView.Adapter<QuizSelectionRv
 
         public TextView categoryTextView;
         public ImageView backgroundImageView;
+        public View accent;
 
         public QuizCategoryViewHolder(View itemView) {
             super(itemView);
             categoryTextView = (TextView) itemView.findViewById(R.id.homescreen_griditem_category_title);
             backgroundImageView = (ImageView) itemView.findViewById(R.id.homescreen_griditem_category_image);
+            accent = itemView.findViewById(R.id.grid_item_accent);
             itemView.setOnClickListener(this);
         }
 

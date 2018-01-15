@@ -4,8 +4,24 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
-              android:padding="1dp"
               android:weightSum="0.95">
+
+    <View
+        android:id="@+id/grid_item_accent"
+        android:layout_width="6dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/vertical_bar"/>
+
+    <TextView
+        android:id="@+id/homescreen_griditem_category_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        android:gravity="center_vertical"
+        android:paddingLeft="18dp"
+        android:text=" Category Goes Here"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <ImageView
         android:id="@+id/homescreen_griditem_category_image"
@@ -13,21 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.7"
         android:adjustViewBounds="true"
-        android:cropToPadding="false"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp"
-        android:scaleType="fitCenter"
+        android:cropToPadding="true"
+        android:padding="16dp"
+        android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_action_name"/>
-
-    <TextView
-        android:id="@+id/homescreen_griditem_category_title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.25"
-        android:background="@android:color/holo_blue_dark"
-        android:gravity="center_vertical"
-        android:text="Question Category Goes Here"
-        android:textAlignment="center"
-        android:textSize="18sp"/>
 
 </LinearLayout>

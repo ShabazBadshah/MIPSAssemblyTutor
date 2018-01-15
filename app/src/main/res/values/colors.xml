@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2c3e50</color>
-    <color name="colorPrimaryDark">#34495e</color>
+    <color name="colorPrimary">#3cacf2</color>
+    <color name="colorPrimaryDark">#308ac2</color>
     <color name="colorAccent">#ff4081</color>
-    <color name="colorHomescreenBG">#2c3e50</color>
-    <color name="colorHomescreenBGDark">#34495e</color>
-    <color name="colorQuizToolbarTopBG">#2c3e50</color>
-    <color name="colorToolbarCountBG">#34495e</color>
+    <color name="colorHomescreenBG">@color/colorPrimary</color>
+    <color name="colorHomescreenBGDark">@color/colorPrimaryDark</color>
+    <color name="colorQuizToolbarTopBG">@color/colorPrimaryDark</color>
+    <color name="colorToolbarCountBG">@color/colorPrimaryDark</color>
     <color name="toolbarTextColor">#ffffff</color>
     <color name="practiceAllQuestionsBtnColor">#27ae60</color>
     <color name="finished_quiz_headings_color">#ffffff</color>
