@@ -2,7 +2,6 @@ package com.example.badsh.mipsassemblytutor.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,14 +47,14 @@ public class AddingBinaryFragment extends QuizPlayModule implements View.OnClick
     }
 
     protected void initViews() {
-        mFirstBinaryStringTv = (TextView) mQuizView.findViewById(R.id.userCommandTv);
-        mSecondBinaryStringTv = (TextView) mQuizView.findViewById(R.id.randGeneratedNumTwo);
+        mFirstBinaryStringTv = (TextView) mQuizView.findViewById(R.id.firstNumField);
+        mSecondBinaryStringTv = (TextView) mQuizView.findViewById(R.id.secondNumField);
 
         mAnswerField = (EditText) mQuizView.findViewById(R.id.answerField);
-        mAnswerField.setInputType(InputType.TYPE_NULL);
+        mAnswerField.setShowSoftInputOnFocus(false);
 
-        mZeroBtn = (Button) mQuizView.findViewById(R.id.zeroInputBtn);
-        mOneBtn = (Button) mQuizView.findViewById(R.id.oneInputBtn);
+        mZeroBtn = (Button) mQuizView.findViewById(R.id.zeroBtn);
+        mOneBtn = (Button) mQuizView.findViewById(R.id.oneBtn);
         mBackspaceBtn = (Button) mQuizView.findViewById(R.id.backspaceBtn);
 
         generateAndSetNewQuestion();
@@ -67,15 +66,11 @@ public class AddingBinaryFragment extends QuizPlayModule implements View.OnClick
         mDecimalNum = EngineUtils.generateRandomDecimalNumber(true, 8);
         mSecondBinaryString = EngineUtils.convertDecimalToBinary(mDecimalNum);
 
-        mFirstBinaryStringTv.setText(null);
-        mSecondBinaryStringTv.setText(null);
-        mFirstBinaryStringTv.setText(mFirstBinaryString);
-        mSecondBinaryStringTv.setText(mSecondBinaryString);
-        mAnswerField.setText(null);
+        mFirstBinaryStringTv.setText("0b" + mFirstBinaryString);
+        mSecondBinaryStringTv.setText("0b" + mSecondBinaryString);
+        mAnswerField.setText("");
 
         questionAnswer = EngineUtils.addBinaryStrings(mFirstBinaryString, mSecondBinaryString);
-
-//        Toast.makeText(getContext(), questionAnswer, Toast.LENGTH_SHORT).show();
     }
 
     protected void initClickListeners() {
@@ -88,18 +83,20 @@ public class AddingBinaryFragment extends QuizPlayModule implements View.OnClick
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.zeroInputBtn:
-                mAnswerField.setText(mAnswerField.getText().append("0"));
+
+            case R.id.zeroBtn:
+                mAnswerField.append("0");
                 break;
-            case R.id.oneInputBtn:
-                mAnswerField.setText(mAnswerField.getText().append("1"));
+            case R.id.oneBtn:
+                mAnswerField.append("1");
                 break;
             case R.id.backspaceBtn:
-                String userAnswer = mAnswerField.getText().toString();
-                if (userAnswer.length() >= 1) {
-                    mAnswerField.setText(null);
-                    userAnswer = userAnswer.substring(0, userAnswer.length() - 1);
-                    mAnswerField.setText(userAnswer);
+                if (mAnswerField.length() >= 1) {
+
+                    String userAnswer = mAnswerField.getText().toString();
+
+                    mAnswerField.setText("");
+                    mAnswerField.append(userAnswer.substring(0, userAnswer.length() - 1));
                 }
                 break;
         }

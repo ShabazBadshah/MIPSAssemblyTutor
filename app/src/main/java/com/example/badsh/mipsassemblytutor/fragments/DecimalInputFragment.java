@@ -54,7 +54,7 @@ public class DecimalInputFragment extends Fragment implements View.OnClickListen
         mDecimalNum = EngineUtils.generateRandomDecimalNumber(true, 20);
         mBinaryNum = EngineUtils.convertDecimalToBinary(mDecimalNum);
 
-        mBinaryNumTv.setText(mBinaryNum);
+        mBinaryNumTv.setText("0b" + mBinaryNum);
         mAnswerField.setText("");
     }
 

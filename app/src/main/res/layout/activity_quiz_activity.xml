@@ -30,7 +30,7 @@
         android:textColor="@color/white"
         android:textSize="30sp"/>
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/question_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,7 +40,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-    </RelativeLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/quizOptionControls"

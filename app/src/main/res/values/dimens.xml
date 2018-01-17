@@ -11,4 +11,7 @@
     <dimen name="quiz_toolbar_btn_padding">8dp</dimen>
     <dimen name="quiz_toolbar_btn_text_size">14dp</dimen>
     <dimen name="practice_ques_btn_left_margin">30dp</dimen>
+    <dimen name="generatedNumFontSize">50dp</dimen>
+    <dimen name="questionSubtextFontSize">25sp</dimen>
+    <dimen name="answerFontSize">30sp</dimen>
 </resources>

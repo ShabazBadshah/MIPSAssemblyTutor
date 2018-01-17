@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                             xmlns:tools="http://schemas.android.com/tools"
+                             android:id="@+id/binary_numpad"
+                             android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/oneBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+            android:tag="numpad_input"
+            android:text="1"
+            android:textAlignment="center"
+            android:textColor="@color/finished_quiz_headings_color"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="106dp"
+            tools:layout_editor_absoluteY="259dp"/>
+
+        <Button
+            android:id="@+id/zeroBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+            android:tag="numpad_input"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/finished_quiz_headings_color"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="38dp"
+            tools:layout_editor_absoluteY="259dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/backspaceBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:foreground="@drawable/ic_backspace_black_24dp"
+        android:foregroundGravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="264dp"
+        tools:layout_editor_absoluteY="495dp"/>
+
+</android.widget.LinearLayout>
