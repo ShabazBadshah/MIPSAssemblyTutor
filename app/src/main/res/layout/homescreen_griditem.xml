@@ -10,7 +10,8 @@
         android:id="@+id/grid_item_accent"
         android:layout_width="6dp"
         android:layout_height="match_parent"
-        android:background="@drawable/vertical_bar"/>
+        android:background="@drawable/vertical_bar"
+        android:backgroundTint="@color/colorHomescreenBGDark"/>
 
     <TextView
         android:id="@+id/homescreen_griditem_category_title"
@@ -33,6 +34,6 @@
         android:cropToPadding="true"
         android:padding="26dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@mipmap/launcher_icon"/>
+        app:srcCompat="@drawable/icon_bin_to_dec"/>
 
 </LinearLayout>

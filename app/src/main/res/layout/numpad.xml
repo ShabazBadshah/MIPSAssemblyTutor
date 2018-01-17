@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                           xmlns:tools="http://schemas.android.com/tools"
+                           android:id="@+id/numpad"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:columnCount="3"
+                           android:visibility="visible">
+
+    <Button
+        android:id="@+id/oneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:tag="numpad_input"
+        android:text="1"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="259dp"/>
+
+    <Button
+        android:id="@+id/twoBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:tag="numpad_input"
+        android:text="2"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="174dp"
+        tools:layout_editor_absoluteY="259dp"/>
+
+    <Button
+        android:id="@+id/threeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:tag="numpad_input"
+        android:text="3"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="243dp"
+        tools:layout_editor_absoluteY="259dp"/>
+
+    <Button
+        android:id="@+id/fourBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:tag="numpad_input"
+        android:text="4"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="311dp"
+        tools:layout_editor_absoluteY="258dp"/>
+
+    <Button
+        android:id="@+id/fiveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:tag="numpad_input"
+        android:text="5"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="327dp"/>
+
+    <Button
+        android:id="@+id/sixBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:tag="numpad_input"
+        android:text="6"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="327dp"/>
+
+    <Button
+        android:id="@+id/sevenBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:tag="numpad_input"
+        android:text="7"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="327dp"/>
+
+    <Button
+        android:id="@+id/eightBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:tag="numpad_input"
+        android:text="8"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="243dp"
+        tools:layout_editor_absoluteY="327dp"/>
+
+    <Button
+        android:id="@+id/nineBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:elevation="0dp"
+        android:tag="numpad_input"
+        android:text="9"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="311dp"
+        tools:layout_editor_absoluteY="326dp"/>
+
+    <Button
+        android:id="@+id/zeroBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:tag="numpad_input"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="259dp"/>
+
+    <Button
+        android:id="@+id/decimalInputBackSpaceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_columnSpan="2"
+        android:layout_columnWeight="1"
+        android:backgroundTint="@color/practiceAllQuestionsBtnColor"
+        android:foreground="@drawable/ic_backspace_black_24dp"
+        android:foregroundGravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/finished_quiz_headings_color"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="264dp"
+        tools:layout_editor_absoluteY="495dp"/>
+
+</android.widget.GridLayout>
