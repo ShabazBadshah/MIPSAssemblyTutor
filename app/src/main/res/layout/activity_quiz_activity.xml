@@ -5,137 +5,52 @@
                 android:layout_height="match_parent"
                 android:id="@+id/quizActivityRoot">
 
-    <LinearLayout
-        android:id="@+id/toolbarTop"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/quiz_toolbar_height"
-        android:background="@color/colorQuizToolbarTopBG"
-        android:minHeight="?android:attr/actionBarSize"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <ImageView
-            android:id="@+id/quitQuiz"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.01"
-            android:adjustViewBounds="true"
-            android:background="@color/colorToolbarCountBG"
-            android:clickable="true"
-            android:cropToPadding="false"
-            android:scaleType="centerInside"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-            tools:background="@color/colorToolbarCountBG"/>
-
-        <TextView
-            android:id="@+id/numQuestionsLeftPrompt"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:gravity="center_vertical"
-            android:text="Q#:"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/toolbarTextColor"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/amountQuestionsLeftCount"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:background="@color/colorToolbarCountBG"
-            android:gravity="center_vertical"
-            android:text="13/21"
-            android:textAlignment="center"
-            android:textColor="@color/toolbarTextColor"
-            android:textSize="24sp"
-            tools:background="@color/colorToolbarCountBG"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/toolbarBottom"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/quiz_toolbar_height"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorQuizToolbarTopBG"
-        android:minHeight="?android:attr/actionBarSize"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <TextView
-            android:id="@+id/timerPrompt"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.20"
-            android:gravity="center_vertical"
-            android:text="TIME"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/toolbarTextColor"
-            android:textSize="18sp"/>
-
-        <Chronometer
-            android:id="@+id/amountOfTimeElapsed"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:background="@color/colorToolbarCountBG"
-            android:gravity="center_vertical"
-            android:textAlignment="center"
-            android:textSize="24sp"/>
-
-        <TextView
-            android:id="@+id/amountHintsLeftPrompt"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.20"
-            android:gravity="center_vertical"
-            android:text="Score"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/toolbarTextColor"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/numOfHintsLeftCount"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:background="@color/colorToolbarCountBG"
-            android:gravity="center_vertical"
-            android:text="0"
-            android:textAlignment="center"
-            android:textColor="@color/toolbarTextColor"
-            android:textSize="24sp"
-            tools:background="@color/colorToolbarCountBG"/>
-
-    </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/question_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/confirmAnswerBtn"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbarTop"
+        android:layout_above="@+id/quizOptionControls"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
         android:orientation="vertical">
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/confirmAnswerBtn"
+    <LinearLayout
+        android:id="@+id/quizOptionControls"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/toolbarBottom"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_height="@dimen/quiz_toolbar_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="false"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
-        android:text="Confirm"/>
+        <ImageButton
+            android:id="@+id/quitQuizBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:adjustViewBounds="true"
+            android:background="@color/quitQuizBtnColor"
+            android:elevation="16dp"
+            app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+        <ImageButton
+            android:id="@+id/confirmAnswerBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="0.5"
+            android:adjustViewBounds="true"
+            android:background="@color/practiceAllQuestionsBtnColor"
+            android:cropToPadding="false"
+            android:elevation="16dp"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp"/>
+
+    </LinearLayout>
 
 
 </RelativeLayout>

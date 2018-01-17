@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -13,9 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Chronometer;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.badsh.mipsassemblytutor.MainActivity;
@@ -32,8 +29,6 @@ import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static com.example.badsh.mipsassemblytutor.R.id.quitQuiz;
 
 /**
  * Created by Shabaz Badshah on 9/19/2017.
@@ -55,15 +50,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private Intent mQuizCompleteActivityIntent;
 
-    private TextView mCurrentQuesNumTv;
-    private TextView mAmountHintsTv;
-
-    private ImageView mQuitQuizIv;
-
-    private Chronometer mTimeElapsedInQuizView;
     private long totalElapsedTimeInSec;
 
-    private Button mConfirmAnswerBtn;
+    private ImageButton mConfirmAnswerBtn;
+    private ImageButton mQuitQuizBtn;
 
     private long mTimeWhenStopped = 0;
     private int mCurrentQuesNum = 1;
@@ -90,19 +80,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         initViews();
         setCountsAndColors();
         initClickListeners();
-
-        mTimeElapsedInQuizView.start();
     }
 
     private void initViews() {
-        mQuitQuizIv = (ImageView) findViewById(quitQuiz);
-
-        mAmountHintsTv = (TextView) findViewById(R.id.numOfHintsLeftCount);
-        mCurrentQuesNumTv = (TextView) findViewById(R.id.amountQuestionsLeftCount);
-
-        mConfirmAnswerBtn = (Button) findViewById(R.id.confirmAnswerBtn);
-
-        mTimeElapsedInQuizView = (Chronometer) findViewById(R.id.amountOfTimeElapsed);
+        mConfirmAnswerBtn = (ImageButton) findViewById(R.id.confirmAnswerBtn);
+        mQuitQuizBtn = (ImageButton) findViewById(R.id.quitQuizBtn);
     }
 
     private void initQuizFragment() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -155,34 +137,27 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setCountsAndColors() {
-        mConfirmAnswerBtn.setBackgroundColor(Color.parseColor(mQuizDarkPrimaryColor));
-        mAmountHintsTv.setText(String.valueOf(mNumOfCorrectAns));
-
-        String questionCountDisplayFormat = String.format("%d/%d", mCurrentQuesNum, mTotalAmountQues);
-        mCurrentQuesNumTv.setText(questionCountDisplayFormat);
+        mQuitQuizBtn.setBackgroundColor(Color.parseColor(mQuizDarkPrimaryColor));
+        mConfirmAnswerBtn.setBackgroundColor(Color.parseColor(mQuizPrimaryColor));
     }
 
     private void initClickListeners() {
-        mQuitQuizIv.setOnClickListener(this);
-        mAmountHintsTv.setOnClickListener(this);
+        mQuitQuizBtn.setOnClickListener(this);
         mConfirmAnswerBtn.setOnClickListener(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        resumeQuizTimer();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        pauseQuizTimer();
     }
 
     @Override
     public void onBackPressed() {
-        pauseQuizTimer();
         promptUserForConfirmation("Are you sure you want to quit the quiz?", "Quit", R.id.quitQuiz);
     }
 
@@ -191,7 +166,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         String status = "CORRECT!";
         String answer = "";
         switch (v.getId()) {
-            case R.id.quitQuiz:
+            case R.id.quitQuizBtn:
                 onBackPressed();
                 break;
             case R.id.confirmAnswerBtn:
@@ -224,14 +199,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                     status = "CORRECT!\n";
                     tv.setBackgroundColor(getResources().getColor(R.color.correct_answer_color));
                     mNumOfCorrectAns++;
-                    mAmountHintsTv.setText(String.valueOf(mNumOfCorrectAns));
                 } else {
                     tv.setBackgroundColor(getResources().getColor(R.color.incorrect_answer_color));
                     status = "INCORRECT\n";
                 }
 
-//                Toast.makeText(getApplicationContext(), String.valueOf(mCorrectAnswer), Toast.LENGTH_SHORT).show();
-                incrementQuestionNumber();
+                mCurrentQuesNum++;
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
@@ -275,16 +248,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void pauseQuizTimer(){
-        mTimeElapsedInQuizView.stop();
-        mTimeWhenStopped = mTimeElapsedInQuizView.getBase() - SystemClock.elapsedRealtime();
-    }
-
-    private void resumeQuizTimer() {
-        mTimeElapsedInQuizView.setBase(SystemClock.elapsedRealtime() + mTimeWhenStopped);
-        mTimeWhenStopped = 0;
-        mTimeElapsedInQuizView.start();
-    }
 
     private void promptUserForConfirmation(String messageToDisplayOnPrompt, String titleOfPrompt, final int itemClicked) {
 
@@ -307,14 +270,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 .show();
     }
 
-    private void incrementQuestionNumber() {
-            mCurrentQuesNum++;
-            if (mCurrentQuesNum <= mTotalAmountQues) {
-                String questionCountDisplayFormat = String.format("%d/%d", mCurrentQuesNum, mTotalAmountQues);
-                mCurrentQuesNumTv.setText(questionCountDisplayFormat);
-            }
-    }
-
     private void sendGameDataViaIntent() {
         mQuizCompleteActivityIntent = new Intent(this, QUIZ_COMPLETE_ACTIVITY);
 
@@ -323,9 +278,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         mQuizCompleteActivityIntent.putExtra("mQuizPrimaryColor", mQuizPrimaryColor);
         mQuizCompleteActivityIntent.putExtra("mQuizDarkPrimaryColor", mQuizDarkPrimaryColor);
-
-        totalElapsedTimeInSec = SystemClock.elapsedRealtime() - mTimeElapsedInQuizView.getBase();
-        mQuizCompleteActivityIntent.putExtra("userTime", String.valueOf(totalElapsedTimeInSec/1000));
     }
 
     private void finishGame() {

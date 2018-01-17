@@ -13,4 +13,5 @@
     <color name="correct_answer_color">#0dff19</color>
     <color name="incorrect_answer_color">#d41b12</color>
     <color name="griditem_title_color">#7f7f7f</color>
+    <color name="quitQuizBtnColor">#f06970</color>
 </resources>
