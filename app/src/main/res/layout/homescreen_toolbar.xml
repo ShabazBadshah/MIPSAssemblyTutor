@@ -39,6 +39,7 @@
         android:layout_marginTop="8dp"
         android:foreground="@drawable/ic_settings_24dp"
         android:foregroundTint="@color/toolbarTextColor"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
