@@ -31,23 +31,11 @@
 
         private void initUserScoreAndTime() {
             String userScore = getIntent().getExtras().getString("userScore");
-            String userTime = getIntent().getExtras().getString("userTime");
 
             TextView userScoreTV = (TextView) findViewById(R.id.userQuizScore);
-            TextView userTimeTV = (TextView) findViewById(R.id.userQuizTime);
 
             userScoreTV.setText(userScore);
             userScoreTV.setTextColor(Color.parseColor(quizPrimaryColor));
-
-            long totalTimeInSeconds = Integer.valueOf(userTime);
-            long hours = totalTimeInSeconds / 3600;
-            long minutes = (totalTimeInSeconds % 3600) / 60;
-            long seconds = totalTimeInSeconds % 60;
-
-            String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-
-            userTimeTV.setText(timeString);
-            userTimeTV.setTextColor(Color.parseColor(quizPrimaryColor));
         }
 
         private void initClickListeners() {

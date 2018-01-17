@@ -23,11 +23,14 @@ public class QuizMenuItemDataProvider {
     private static final String[] QUIZ_MODULE_ACTIVITIES = {
             "DecimalInputFragment",
             "BinaryInputFragment",
-            "AddingBinaryFragment",
+            "AddingBinaryFragment"
+    };
+
+    /*
             "MipsComputeCommandFragment",
             "MachineCodeInputFragment",
             "TypeMipsCommandFragment"
-    };
+     */
 
     private static final String[] QUIZ_PRIMARY_COLORS_IN_HEX = {
             "#5399c6",

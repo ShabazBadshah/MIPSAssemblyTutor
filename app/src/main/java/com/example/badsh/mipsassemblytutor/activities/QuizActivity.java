@@ -10,9 +10,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.badsh.mipsassemblytutor.MainActivity;
@@ -27,8 +28,6 @@ import com.example.badsh.mipsassemblytutor.fragments.TypeMipsCommandFragment;
 import com.example.badsh.mipsassemblytutor.models.QuizGridItem;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Shabaz Badshah on 9/19/2017.
@@ -53,12 +52,18 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private TextView mScoreCountTv;
     private TextView mScoreCountInsTv;
 
+    private ImageView mAnswerStatusIv;
+
+    private ViewGroup mScoreContainer;
+
     private ImageButton mConfirmAnswerBtn;
     private ImageButton mQuitQuizBtn;
 
     private int mCurrentQuesNum = 1;
     private int mTotalAmountQues = 5;
     private int mNumOfCorrectAns = 0;
+
+    private boolean visible = false;
 
     private String mQuizDarkPrimaryColor;
     private String mQuizPrimaryColor;
@@ -83,10 +88,15 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initViews() {
+
+        mScoreContainer = (ViewGroup) findViewById(R.id.scoreContainer);
+
         mScoreCountTv = (TextView) findViewById(R.id.scoreTv);
         mScoreCountInsTv = (TextView) findViewById(R.id.scoreTvInstruction);
         mConfirmAnswerBtn = (ImageButton) findViewById(R.id.confirmAnswerBtn);
         mQuitQuizBtn = (ImageButton) findViewById(R.id.quitQuizBtn);
+        mAnswerStatusIv = (ImageView) findViewById(R.id.questionAnswerStatus);
+        mAnswerStatusIv.setVisibility(View.GONE);
     }
 
     private void initQuizFragment() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -210,38 +220,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 mCurrentQuesNum++;
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-
-                if (mCorrectAnswer == false) {
-                    String sb = new StringBuilder(status)
-                            .append("Correct Answer: \n")
-                            .append(answer + "\n")
-                            .toString();
-                            tv.setText(sb);
-                } else {
-                    tv.setText(status);
-                }
-
-                tv.setPadding(10, 50, 10, 30);
-                tv.setGravity(Gravity.CENTER);
-                tv.setTextSize(20);
-                builder.setView(tv);
-                builder.setCancelable(true);
-
-                // Null pointer if call dlg on quiz complete activity screen
-                if (mCurrentQuesNum <= mTotalAmountQues) {
-                    final AlertDialog dlg = builder.create();
-                    dlg.show();
-
-                    final Timer t = new Timer();
-                    t.schedule(new TimerTask() {
-                        public void run() {
-                            dlg.dismiss(); // when the task active then close the dialog
-                            t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
-                        }
-                    }, 1500); // after 2 second (or 2000 miliseconds), the task will be active.
-                }
+                
 
                 if (mCurrentQuesNum > mTotalAmountQues) finishGame();
                 else {

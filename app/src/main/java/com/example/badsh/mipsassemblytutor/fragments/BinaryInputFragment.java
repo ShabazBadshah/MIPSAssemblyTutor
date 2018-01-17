@@ -50,8 +50,8 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
         mAnswerField = (EditText) mQuizView.findViewById(R.id.answerField);
         mAnswerField.setInputType(InputType.TYPE_NULL);
 
-        mZeroBtn = (Button) mQuizView.findViewById(R.id.zeroInputBtn);
-        mOneBtn = (Button) mQuizView.findViewById(R.id.oneInputBtn);
+        mZeroBtn = (Button) mQuizView.findViewById(R.id.zeroBtn);
+        mOneBtn = (Button) mQuizView.findViewById(R.id.oneBtn);
         mBackspaceBtn = (Button) mQuizView.findViewById(R.id.backspaceBtn);
 
         generateAndSetNewQuestion();
@@ -62,9 +62,7 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
         mBinaryNum = EngineUtils.convertDecimalToBinary(mDecimalNum);
 
         mDecimalNumTv.setText(Integer.toString(mDecimalNum));
-        mAnswerField.setText(null);
-
-//        Toast.makeText(getContext(), mBinaryNum, Toast.LENGTH_SHORT).show();
+        mAnswerField.setText("");
     }
 
     private void initClickListeners() {
@@ -77,16 +75,16 @@ public class BinaryInputFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.zeroInputBtn:
+            case R.id.zeroBtn:
                 mAnswerField.setText(mAnswerField.getText().append("0"));
                 break;
-            case R.id.oneInputBtn:
+            case R.id.oneBtn:
                 mAnswerField.setText(mAnswerField.getText().append("1"));
                 break;
             case R.id.backspaceBtn:
                 String userAnswer = mAnswerField.getText().toString();
                 if (userAnswer.length() >= 1) {
-                    mAnswerField.setText(null);
+                    mAnswerField.setText("");
                     userAnswer = userAnswer.substring(0, userAnswer.length() - 1);
                     mAnswerField.setText(userAnswer);
                 }
