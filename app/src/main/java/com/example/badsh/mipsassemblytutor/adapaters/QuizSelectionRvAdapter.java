@@ -37,7 +37,7 @@ public class QuizSelectionRvAdapter extends RecyclerView.Adapter<QuizSelectionRv
     // Inflates the View for a grid item when needed
     @Override
     public QuizCategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View gridItemToInflate = mLayoutInflator.inflate(R.layout.homescreen_griditem, parent, false);
+        View gridItemToInflate = mLayoutInflator.inflate(R.layout.mainmenu_list_item, parent, false);
         QuizCategoryViewHolder quizCategoryViewHolder = new QuizCategoryViewHolder(gridItemToInflate);
         return quizCategoryViewHolder;
     }

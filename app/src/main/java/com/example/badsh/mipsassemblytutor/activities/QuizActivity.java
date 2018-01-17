@@ -50,12 +50,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private Intent mQuizCompleteActivityIntent;
 
-    private long totalElapsedTimeInSec;
+    private TextView mScoreCountTv;
+    private TextView mScoreCountInsTv;
 
     private ImageButton mConfirmAnswerBtn;
     private ImageButton mQuitQuizBtn;
 
-    private long mTimeWhenStopped = 0;
     private int mCurrentQuesNum = 1;
     private int mTotalAmountQues = 5;
     private int mNumOfCorrectAns = 0;
@@ -83,6 +83,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initViews() {
+        mScoreCountTv = (TextView) findViewById(R.id.scoreTv);
+        mScoreCountInsTv = (TextView) findViewById(R.id.scoreTvInstruction);
         mConfirmAnswerBtn = (ImageButton) findViewById(R.id.confirmAnswerBtn);
         mQuitQuizBtn = (ImageButton) findViewById(R.id.quitQuizBtn);
     }
@@ -139,6 +141,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private void setCountsAndColors() {
         mQuitQuizBtn.setBackgroundColor(Color.parseColor(mQuizDarkPrimaryColor));
         mConfirmAnswerBtn.setBackgroundColor(Color.parseColor(mQuizPrimaryColor));
+        mScoreCountInsTv.setBackgroundColor(Color.parseColor(mQuizDarkPrimaryColor));
+        mScoreCountTv.setBackgroundColor(Color.parseColor(mQuizDarkPrimaryColor));
     }
 
     private void initClickListeners() {
@@ -199,6 +203,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                     status = "CORRECT!\n";
                     tv.setBackgroundColor(getResources().getColor(R.color.correct_answer_color));
                     mNumOfCorrectAns++;
+                    mScoreCountTv.setText(String.valueOf(mNumOfCorrectAns));
                 } else {
                     tv.setBackgroundColor(getResources().getColor(R.color.incorrect_answer_color));
                     status = "INCORRECT\n";
@@ -226,7 +231,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
                 // Null pointer if call dlg on quiz complete activity screen
                 if (mCurrentQuesNum <= mTotalAmountQues) {
-//                    pauseQuizTimer();
                     final AlertDialog dlg = builder.create();
                     dlg.show();
 
@@ -239,7 +243,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                     }, 1500); // after 2 second (or 2000 miliseconds), the task will be active.
                 }
 
-//                resumeQuizTimer();
                 if (mCurrentQuesNum > mTotalAmountQues) finishGame();
                 else {
                     displayNewQuestion();
@@ -291,7 +294,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         UserStatsDataHandler userStatsDataHandler = MainActivity.getUserStatsDataProvider();
 
         userStatsDataHandler.updateUserStat("Highest Accuracy", String.format("%.2f", (float) mNumOfCorrectAns / (float) mTotalAmountQues));
-        userStatsDataHandler.updateUserStat("Best Time", String.valueOf(totalElapsedTimeInSec));
         userStatsDataHandler.updateUserStat("Questions Answered", String.valueOf(mTotalAmountQues));
         userStatsDataHandler.updateUserStat("Quizzes Finished", String.valueOf(1));
     }

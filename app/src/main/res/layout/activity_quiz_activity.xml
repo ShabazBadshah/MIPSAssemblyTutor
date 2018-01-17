@@ -5,13 +5,38 @@
                 android:layout_height="match_parent"
                 android:id="@+id/quizActivityRoot">
 
+    <TextView
+        android:id="@+id/scoreTvInstruction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingTop="16dp"
+        android:text="- SCORE -"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/scoreTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/scoreTvInstruction"
+        android:background="@color/colorPrimary"
+        android:paddingBottom="8dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@color/white"
+        android:textSize="30sp"/>
+
     <RelativeLayout
         android:id="@+id/question_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/quizOptionControls"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/scoreTv"
         android:layout_weight="1"
         android:orientation="vertical">
 
