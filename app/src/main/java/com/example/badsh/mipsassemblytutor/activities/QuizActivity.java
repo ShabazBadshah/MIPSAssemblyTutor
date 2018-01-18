@@ -96,6 +96,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mConfirmAnswerBtn = (ImageButton) findViewById(R.id.confirmAnswerBtn);
         mQuitQuizBtn = (ImageButton) findViewById(R.id.quitQuizBtn);
         mAnswerStatusIv = (ImageView) findViewById(R.id.questionAnswerStatus);
+
         mAnswerStatusIv.setVisibility(View.GONE);
     }
 
@@ -220,7 +221,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 mCurrentQuesNum++;
-                
 
                 if (mCurrentQuesNum > mTotalAmountQues) finishGame();
                 else {
